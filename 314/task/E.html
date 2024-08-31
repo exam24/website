@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2020 alku</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Ketjupeli</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/314/task/E/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2019-09-30 00:00:00</span></li>
+        <li><b>End:</b> <span>2019-10-14 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1569790800;
+var contest_end = 1571000400;
+var server_time = 1725027175;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=314", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2020 alku - Ketjupeli</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> N/A</li>
+<li><b>Memory limit:</b> N/A</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="2069">
+<div class="md"><p>Tarkastellaan peliä, jonka alkutilanteessa ruudukossa on palloja seuraavassa kuviossa:
+<center><img class="invertible" src="https://cses.fi/file/b3d1296465589e5f90fbb0e4f22c0de1ccc0bfc40165e580c576313123c0407d" alt="" /></center>
+Ruudukko on äärettömän kokoinen, ja jokaisella ruudulla on koordinaatit muotoa <span class="math inline">(x,y)</span>. Ruudut on numeroitu niin, että yllä olevassa kuvassa vasemman ylänurkan koordinaatit ovat <span class="math inline">(-5,-5)</span> ja oikean alanurkan koordinaatit ovat <span class="math inline">(6,6)</span>.</p>
+<p>Jokainen pelin siirto muodostuu seuraavasti:</p>
+<ul>
+<li>Lisäät yhden pallon ruutuun, jossa ei ole vielä palloa.</li>
+<li>Muodostat <em>ketjun</em> viidestä vierekkäin olevasta pallosta, joista yksi on tämän siirron alussa lisätty. Ketju voi olla vaaka-, pysty- tai vinosuuntainen (45° kulmassa).</li>
+</ul>
+<p>Rajoituksena on, että ketjua ei voi muodostaa, jos sen osana on kaksi vierekkäistä palloa, jotka on jo ketjutettu toisiinsa.</p>
+<p>Tehtäväsi on etsiä mahdollisimman pitkä siirtosarja.</p>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Tässä on esimerkkinä siirtosarja, jossa on kolme siirtoa:
+<center><img class="invertible" src="https://cses.fi/file/a9d5bc377d40914b2ec00e27ad6d16216080aa7966bb2b5f2c2d26962504e877" alt="" /></center></p>
+<h1 id="palautus">Palautus</h1>
+<p>Tässä tehtävässä sinun tulee palauttaa tekstitiedosto, jossa on kuvaus siirroista. Tiedoston ensimmäisellä rivillä on luku <span class="math inline">k</span>: siirtojen määrä. Tämän jälkeen tiedostossa on <span class="math inline">k</span> riviä, jotka kuvaavat siirrot. Jokaisella rivillä on neljä lukua <span class="math inline">x_1</span>, <span class="math inline">y_1</span>, <span class="math inline">x_2</span> ja <span class="math inline">y_2</span>: muodostetun ketjun päissä olevien pallojen koordinaatit.</p>
+<p>Esimerkiksi seuraava kuvaus vastaa äskeistä esimerkkiä:</p>
+<pre class="resize-horizontal prettyprint lang-auto">3
+-4 -1 0 -1
+2 1 2 5
+-1 -2 3 2
+</pre>
+<p>Saat tehtävästä <span class="math inline">\min(100,\lfloor k/2 \rfloor)</span> pistettä, kun lähetät kelvollisen ratkaisun, jossa <span class="math inline">k \ge 4</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="A.html"><span><b>A</b> Ruudukko</span><span class="task-score ">-</span></a><a  href="B.html"><span><b>B</b> Merkkijonot</span><span class="task-score ">-</span></a><a  href="C.html"><span><b>C</b> Lukuvälit</span><span class="task-score ">-</span></a><a  href="D.html"><span><b>D</b> Mastot</span><span class="task-score ">-</span></a><a class="current" href="E.html"><span><b>E</b> Ketjupeli</span><span class="task-score ">-</span></a><hr />

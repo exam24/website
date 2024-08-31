@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Knight's Tour</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/1689/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Knight's Tour</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1689">
+<div class="md"><p>Given a starting position of a knight on an <span class="math inline">8 \times 8</span> chessboard, your task is to find a sequence of moves such that it visits every square exactly once.</p>
+<p>On each move, the knight may either move two steps horizontally and one step vertically, or one step horizontally and two steps vertically.</p>
+<h1 id="input">Input</h1>
+<p>The only line has two integers <span class="math inline">x</span> and <span class="math inline">y</span>: the knight's starting position.</p>
+<h1 id="output">Output</h1>
+<p>Print a grid that shows how the knight moves (according to the example). You can print any valid solution.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le x,y \le 8</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>2 1
+</pre>
+<p>Output:</p>
+<pre>8 1 10 13 6 3 20 17 
+11 14 7 2 19 16 23 4 
+26 9 12 15 24 5 18 21 
+49 58 25 28 51 22 33 30 
+40 27 50 59 32 29 52 35 
+57 48 41 44 37 34 31 62 
+42 39 46 55 60 63 36 53 
+47 56 43 38 45 54 61 64
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Graph Algorithms</h4>...
+<a  href="../1692.html">De Bruijn Sequence<span class="task-score icon "></span></a><a  href="../1693.html">Teleporters Path<span class="task-score icon "></span></a><a  href="../1690.html">Hamiltonian Flights<span class="task-score icon "></span></a><a class="current" href="../1689.html">Knight's Tour<span class="task-score icon "></span></a><a  href="../1694.html">Download Speed<span class="task-score icon "></span></a><a  href="../1695.html">Police Chase<span class="task-score icon "></span></a><a  href="../1696.html">School Dance<span class="task-score icon "></span></a><a  href="../1711.html">Distinct Routes<span class="task-score icon "></span></a><hr />

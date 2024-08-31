@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Programming for performance 2024</a></h3>
+      <h1>A41 Sum-based random access</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/3017/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - A41 Sum-based random access</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="pfp24">
+<input type="hidden" name="task" value="3017">
+<div class="md"><p>Implement sum-based random access for VByte encoded data as described in the course materials.</p>
+<p>Input data is read from a file given as a command line argument.</p>
+<p>First encode n in put integers, then output <code>data_structure[q_i]</code> for each of the q query integers.</p>
+<p>Simply scan from the beginning for each of the query values.</p>
+<p>The tests will also use the <code>-q</code> command line flags when invoking your program, to be compatible with other tests that could use the same program.</p>
+<h1 id="input">Input</h1>
+<p>All 64-bit unsigned binary integers:</p>
+<p>the integer <code>n</code>, followed by<br />
+n integers, followed by<br />
+the integer <code>q</code>, followed by <br />
+q integers in the [0, n) range.</p>
+<h1 id="output">Output</h1>
+<p><code>data_structure[q_i]</code> for each of the q integers.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li>n &lt;&lt; 2^32</li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input (in binary):</p>
+<pre>2, 7, 500, 2, 1, 0
+</pre>
+<p>Output:</p>
+<pre>500
+7
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Set 4</h4><a  href="../3016.html">A40 Naive random access<span class="task-score icon "></span></a><a class="current" href="../3017.html">A41 Sum-based random access<span class="task-score icon "></span></a><a  href="../3018.html">B41 Sum-based random access<span class="task-score icon "></span></a><a  href="../3019.html">B42 Location-based random access<span class="task-score icon "></span></a><hr />

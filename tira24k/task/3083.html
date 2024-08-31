@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Puolijärjestäminen</h1>
+<ul class="nav">
+<li><a href="3083/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Puolijärjestäminen</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3083">
+<div class="md"><p>Lista sisältää luvut <span class="math inline">1 \dots n</span> jossakin järjestyksessä. Saat jokaisella siirrolla vaihtaa kaksi vierekkäistä lukua keskenään. Tehtäväsi on järjestää lista siten, että kaikki alkupuoliskon luvut ovat pienempiä kuin kaikki loppupuoliskon luvut. Mikä on pienin mahdollinen määrä siirtoja?</p>
+<p>Algoritmin aikavaativuuden tulee olla <span class="math inline">O(n)</span>. Voit olettaa, että <span class="math inline">n</span> on parillinen kaikissa testeissä.</p>
+<p>Toteuta tiedostoon <code>semisort.py</code> funktio <code>solve</code>, joka antaa pienimmän siirtojen määrän.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def solve(t):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(solve([2, 1, 4, 3])) # 0
+    print(solve([5, 3, 4, 1, 6, 2])) # 6
+    print(solve([6, 5, 4, 3, 2, 1])) # 9
+    print(solve([10, 1, 9, 2, 8, 3, 7, 4, 6, 5])) # 15
+</pre>
+<p><em>Selitys</em>: Listalla <span class="math inline">[2,1,4,3]</span> alkupuoliskon luvut eli <span class="math inline">2</span> ja <span class="math inline">1</span> ovat jo valmiiksi kaikki pienempiä kuin loppupuolen luvut <span class="math inline">4</span> ja <span class="math inline">3</span>. Listalla <span class="math inline">[5, 3, 4, 1, 6, 2]</span> tarvitaan ainakin <span class="math inline">6</span> siirtoa. Tässä on yksi optimaalinen ratkaisu: <span class="math inline">[5, 3, 4, 1, 6, 2]</span> <span class="math inline">\rightarrow</span> <span class="math inline">[5, 3, 4, 1, 2, 6]</span> <span class="math inline">\rightarrow</span> <span class="math inline">[3, 5, 4, 1, 2, 6]</span> <span class="math inline">\rightarrow</span> <span class="math inline">[3, 5, 1, 4, 2, 6]</span> <span class="math inline">\rightarrow</span> <span class="math inline">[3, 1, 5, 4, 2, 6]</span> <span class="math inline">\rightarrow</span> <span class="math inline">[3, 1, 5, 2, 4, 6]</span> <span class="math inline">\rightarrow</span> <span class="math inline">[3, 1, 2, 5, 4, 6]</span></p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 5</h4><a  href="3080.html">Pakkaus<span class="task-score icon "></span></a><a  href="3081.html">Peräkkäiset luvut<span class="task-score icon "></span></a><a  href="3261.html">Järjestämisalgoritmit<span class="task-score icon "></span></a><a  href="3264.html">Binäärihaku<span class="task-score icon "></span></a><a  href="3082.html">Suurin etäisyys<span class="task-score icon "></span></a><a  href="3263.html">Ravintola<span class="task-score icon "></span></a><a class="current" href="3083.html">Puolijärjestäminen<span class="task-score icon "></span></a><a  href="3085.html">Vaihto ja siirto<span class="task-score icon "></span></a><hr />

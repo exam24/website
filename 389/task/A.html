@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2022 loppu</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Järjestys</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/389/task/A/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2022-01-22 13:00:00</span></li>
+        <li><b>End:</b> <span>2022-01-22 17:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1642849200;
+var contest_end = 1642863600;
+var server_time = 1725027142;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=389", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2022 loppu - Järjestys</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li class="select-translation"><b>Language:</b> <form action="A.html" method="post" >
+<input type="hidden" name="csrf_token" value="7ca6eed6063eb2c20c643e08294aa812">
+<select name="stmt_lang" onchange="this.form.submit()" autocomplete="off"><option>en</option><option selected>fi</option></select>
+<noscript><input class="inline-action" type="submit" value="OK"></noscript></form>
+</li>
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="2617">
+<div class="md"><p>Merkkijonon jokainen merkki on <code>A</code> tai <code>B</code>. Voit muuttaa merkkijonoa tekemällä siirtoja, joissa vaihdetaan kaksi merkkiä keskenään.</p>
+<p>Tehtäväsi on järjestää merkit niin, että ensin tulevat kaikki <code>A</code>-merkit ja sitten kaikki <code>B</code>-merkit. Montako siirtoa tarvitset vähintään?</p>
+<p>Esimerkiksi kun merkkijono on <code>BBAAB</code>, siirtoja tarvitaan vähintään <span class="math inline">2</span>. Yksi ratkaisu on <code>BBAAB</code> <span class="math inline">\rightarrow</span> <code>ABBAB</code> <span class="math inline">\rightarrow</span> <code>AABBB</code>.</p>
+<h1 id="syote">Syöte</h1>
+<p>Ensimmäisellä rivillä on kokonaisluku <span class="math inline">t</span>: merkkijonojen määrä.</p>
+<p>Kullakin seuraavalla rivillä on merkkijono, jonka jokainen merkki on <code>A</code> tai <code>B</code>.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosta kunkin merkkijonon pienin siirtojen määrä omalle rivilleen.</p>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>5
+AABA
+AAABBB
+BB
+BBAAB
+BAABABBBBBABABB
+</pre>
+<p>Tuloste:</p>
+<pre>1
+0
+0
+2
+2
+</pre><h1 id="arvostelu">Arvostelu</h1>
+<p>Koodiasi testataan syötteellä, jossa <span class="math inline">t=1000</span> ja kunkin merkkijonon pituus on enintään <span class="math inline">100</span>. Saat tehtävästä <span class="math inline">100</span> pistettä, jos koodisi antaa oikean vastauksen kaikille merkkijonoille.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a class="current" href="A.html"><span><b>A</b> Järjestys</span><span class="task-score ">-</span></a><a  href="B.html"><span><b>B</b> Pallo</span><span class="task-score ">-</span></a><a  href="C.html"><span><b>C</b> Sokkelo</span><span class="task-score ">-</span></a><a  href="D.html"><span><b>D</b> Lista</span><span class="task-score ">-</span></a><a  href="E.html"><span><b>E</b> Peli</span><span class="task-score ">-</span></a><a  href="F.html"><span><b>F</b> Kanava</span><span class="task-score ">-</span></a><hr />

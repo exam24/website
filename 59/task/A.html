@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">HIIT Open 2016</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Approximate</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/59/task/A/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2016-05-28 11:00:00</span></li>
+        <li><b>End:</b> <span>2016-05-28 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1464422400;
+var contest_end = 1464440400;
+var server_time = 1725027241;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=59", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2016 - Approximate</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 256 MB</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="480">
+<div class="md"><p>A sequence <span class="math inline">s_1,s_2,\ldots,s_k</span> can be approximated as a constant sequence <span class="math inline">c_1,c_2,\ldots,c_k</span> where <span class="math inline">c_1=c_2=\cdots=c_k</span>. The error of such an approximation is <span class="math inline">\frac{1}{k} \sum_{i=1}^k (s_i-c_i)^2</span>.</p>
+<p>You are given a sequence <span class="math inline">x_1,x_2,\ldots,x_n</span> and <span class="math inline">q</span> queries. For each query, your task is to approximate a consecutive subsequence of <span class="math inline">x</span> using a constant sequence so that the error is as small as possible.</p>
+<h1 id="input">Input</h1>
+<p>The first input line contains two integers <span class="math inline">n</span> and <span class="math inline">q</span>: the length of the sequence and the number of queries.</p>
+<p>The second input line contains <span class="math inline">n</span> integers <span class="math inline">x_1,x_2,\ldots,x_n</span> that describe the sequence.</p>
+<p>Finally, the input contains <span class="math inline">q</span> lines that describe the queries. Each line contains two integers <span class="math inline">a</span> and <span class="math inline">b</span> (<span class="math inline">1 \le a \le b \le n</span>) that correspond to the subsequence <span class="math inline">x_a,x_{a+1},\ldots,x_b</span>.</p>
+<h1 id="output">Output</h1>
+<p>For each query, output the smallest possible error (rounded to exactly 6 decimal digits) when the subsequence is approximated using a constant sequence.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n,q \le 10^5</span></li>
+<li><span class="math inline">1 \le x_i \le 100</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>8 3
+1 2 3 3 3 3 3 1
+2 3
+4 6
+1 8
+</pre>
+<p>Output:</p>
+<pre>0.250000
+0.000000
+0.734375
+</pre>
+<p>Explanation: The first query is <span class="math inline">a = 2</span> and <span class="math inline">b = 3</span> which refers to the subsequence <span class="math inline">(x_2, x_3) = (2,3)</span>. The best constant approximation of this sequence is <span class="math inline">(2.5, 2.5)</span>, and the error of this approximation is <span class="math inline">(0.5^2 + 0.5^2)/2 = 0.25</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a class="current" href="A.html"><span><b>A</b> Approximate</span><span class="task-score icon"></span></a><a  href="B.html"><span><b>B</b> Bit strings</span><span class="task-score icon"></span></a><a  href="C.html"><span><b>C</b> Cent saving</span><span class="task-score icon"></span></a><a  href="D.html"><span><b>D</b> DNA sequence</span><span class="task-score icon"></span></a><a  href="E.html"><span><b>E</b> Ethernet cable</span><span class="task-score icon"></span></a><a  href="F.html"><span><b>F</b> Fixed points</span><span class="task-score icon"></span></a><a  href="G.html"><span><b>G</b> Graph painting</span><span class="task-score icon"></span></a><a  href="H.html"><span><b>H</b> HIIT remains</span><span class="task-score icon"></span></a><a  href="I.html"><span><b>I</b> Interesting number</span><span class="task-score icon"></span></a><a  href="J.html"><span><b>J</b> Judge correctness</span><span class="task-score icon"></span></a><a  href="K.html"><span><b>K</b> Kaaleppi's puzzle</span><span class="task-score icon"></span></a><a  href="L.html"><span><b>L</b> Light and mirrors</span><span class="task-score icon"></span></a><hr />

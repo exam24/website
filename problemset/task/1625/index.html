@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Grid Paths</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/1625/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Grid Paths</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1625">
+<div class="md"><p>There are <span class="math inline">88418</span> paths in a <span class="math inline">7 \times 7</span> grid from the upper-left square to the lower-left square. Each path corresponds to a <span class="math inline">48</span>-character description consisting of characters <code>D</code> (down), <code>U</code> (up), <code>L</code> (left) and <code>R</code> (right).</p>
+<p>For example, the path
+<center><img class="invertible" src="../../../file/3624b569007eb03818b6611755f1bdbe4cdbd0a8334baf9fedc5365914bdd661" alt="" /></center>
+corresponds to the description <code>DRURRRRRDDDLUULDDDLDRRURDDLLLLLURULURRUULDLLDDDD</code>.</p>
+<p>You are given a description of a path which may also contain characters <code>?</code> (any direction). Your task is to calculate the number of paths that match the description.</p>
+<h1 id="input">Input</h1>
+<p>The only input line has a <span class="math inline">48</span>-character string of characters <code>?</code>, <code>D</code>, <code>U</code>, <code>L</code> and <code>R</code>.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the total number of paths.</p>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>??????R??????U??????????????????????????LD????D?
+</pre>
+<p>Output:</p>
+<pre>201
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Introductory Problems</h4>...
+<a  href="../1755.html">Palindrome Reorder<span class="task-score icon "></span></a><a  href="../2205.html">Gray Code<span class="task-score icon "></span></a><a  href="../2165.html">Tower of Hanoi<span class="task-score icon "></span></a><a  href="../1622.html">Creating Strings<span class="task-score icon "></span></a><a  href="../1623.html">Apple Division<span class="task-score icon "></span></a><a  href="../1624.html">Chessboard and Queens<span class="task-score icon "></span></a><a  href="../2431.html">Digit Queries<span class="task-score icon "></span></a><a class="current" href="../1625.html">Grid Paths<span class="task-score icon "></span></a><hr />

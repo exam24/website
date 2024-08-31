@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Suorakulmiot</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Suorakulmiot</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="2821">
+<div class="md"><p>Tasossa on kolme suorakulmiota, joiden sivut ovat vaaka- ja pystyakselien suuntaisia. Tehtäväsi on laskea sen alueen pinta-ala, jota peittää vähintään yksi annetuista suorakulmioista.</p>
+<p>Esimerkiksi seuraavassa kuvassa suorakulmioiden peittämän alueen pinta-ala on 16. Kuva vastaa koodipohjissa olevaa esimerkkiä.
+<center><img class="invertible" src="../../../file/39153a1327f27b93a12d345b90bd643bc3dac4d8b99fbf6572098368b448844b" width="125" height="" alt="" /></center>
+Voit olettaa, että kaikki koordinaatit ovat kokonaislukuja välillä <span class="math inline">-10^9 \dots 10^9</span>.</p>
+<p>Huomaa, että on liian hidasta käydä läpi kaikki pisteet suorakulmioiden alueelta, vaan sinun tulee keksiä tehokkaampi matemaattinen ratkaisu.</p>
+<p>Toteuta funktio <code>area(rec1, rec2, rec3)</code>, joka antaa kysytyn pinta-alan. Funktiolle annetaan kolme tuplea, joista jokainen määrittelee yhden suorakulmion. Jokaisessa tuplessa on neljä kokonaislukua <span class="math inline">x_1</span>, <span class="math inline">y_1</span>, <span class="math inline">x_2</span> ja <span class="math inline">y_2</span>: suorakulmion vasen ylänurkka on <span class="math inline">(x_1,y_1)</span> ja oikea alanurkka on <span class="math inline">(x_2,y_2)</span>.</p>
+<p>Toteuta funktio tiedostoon <code>rectangles.py</code>.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def area(rec1, rec2, rec3):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    rec1 = (-1,1,1,-1)
+    rec2 = (0,3,2,0)
+    rec3 = (0,2,3,-2)
+    print(area(rec1,rec2,rec3)) # 16
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 1</h4><a  href="../3055.html">Karkit<span class="task-score icon "></span></a><a  href="../3049.html">Inversiot<span class="task-score icon "></span></a><a  href="../3054.html">Samat bitit<span class="task-score icon "></span></a><a  href="../2643.html">Toistaminen<span class="task-score icon "></span></a><a  href="../3052.html">Tehokkuustesti<span class="task-score icon "></span></a><a  href="../3248.html">Lukujono<span class="task-score icon "></span></a><a  href="../3051.html">Aikavaativuudet<span class="task-score icon "></span></a><a class="current" href="../2821.html">Suorakulmiot<span class="task-score icon "></span></a><hr />

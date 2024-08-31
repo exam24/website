@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Myrsky</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/559/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Myrsky</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="559">
+<div class="md"><p>Uolevin sedän tilalla riehui myrsky ja kaikki aidat irtosivat maasta ja lensivät ympäriinsä. Nyt sedän täytyy rakentaa aitaus uudestaan.</p>
+<p>Ikävä kyllä setä ei muista enää, miten aitaus oli rakennettu. Voisitko suunnitella yhden tavan rakentaa aitaus aidoista?</p>
+<p>Aitoja on yhteensä <span class="math inline">n</span> ja niiden pituudet ovat <span class="math inline">p_1,p_2,\ldots,p_n</span>. Aitojen täytyy muodostaa yhtenäinen aitaus ja mitkään kaksi aitaa eivät saa mennä toistensa päälle.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kokonaisluku <span class="math inline">n</span>: aitojen määrä.</p>
+<p>Seuraavalla rivillä on <span class="math inline">n</span> kokonaislukua <span class="math inline">p_1,p_2,\ldots,p_n</span>: aitojen pituudet.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosta yksi kelvollinen tapa muodostaa aitaus aidoista.</p>
+<p>Tulosta <span class="math inline">n</span> riviä, jotka kuvaavat aitauksen kärkipisteet järjestyksessä. Jokaisen rivin tulee sisältää kaksi desimaalilukua <span class="math inline">x_i</span> ja <span class="math inline">y_i</span>: kärkipisteen koordinaatit ovat <span class="math inline">(x_i,y_i)</span>.<br />
+Ensimmäisen kärkipisteen tulee olla <span class="math inline">(0,0)</span>.</p>
+<p>Ratkaisusi hyväksytään, jos jokaisen aidan pituuden absoluuttinen tai suhteellinen ero todelliseen on enintään <span class="math inline">10^{-6}</span> ja aitaus on muuten kelvollisesti rakennettu.</p>
+<p>Voit olettaa, että jokin ratkaisu on olemassa.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">3 \le n \le 1000</span></li>
+<li><span class="math inline">1 \le p_i \le 1000</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>3
+3 4 5
+</pre>
+<p>Tuloste:</p>
+<pre>0.000000000 0.000000000
+3.000000000 0.000000000
+3.000000000 4.000000000
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 29</h4><a  href="../560.html">Taideteos<span class="task-score icon "></span></a><a  href="../557.html">Ufohavainto<span class="task-score icon "></span></a><a  href="../558.html">Puut<span class="task-score icon "></span></a><a  href="../556.html">Lyhin reitti<span class="task-score icon "></span></a><a class="current" href="../559.html">Myrsky<span class="task-score icon "></span></a><hr />

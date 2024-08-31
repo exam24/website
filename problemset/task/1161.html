@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h1>Stick Divisions</h1>
+<ul class="nav">
+<li><a href="1161/index.html" class="current">Task</a></li>
+<li><a href="../stats/1161/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Stick Divisions</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1161">
+<div class="md"><p>You have a stick of length <span class="math inline">x</span> and you want to divide it into <span class="math inline">n</span> sticks, with given lengths, whose total length is <span class="math inline">x</span>.</p>
+<p>On each move you can take any stick and divide it into two sticks. The cost of such an operation is the length of the original stick.</p>
+<p>What is the minimum cost needed to create the sticks?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has two integers <span class="math inline">x</span> and <span class="math inline">n</span>: the length of the stick and the number of sticks in the division.</p>
+<p>The second line has <span class="math inline">n</span> integers <span class="math inline">d_1,d_2,\ldots,d_n</span>: the length of each stick in the division.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the minimum cost of the division.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le x \le 10^9</span></li>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">\sum d_i = x</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>8 3
+2 3 3
+</pre>
+<p>Output:</p>
+<pre>13
+</pre>
+<p>Explanation: You first divide the stick of length <span class="math inline">8</span> into sticks of length <span class="math inline">3</span> and <span class="math inline">5</span> (cost <span class="math inline">8</span>). After this, you divide the stick of length <span class="math inline">5</span> into sticks of length <span class="math inline">2</span> and <span class="math inline">3</span> (cost <span class="math inline">5</span>). The total cost is <span class="math inline">8+5=13</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Additional Problems</h4>...
+<a  href="1157.html">Number Grid<span class="task-score icon "></span></a><a  href="1148.html">Maximum Building II<span class="task-score icon "></span></a><a  href="2423.html">Filling Trominos<span class="task-score icon "></span></a><a class="current" href="1161.html">Stick Divisions<span class="task-score icon "></span></a><a  href="1665.html">Coding Company<span class="task-score icon "></span></a><a  href="1699.html">Flight Route Requests<span class="task-score icon "></span></a><a  href="2402.html">Two Stacks Sorting<span class="task-score icon "></span></a><a  href="1701.html">Tree Isomorphism II<span class="task-score icon "></span></a>...
+<hr />

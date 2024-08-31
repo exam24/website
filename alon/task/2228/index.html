@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Algoritmit ongelmanratkaisussa</a></h3>
+      <h1>Counting Sequences</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Counting Sequences</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="alon">
+<input type="hidden" name="task" value="2228">
+<div class="md"><p>Your task is to count the number of sequences of length <span class="math inline">n</span> where each element is an integer between <span class="math inline">1 \dots k</span> and each integer between <span class="math inline">1 \dots k</span> appears at least once in the sequence.</p>
+<p>For example, when <span class="math inline">n=6</span> and <span class="math inline">k=4</span>, some valid sequences are <span class="math inline">[1,3,1,4,3,2]</span> and <span class="math inline">[2,2,1,3,4,2]</span>.</p>
+<h1 id="input">Input</h1>
+<p>The only input line has two integers <span class="math inline">n</span> and <span class="math inline">k</span>.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the number of sequences modulo <span class="math inline">10^9+7</span>.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le k \le n \le 10^6</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>6 4
+</pre>
+<p>Output:</p>
+<pre>1560
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Part 2</h4>...
+<a  href="../2132.html">Increasing Array II<span class="task-score icon "></span></a><a  href="../1189.html">Food Division<span class="task-score icon "></span></a><a  href="../1698.html">Swap Round Sorting<span class="task-score icon "></span></a><a class="current" href="../2228.html">Counting Sequences<span class="task-score icon "></span></a><a  href="../1703.html">Critical Cities<span class="task-score icon "></span></a><a  href="../1080.html">Empty String<span class="task-score icon "></span></a><a  href="../2075.html">Reversal Sorting<span class="task-score icon "></span></a><a  href="../2184.html">Missing Coin Sum Queries<span class="task-score icon "></span></a>...
+<hr />

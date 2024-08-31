@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Algoritmit ongelmanratkaisussa</a></h3>
+      <h1>Mail Delivery</h1>
+<ul class="nav">
+<li><a href="1691/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Mail Delivery</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="alon">
+<input type="hidden" name="task" value="1691">
+<div class="md"><p>Your task is to deliver mail to the inhabitants of a city. For this reason, you want to find a route whose starting and ending point are the post office, and that goes through every street exactly once.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has two integers <span class="math inline">n</span> and <span class="math inline">m</span>: the number of crossings and streets. The crossings are numbered <span class="math inline">1,\,2,\ldots,\,n</span>, and the post office is located at crossing <span class="math inline">1</span>.</p>
+<p>After that, there are m lines describing the streets. Each line has two integers <span class="math inline">a</span> and <span class="math inline">b</span>: there is a street between crossings <span class="math inline">a</span> and <span class="math inline">b</span>. All streets are two-way streets.</p>
+<p>Every street is between two different crossings, and there is at most one street between two crossings.</p>
+<h1 id="output">Output</h1>
+<p>Print all the crossings on the route in the order you will visit them. You can print any valid solution.</p>
+<p>If there are no solutions, print &quot;IMPOSSIBLE&quot;.</p>
+<h1 id="constraints">Constraints</h1>
+<p><span class="math inline">2\leq n\leq 10^5</span><br />
+<span class="math inline">1\leq m\leq 2 . 10^5</span><br />
+<span class="math inline">1\leq a,\,b\leq n</span></p>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>6 8
+1 2
+1 3
+2 3
+2 4
+2 6
+3 5
+3 6
+4 5
+</pre>
+<p>Output:</p>
+<pre>1 2 6 3 2 4 5 3 1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Part 1</h4>...
+<a  href="1666.html">Building Roads<span class="task-score icon "></span></a><a  href="1195.html">Flight Discount<span class="task-score icon "></span></a><a  href="1202.html">Investigation<span class="task-score icon "></span></a><a class="current" href="1691.html">Mail Delivery<span class="task-score icon "></span></a><a  href="1750.html">Planets Queries I<span class="task-score icon "></span></a><a  href="1160.html">Planets Queries II<span class="task-score icon "></span></a><a  href="2138.html">Reachable Nodes<span class="task-score icon "></span></a><a  href="2076.html">Necessary Roads<span class="task-score icon "></span></a>...
+<hr />

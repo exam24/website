@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Pyramid Array</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/1747/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Pyramid Array</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1747">
+<div class="md"><p>You are given an array consisting of <span class="math inline">n</span> distinct integers. On each move, you can swap any two adjacent values.</p>
+<p>You want to transform the array into a <em>pyramid array</em>. This means that the final array has to be first increasing and then decreasing. It is also allowed that the final array is only increasing or decreasing.</p>
+<p>What is the minimum number of moves needed?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has an integer <span class="math inline">n</span>: the size of the array.</p>
+<p>The next line has <span class="math inline">n</span> distinct integers <span class="math inline">x_1,x_2,\dots,x_n</span>: the contents of the array.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the minimum number of moves.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le x_i \le 10^9</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4
+2 1 5 3
+</pre>
+<p>Output:</p>
+<pre>1
+</pre>
+<p>Explanation: You may swap the first two values which creates a pyramid array <span class="math inline">[1,2,5,3]</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Additional Problems</h4>...
+<a  href="../2215.html">Monotone Subsequences<span class="task-score icon "></span></a><a  href="../1743.html">String Reorder<span class="task-score icon "></span></a><a  href="../2425.html">Stack Weights<span class="task-score icon "></span></a><a class="current" href="../1747.html">Pyramid Array<span class="task-score icon "></span></a><a  href="../1748.html">Increasing Subsequence II<span class="task-score icon "></span></a><a  href="../1149.html">String Removals<span class="task-score icon "></span></a><a  href="../1188.html">Bit Inversions<span class="task-score icon "></span></a><a  href="../2419.html">Xor Pyramid<span class="task-score icon "></span></a>...
+<hr />

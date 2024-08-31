@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Reachability Queries</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/2143/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Reachability Queries</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2143">
+<div class="md"><p>A directed graph consists of <span class="math inline">n</span> nodes and <span class="math inline">m</span> edges. The edges are numbered <span class="math inline">1,2,\dots,n</span>.</p>
+<p>Your task is to answer <span class="math inline">q</span> queries of the form &quot;can you reach node <span class="math inline">b</span> from node <span class="math inline">a</span>?&quot;</p>
+<h1 id="input">Input</h1>
+<p>The first input line has three integers <span class="math inline">n</span>, <span class="math inline">m</span> and <span class="math inline">q</span>: the number of nodes, edges and queries.</p>
+<p>Then there are <span class="math inline">m</span> lines describing the edges. Each line has two distinct integers <span class="math inline">a</span> and <span class="math inline">b</span>: there is an edge from node <span class="math inline">a</span> to node <span class="math inline">b</span>.</p>
+<p>Finally there are <span class="math inline">q</span> lines describing the queries. Each line consists of two integers <span class="math inline">a</span> and <span class="math inline">b</span>: &quot;can you reach node <span class="math inline">b</span> from node <span class="math inline">a</span>?&quot;</p>
+<h1 id="output">Output</h1>
+<p>Print the answer for each query: either &quot;YES&quot; or &quot;NO&quot;.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 5 \cdot 10^4</span></li>
+<li><span class="math inline">1 \le m,q \le 10^5</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4 4 3
+1 2
+2 3
+3 1
+4 3
+1 3
+1 4
+4 1
+</pre>
+<p>Output:</p>
+<pre>YES
+NO
+YES
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Advanced Techniques</h4>...
+<a  href="../2136.html">Hamming Distance<span class="task-score icon "></span></a><a  href="../2137.html">Beautiful Subgrids<span class="task-score icon "></span></a><a  href="../2138.html">Reachable Nodes<span class="task-score icon "></span></a><a class="current" href="../2143.html">Reachability Queries<span class="task-score icon "></span></a><a  href="../2072.html">Cut and Paste<span class="task-score icon "></span></a><a  href="../2073.html">Substring Reversals<span class="task-score icon "></span></a><a  href="../2074.html">Reversals and Sums<span class="task-score icon "></span></a><a  href="../2076.html">Necessary Roads<span class="task-score icon "></span></a>...
+<hr />

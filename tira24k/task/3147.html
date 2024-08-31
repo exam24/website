@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Pienet summat</h1>
+<ul class="nav">
+<li><a href="3147/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Pienet summat</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3147">
+<div class="md"><p>Tarkastellaan joukkoa <span class="math inline">\{1,2,\dots,10^9\}</span>. Tehtäväsi on laskea, mikä on joukon <span class="math inline">n</span>:nneksi pienimmän osajoukon summa.</p>
+<p>Algoritmin aikavaativuuden tulee olla <span class="math inline">O(n \log n)</span>.</p>
+<p>Toteuta tiedostoon <code>smallsum.py</code> funktio <code>find</code>, joka palauttaa tehtävän vastauksen.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def find(n):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(find(1)) # 0
+    print(find(2)) # 1
+    print(find(3)) # 2
+    print(find(4)) # 3
+    print(find(5)) # 3
+    print(find(123)) # 15
+    print(find(123456)) # 62
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 11</h4><a  href="3145.html">Muuttuva lista<span class="task-score icon "></span></a><a  href="3148.html">Pakan tehokkuus<span class="task-score icon "></span></a><a  href="3142.html">Listan pienin<span class="task-score icon "></span></a><a  href="2539.html">Pienimmät alkiot<span class="task-score icon "></span></a><a  href="3143.html">Kääntölista<span class="task-score icon "></span></a><a  href="3146.html">Mediaani<span class="task-score icon "></span></a><a  href="3144.html">Koko kierros<span class="task-score icon "></span></a><a class="current" href="3147.html">Pienet summat<span class="task-score icon "></span></a><hr />

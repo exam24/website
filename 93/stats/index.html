@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2017 loppu</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2017-01-19 12:15:00</span></li>
+        <li><b>End:</b> <span>2017-01-19 17:15:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1484820900;
+var contest_end = 1484838900;
+var server_time = 1725027231;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=93", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2017 loppu - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = false;
+  var virtualContest = false;
+  var contestDuration = 0;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[770,764,765,763,758,755,766]</script>
+<script type="application/json" id="task-chars">{"770":"A","764":"B","765":"C","763":"D","758":"E","755":"F","766":"G"}</script>
+<script type="application/json" id="C1-data">{"Kuha":[["2017-01-19T12:17:50+0200",100],["2017-01-19T12:24:39+0200",200],["2017-01-19T12:50:26+0200",300],["2017-01-19T13:19:13+0200",358],["2017-01-19T13:21:01+0200",400],["2017-01-19T13:51:00+0200",435],["2017-01-19T14:36:36+0200",458],["2017-01-19T14:45:20+0200",477],["2017-01-19T16:19:11+0200",501]],"ollpu":[["2017-01-19T12:19:19+0200",100],["2017-01-19T12:31:20+0200",200],["2017-01-19T12:52:59+0200",300],["2017-01-19T13:42:56+0200",400],["2017-01-19T15:41:20+0200",419],["2017-01-19T16:23:27+0200",442],["2017-01-19T16:35:26+0200",477]],"mangolassi":[["2017-01-19T12:19:36+0200",100],["2017-01-19T12:51:23+0200",200],["2017-01-19T13:07:22+0200",300],["2017-01-19T13:26:55+0200",400],["2017-01-19T14:46:26+0200",447],["2017-01-19T16:22:17+0200",466]],"ankka22":[["2017-01-19T12:20:40+0200",100],["2017-01-19T13:26:58+0200",128],["2017-01-19T13:41:59+0200",149],["2017-01-19T14:03:23+0200",196],["2017-01-19T16:11:16+0200",249]],"siirikuoppala":[["2017-01-19T12:21:01+0200",100],["2017-01-19T12:32:51+0200",200],["2017-01-19T12:44:48+0200",300],["2017-01-19T13:10:38+0200",400],["2017-01-19T15:00:16+0200",500],["2017-01-19T15:15:43+0200",535],["2017-01-19T15:59:33+0200",554]],"FSMnArmosta":[["2017-01-19T12:21:56+0200",100],["2017-01-19T13:24:44+0200",128],["2017-01-19T14:34:17+0200",149],["2017-01-19T16:37:39+0200",172]],"JesseNiininen":[["2017-01-19T12:22:43+0200",100],["2017-01-19T14:07:02+0200",200],["2017-01-19T14:45:10+0200",228],["2017-01-19T15:11:26+0200",300],["2017-01-19T15:32:17+0200",323]],"Pohjantahti":[["2017-01-19T12:23:01+0200",100],["2017-01-19T13:15:16+0200",200],["2017-01-19T13:36:31+0200",258],["2017-01-19T14:37:22+0200",358],["2017-01-19T16:03:45+0200",381]],"joshimasta":[["2017-01-19T12:27:13+0200",100],["2017-01-19T12:42:45+0200",128],["2017-01-19T13:09:08+0200",228],["2017-01-19T13:46:33+0200",249],["2017-01-19T13:57:01+0200",286]],"fergusq":[["2017-01-19T12:29:46+0200",100],["2017-01-19T15:22:26+0200",128],["2017-01-19T15:51:19+0200",186],["2017-01-19T16:36:28+0200",209],["2017-01-19T16:47:52+0200",233],["2017-01-19T16:59:16+0200",252],["2017-01-19T17:11:51+0200",324]],"On":[["2017-01-19T12:30:40+0200",100],["2017-01-19T13:40:13+0200",128],["2017-01-19T14:19:10+0200",186],["2017-01-19T14:40:36+0200",209],["2017-01-19T16:08:56+0200",228],["2017-01-19T16:30:18+0200",275]],"while(false)":[["2017-01-19T12:31:49+0200",100],["2017-01-19T12:55:32+0200",128],["2017-01-19T13:59:34+0200",175],["2017-01-19T14:22:31+0200",233],["2017-01-19T14:24:23+0200",275],["2017-01-19T15:39:04+0200",298],["2017-01-19T17:04:34+0200",370]],"OulaK":[["2017-01-19T12:35:13+0200",100],["2017-01-19T15:58:30+0200",200],["2017-01-19T17:05:32+0200",228]],"kapesu8":[["2017-01-19T12:35:25+0200",100],["2017-01-19T13:49:35+0200",128],["2017-01-19T16:23:51+0200",151],["2017-01-19T17:11:47+0200",172]],"katsotkos NaN":[["2017-01-19T12:35:53+0200",100]],"inkeri":[["2017-01-19T12:48:22+0200",28],["2017-01-19T13:44:17+0200",49],["2017-01-19T15:15:18+0200",121],["2017-01-19T16:15:11+0200",221],["2017-01-19T16:27:45+0200",258]],"Senpai":[["2017-01-19T12:51:40+0200",100],["2017-01-19T16:31:33+0200",200]],"kh":[["2017-01-19T12:53:54+0200",100],["2017-01-19T14:30:13+0200",128],["2017-01-19T15:09:44+0200",200],["2017-01-19T16:10:08+0200",223]],"gokuha":[["2017-01-19T15:05:57+0200",100],["2017-01-19T16:37:58+0200",128]]}</script>
+<script type="application/json" id="C2-data">{"C++":77,"Python3":12}</script>
+<script type="application/json" id="C3-data">{"770":[0,0,0,0,5,11,1,2,0,0,0,0,0,0,0,0,0,0,0],"764":[1,0,0,0,1,4,3,1,5,1,2,0,0,1,0,0,0,0,0],"765":[0,0,0,0,1,1,0,0,2,2,2,0,1,0,0,0,0,0,0],"763":[0,0,0,0,0,8,2,1,0,1,2,0,2,0,0,0,0,0,0],"758":[0,0,0,0,0,0,2,0,0,1,0,0,0,3,0,0,0,0,0],"755":[1,0,0,0,2,4,0,2,1,0,2,0,1,0,1,0,0,0,0],"766":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"770":[0,0,0,0,0,0,0,1,8,7,3,0,0,0,0,0,0,0,0,0,0,0,0,0],"764":[0,0,0,0,0,0,0,0,1,8,7,3,0,0,0,0,0,0,0,0,0,0,0,0],"765":[0,0,0,0,0,0,0,1,0,1,6,1,0,0,0,0,0,0,0,0,0,0,0,0],"763":[0,0,0,0,0,0,0,0,2,6,5,1,1,1,0,0,0,0,0,0,0,0,0,0],"758":[0,0,1,0,0,0,0,0,0,0,3,2,0,0,0,0,0,0,0,0,0,0,0,0],"755":[0,0,0,0,0,0,0,0,2,4,8,0,0,0,0,0,0,0,0,0,0,0,0,0],"766":[0,0,0,0,0,0,0,2,3,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"770":1.9473684210526316,"764":5.294117647058823,"765":1.6666666666666667,"763":5.8125,"758":2,"755":2.3333333333333335,"766":1.6666666666666667}</script>
+<script type="application/json" id="people-names">[]</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>19</td>
+    <td>362</td>
+    <td>5687</td>
+    <td>45</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>19.1</td>
+    <td>299.3</td>
+    <td>2.4</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

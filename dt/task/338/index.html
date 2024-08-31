@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Kirjat</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/338/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Kirjat</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="338">
+<div class="md"><p>Uolevi ja Maija ostivat kasan kirjoja ja aikovat lukea ne. Molemmat haluavat lukea kaikki ostetut kirjat. Tehtäväsi on etsiä järjestys, jossa lukemiseen kuluu yhteensä mahdollisimman vähän aikaa.</p>
+<p>Tiedät jokaisesta kirjasta, kuinka kauan sen lukeminen vie aikaa (Uolevi ja Maija ovat yhtä nopeita lukijoita). Kirja täytyy lukea kerralla alusta loppuun, ja molemmat eivät voi lukea samaa kirjaa yhtä aikaa.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kokonaisluku <span class="math inline">n</span>: kirjojen määrä.</p>
+<p>Seuraavalla rivillä on <span class="math inline">n</span> kokonaislukua <span class="math inline">a_1, a_2, \ldots, a_n</span>: jokaisen kirjan lukemiseen kuluva aika.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Ohjelmasi täytyy tulostaa yksi kokonaisluku: pienin mahdollinen aika, jossa Uolevi ja Maija pystyvät lukemaan kaikki kirjat.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le a_i \le 10^9</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>5
+2 4 3 5 3
+</pre>
+<p>Tuloste:</p>
+<pre>17
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 6</h4><a  href="../339.html">Elokuvat<span class="task-score icon "></span></a><a  href="../341.html">Tehtävät<span class="task-score icon "></span></a><a  href="../340.html">Laudat<span class="task-score icon "></span></a><a  href="../722.html">Tornit<span class="task-score icon "></span></a><a class="current" href="../338.html">Kirjat<span class="task-score icon "></span></a><a  href="../572.html">Alijono<span class="task-score icon "></span></a><a  href="../1121.html">Hotelli<span class="task-score icon "></span></a><a  href="../342.html">Kerho<span class="task-score icon "></span></a><hr />

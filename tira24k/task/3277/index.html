@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Väritys</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Väritys</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3277">
+<div class="md"><p>Verkossa on <span class="math inline">n</span> solmua ja se on aluksi tyhjä. Tehtäväsi on toteuttaa luokka, jonka avulla pystyy lisäämään kaaren verkkoon sekä tutkimaan, voiko solmut <em>värittää</em> kahdella värillä niin, että jokainen kaari yhdistää kaksi eriväristä solmua.</p>
+<p>Voit olettaa, että solmuja on enintään <span class="math inline">50</span> ja luokan metodeita kutsutaan enintään <span class="math inline">100</span> kertaa.</p>
+<p>Toteuta tiedostoon <code>coloring.py</code> luokka <code>Coloring</code>, jossa on seuraavat metodit:</p>
+<ul>
+<li>konstruktori, jolle annetaan solmujen määrä</li>
+<li><code>add_edge</code> lisää kaaren kahden solmun välille</li>
+<li><code>check</code> tarkastaa, voiko verkon värittää kahdella värillä</li>
+</ul>
+<pre class="resize-horizontal prettyprint lang-python">class Coloring:
+    def __init__(self, n):
+        # TODO
+
+    def add_edge(self, a, b):
+        # TODO
+
+    def check(self):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    c = Coloring(4)
+    c.add_edge(1, 2)
+    c.add_edge(2, 3)
+    c.add_edge(3, 4)
+    c.add_edge(1, 4)
+    print(c.check()) # True
+    c.add_edge(2, 4)
+    print(c.check()) # False
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 8</h4><a  href="../3274.html">Kurssin päätös<span class="task-score icon "></span></a><a  href="../2905.html">Komponentit<span class="task-score icon "></span></a><a  href="../3275.html">Kaupungit<span class="task-score icon "></span></a><a  href="../3276.html">Tietoverkko<span class="task-score icon "></span></a><a  href="../2908.html">Huoneet<span class="task-score icon "></span></a><a  href="../2909.html">Labyrintti<span class="task-score icon "></span></a><a class="current" href="../3277.html">Väritys<span class="task-score icon "></span></a><a  href="../2911.html">Laatikko<span class="task-score icon "></span></a><hr />

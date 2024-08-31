@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Järjestämisalgoritmit</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Järjestämisalgoritmit</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<form action="https://cses.fi/course/quiz_send.php" method="post" >
+<input type="hidden" name="csrf_token" value="7ca6eed6063eb2c20c643e08294aa812">
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3261">
+<div class="md"><p>Kurssin materiaalissa on annettu lisäysjärjestämisen ja lomitusjärjestämisen toteutus Pythonilla. Tehtäväsi on tutkia näiden toteutusten toimintaa ja tehokkuutta.</p>
+<p>Mittaa kummankin algoritmin suoritusaika, kun <span class="math inline">n=10^5</span> ja syöte sisältää satunnaisessa järjestyksessä luvut <span class="math inline">1,2,\dots,n</span>. Varmista, että algoritmin suorituksen jälkeen syöte on tosiaan järjestyksessä, mutta älä ota tätä mukaan suoritusajan mittaukseen.</p>
+<p>Mittaa tämän lisäksi vielä Pythonin metodin <code>sort</code> suoritusaika samalla syötteellä.</p>
+<p>Tässä tehtävässä saat pisteen automaattisesti, kun ilmoitat tulokset ja käyttämäsi koodin ja painat lähetysnappia.</p>
+<p>Lisäysjärjestämisen suoritusaika: <input name="input[]" type="text" size=8 required> s</p>
+<p>Lomitusjärjestämisen suoritusaika: <input name="input[]" type="text" size=8 required> s</p>
+<p>Pythonin metodin <code>sort</code> suoritusaika: <input name="input[]" type="text" size=8 required> s</p>
+<p>Testissä käyttämäsi koodi:<br />
+<textarea name="text[]" rows=10 cols=80 required></textarea></p>
+</div><p><input type="submit" value="Submit answers"></p></form>
+<script>
+var inputs = document.forms[0].elements;
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].disabled = true;
+}
+</script>
+    </div>
+    <div class="nav sidebar">
+<h4>Viikko 5</h4><a  href="../3080.html">Pakkaus<span class="task-score icon "></span></a><a  href="../3081.html">Peräkkäiset luvut<span class="task-score icon "></span></a><a class="current" href="../3261.html">Järjestämisalgoritmit<span class="task-score icon "></span></a><a  href="../3264.html">Binäärihaku<span class="task-score icon "></span></a><a  href="../3082.html">Suurin etäisyys<span class="task-score icon "></span></a><a  href="../3263.html">Ravintola<span class="task-score icon "></span></a><a  href="../3083.html">Puolijärjestäminen<span class="task-score icon "></span></a><a  href="../3085.html">Vaihto ja siirto<span class="task-score icon "></span></a><hr />

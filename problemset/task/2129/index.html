@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Task Assignment</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/2129/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Task Assignment</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2129">
+<div class="md"><p>A company has <span class="math inline">n</span> employees and there are <span class="math inline">n</span> tasks that need to be done. We know for each employee the cost of carrying out each task. Every employee should be assigned to exactly one task. What is the minimum total cost if we assign the tasks optimally and how could they be assigned?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has one integer <span class="math inline">n</span>: the number of employees and the number of tasks that need to be done.</p>
+<p>After this, there are <span class="math inline">n</span> lines each consisting of <span class="math inline">n</span> integers. The <span class="math inline">i</span>th line consists of integers <span class="math inline">c_{i1},c_{i2},\ldots,c_{in}</span>: the cost of each task when it is assigned to the <span class="math inline">i</span>th employee.</p>
+<h1 id="output">Output</h1>
+<p>First print the minimum total cost.</p>
+<p>Then print <span class="math inline">n</span> lines each consisting of two integers <span class="math inline">a</span> and <span class="math inline">b</span>: you assign the <span class="math inline">b</span>th task to the <span class="math inline">a</span>th employee.</p>
+<p>If there are multiple solutions you can print any of them.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 200</span></li>
+<li><span class="math inline">1 \le c_{ij} \le 1000</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4
+17 8 16 9
+7 15 12 19
+6 9 10 11
+14 7 13 10
+</pre>
+<p>Output:</p>
+<pre>33
+1 4
+2 1
+3 3
+4 2
+</pre>
+<p>Explanation: The minimum total cost is <span class="math inline">33</span>. We can reach this by assigning employee 1 task 4, employee 2 task 1, employee 3 task 3 and employee 4 task 2. This will cost <span class="math inline">9 + 7 + 10 + 7 = 33</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Advanced Techniques</h4>...
+<a  href="../2111.html">Apples and Bananas<span class="task-score icon "></span></a><a  href="../2112.html">One Bit Positions<span class="task-score icon "></span></a><a  href="../2113.html">Signal Processing<span class="task-score icon "></span></a><a  href="../2101.html">New Roads Queries<span class="task-score icon "></span></a><a  href="../2133.html">Dynamic Connectivity<span class="task-score icon "></span></a><a  href="../2121.html">Parcel Delivery<span class="task-score icon "></span></a><a class="current" href="../2129.html">Task Assignment<span class="task-score icon "></span></a><a  href="../2130.html">Distinct Routes II<span class="task-score icon "></span></a><hr />

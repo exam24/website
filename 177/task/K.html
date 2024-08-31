@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">HIIT Open 2018</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Knobs</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/177/task/K/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2018-05-26 11:00:00</span></li>
+        <li><b>End:</b> <span>2018-05-26 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1527321600;
+var contest_end = 1527339600;
+var server_time = 1725027208;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=177", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2018 - Knobs</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 2.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="1331">
+<div class="md"><p>You have a graph with <span class="math inline">n</span> nodes and <span class="math inline">m</span> edges. Each node has a knob that you can turn clockwise or counterclockwise. Each knob can be in one of three positions: 0°, 120°, 240°. Initially, knob <span class="math inline">i</span> is in position <span class="math inline">a_i</span>.</p>
+<p>For each knob <span class="math inline">i</span> you also know its final position, <span class="math inline">b_i</span>. You will need to find a way to turn knobs so that:</p>
+<ul>
+<li>in each step you turn only one knob (from one position to another position)</li>
+<li>two knobs that are connected by an edge are never in the same position</li>
+<li>after you are done, each knob is in its final position</li>
+</ul>
+<p>Note that you can turn the same knob many times, to any of the positions.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has two integers <span class="math inline">n</span> and <span class="math inline">m</span>: the number of knobs and edges.</p>
+<p>Then there are <span class="math inline">n</span> lines, each with two numbers <span class="math inline">a_i</span> and <span class="math inline">b_i</span>. These indicate the current position <span class="math inline">a_i</span> and the final position <span class="math inline">b_i</span> of knob <span class="math inline">i</span>.</p>
+<p>Finally, there are <span class="math inline">m</span> lines, each with two numbers <span class="math inline">i</span> and <span class="math inline">j</span>. This indicates that there is an edge between nodes <span class="math inline">i</span> and <span class="math inline">j</span>; here <span class="math inline">1 \le i &lt; j \le n</span>.</p>
+<p>The input configuration and the final configuration are valid: if there is an edge between knobs <span class="math inline">i</span> and <span class="math inline">j</span>, then <span class="math inline">a_i \ne a_j</span> and <span class="math inline">b_i \ne b_j</span>.</p>
+<p>All inputs are such that if a solution exists, there is at least one solution with at most <span class="math inline">10^5</span> steps.</p>
+<h1 id="output">Output</h1>
+<p>If there is a way to turn knobs so that you can reach the final configuration, print a sequence that shows how to do it. First print one line with a number <span class="math inline">s</span> (at most <span class="math inline">5 \cdot 10^5</span>): the number of steps. Then print <span class="math inline">s</span> lines, each with a pair of numbers, <span class="math inline">x_k</span> and <span class="math inline">p_k</span>: in step <span class="math inline">k</span> you turn knob <span class="math inline">x_k</span> to position <span class="math inline">p_k</span>. Here <span class="math inline">1 \le x_k \le n</span> and <span class="math inline">p_k</span> is 0, 120, or 240.</p>
+<p>If there is no way to solve the problem, print only one line with value <span class="math inline">-1</span>.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 20000</span></li>
+<li><span class="math inline">1 \le m \le 20000</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4 4
+0 0
+120 240
+240 120
+120 240
+1 2
+2 3
+3 4
+1 4
+</pre>
+<p>Output:</p>
+<pre>4
+3 0
+4 240
+2 240
+3 120
+</pre>
+<p>The following illustration shows the solution with four steps. Here 0° points up, 120° down right and 240° down left.</p>
+<p><center><img class="invertible" src="https://cses.fi/file/fbad586e46bd971bd2c8b8d571ce658f0ae4c411604bf3b454707dfa265d8474" width="400" height="" alt="" /></center></p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="A.html"><span><b>A</b> Alien Invasion</span><span class="task-score icon"></span></a><a  href="B.html"><span><b>B</b> Buy Low, Sell High</span><span class="task-score icon"></span></a><a  href="C.html"><span><b>C</b> Coins</span><span class="task-score icon"></span></a><a  href="D.html"><span><b>D</b> Data Packet Routing</span><span class="task-score icon"></span></a><a  href="E.html"><span><b>E</b> Euclidean Geometry</span><span class="task-score icon"></span></a><a  href="F.html"><span><b>F</b> Find a Word</span><span class="task-score icon"></span></a><a  href="G.html"><span><b>G</b> Grid</span><span class="task-score icon"></span></a><a  href="H.html"><span><b>H</b> HIIT Generation</span><span class="task-score icon"></span></a><a  href="I.html"><span><b>I</b> Inversions</span><span class="task-score icon"></span></a><a  href="J.html"><span><b>J</b> Jobs</span><span class="task-score icon"></span></a><a class="current" href="K.html"><span><b>K</b> Knobs</span><span class="task-score icon"></span></a><a  href="L.html"><span><b>L</b> Letter Game</span><span class="task-score icon"></span></a><a  href="M.html"><span><b>M</b> Monotonic</span><span class="task-score icon"></span></a><hr />

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../lib/fontawesome/css/all.min.css">
+</head>
+<body class=" ">
+  <div class="header">
+    <div>
+      <a href="../darkmode.html" class="logo"><img src="../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Register</h1>
+    </div>
+  </div>
+  
+  <div class="content-wrapper">
+  <div class="content">
+
+<title>CSES - Register</title><form action="index.html@open.html" method="post" >
+<input type="hidden" name="csrf_token" value="7ca6eed6063eb2c20c643e08294aa812">
+<fieldset class="wide"><legend>Login information</legend><p>Username*:<br><input type="text" name="nick" id="nick" value="" size=15></p>
+<span id="error" style="display:none;color:red"></span><p>Password*:<br><input type="password" name="pass1" size=15></p>
+<p>Password again*:<br><input type="password" name="pass2" size=15></p>
+</fieldset><br><fieldset class="wide"><legend>Additional information</legend><p>Name:<br><input type="text" name="name" id="name" value="" size=20></p>
+<p>Email:<br><input type="text" name="email" id="email" value="" size=20></p>
+<p>Country:<br><select name="country">
+<option value="" selected>N/A
+<option value="AF" >Afghanistan
+<option value="AL" >Albania
+<option value="DZ" >Algeria
+<option value="AD" >Andorra
+<option value="AO" >Angola
+<option value="AG" >Antigua and Barbuda
+<option value="AR" >Argentina
+<option value="AM" >Armenia
+<option value="AU" >Australia
+<option value="AT" >Austria
+<option value="AZ" >Azerbaijan
+<option value="BS" >Bahamas
+<option value="BH" >Bahrain
+<option value="BD" >Bangladesh
+<option value="BB" >Barbados
+<option value="BY" >Belarus
+<option value="BE" >Belgium
+<option value="BZ" >Belize
+<option value="BJ" >Benin
+<option value="BT" >Bhutan
+<option value="BO" >Bolivia
+<option value="BA" >Bosnia and Herzegovina
+<option value="BW" >Botswana
+<option value="BR" >Brazil
+<option value="BN" >Brunei
+<option value="BG" >Bulgaria
+<option value="BF" >Burkina Faso
+<option value="BI" >Burundi
+<option value="KH" >Cambodia
+<option value="CM" >Cameroon
+<option value="CA" >Canada
+<option value="CV" >Cape Verde
+<option value="CF" >Central African Republic
+<option value="TD" >Chad
+<option value="CL" >Chile
+<option value="CN" >China
+<option value="CO" >Colombia
+<option value="KM" >Comoros
+<option value="CG" >Congo, Republic
+<option value="CD" >Congo, Democratic Republic
+<option value="CR" >Costa Rica
+<option value="HR" >Croatia
+<option value="CU" >Cuba
+<option value="CY" >Cyprus
+<option value="CZ" >Czech Republic
+<option value="DK" >Denmark
+<option value="DJ" >Djibouti
+<option value="DM" >Dominica
+<option value="DO" >Dominican Republic
+<option value="TL" >East Timor
+<option value="EC" >Ecuador
+<option value="EG" >Egypt
+<option value="SV" >El Salvador
+<option value="GQ" >Equatorial Guinea
+<option value="ER" >Eritrea
+<option value="EE" >Estonia
+<option value="ET" >Ethiopia
+<option value="FJ" >Fiji
+<option value="FI" >Finland
+<option value="FR" >France
+<option value="PF" >French Polynesia
+<option value="GA" >Gabon
+<option value="GM" >Gambia
+<option value="GE" >Georgia
+<option value="DE" >Germany
+<option value="GH" >Ghana
+<option value="GR" >Greece
+<option value="GD" >Grenada
+<option value="GT" >Guatemala
+<option value="GN" >Guinea
+<option value="GW" >Guinea-Bissau
+<option value="GY" >Guyana
+<option value="HT" >Haiti
+<option value="HN" >Honduras
+<option value="HK" >Hong Kong
+<option value="HU" >Hungary
+<option value="IS" >Iceland
+<option value="IN" >India
+<option value="ID" >Indonesia
+<option value="IR" >Iran
+<option value="IQ" >Iraq
+<option value="IE" >Ireland
+<option value="IL" >Israel
+<option value="IT" >Italy
+<option value="CI" >Ivory Coast
+<option value="JM" >Jamaica
+<option value="JP" >Japan
+<option value="JO" >Jordan
+<option value="KZ" >Kazakhstan
+<option value="KE" >Kenya
+<option value="KI" >Kiribati
+<option value="KP" >Korea, North
+<option value="KR" >Korea, South
+<option value="KW" >Kuwait
+<option value="KG" >Kyrgyzstan
+<option value="LA" >Laos
+<option value="LV" >Latvia
+<option value="LB" >Lebanon
+<option value="LS" >Lesotho
+<option value="LR" >Liberia
+<option value="LY" >Libya
+<option value="LI" >Liechtenstein
+<option value="LT" >Lithuania
+<option value="LU" >Luxembourg
+<option value="MO" >Macao
+<option value="MK" >Macedonia
+<option value="MG" >Madagascar
+<option value="MW" >Malawi
+<option value="MY" >Malaysia
+<option value="MV" >Maldives
+<option value="ML" >Mali
+<option value="MT" >Malta
+<option value="MH" >Marshall Islands
+<option value="MR" >Mauritania
+<option value="MU" >Mauritius
+<option value="MX" >Mexico
+<option value="FM" >Micronesia
+<option value="MD" >Moldova
+<option value="MC" >Monaco
+<option value="MN" >Mongolia
+<option value="ME" >Montenegro
+<option value="MA" >Morocco
+<option value="MZ" >Mozambique
+<option value="MM" >Myanmar
+<option value="NA" >Namibia
+<option value="NR" >Nauru
+<option value="NP" >Nepal
+<option value="NL" >Netherlands
+<option value="NZ" >New Zealand
+<option value="NI" >Nicaragua
+<option value="NE" >Niger
+<option value="NG" >Nigeria
+<option value="NO" >Norway
+<option value="OM" >Oman
+<option value="PK" >Pakistan
+<option value="PW" >Palau
+<option value="PS" >Palestine
+<option value="PA" >Panama
+<option value="PG" >Papua New Guinea
+<option value="PY" >Paraguay
+<option value="PE" >Peru
+<option value="PH" >Philippines
+<option value="PL" >Poland
+<option value="PT" >Portugal
+<option value="QA" >Qatar
+<option value="RO" >Romania
+<option value="RU" >Russia
+<option value="RW" >Rwanda
+<option value="KN" >Saint Kitts and Nevis
+<option value="LC" >Saint Lucia
+<option value="VC" >Saint Vincent
+<option value="WS" >Samoa
+<option value="SM" >San Marino
+<option value="ST" >Sao Tome and Principe
+<option value="SA" >Saudi Arabia
+<option value="SN" >Senegal
+<option value="RS" >Serbia
+<option value="SC" >Seychelles
+<option value="SL" >Sierra Leone
+<option value="SG" >Singapore
+<option value="SK" >Slovakia
+<option value="SI" >Slovenia
+<option value="SB" >Solomon Islands
+<option value="SO" >Somalia
+<option value="ZA" >South Africa
+<option value="ES" >Spain
+<option value="LK" >Sri Lanka
+<option value="SD" >Sudan
+<option value="SR" >Suriname
+<option value="SZ" >Swaziland
+<option value="SE" >Sweden
+<option value="CH" >Switzerland
+<option value="SY" >Syria
+<option value="TW" >Taiwan
+<option value="TJ" >Tajikistan
+<option value="TZ" >Tanzania
+<option value="TH" >Thailand
+<option value="TG" >Togo
+<option value="TO" >Tonga
+<option value="TT" >Trinidad and Tobago
+<option value="TN" >Tunisia
+<option value="TR" >Turkey
+<option value="TM" >Turkmenistan
+<option value="TV" >Tuvalu
+<option value="UG" >Uganda
+<option value="UA" >Ukraine
+<option value="AE" >United Arab Emirates
+<option value="GB" >United Kingdom
+<option value="US" >United States
+<option value="UY" >Uruguay
+<option value="UZ" >Uzbekistan
+<option value="VA" >Vatican City
+<option value="VU" >Vanuatu
+<option value="VE" >Venezuela
+<option value="VN" >Vietnam
+<option value="YE" >Yemen
+<option value="ZM" >Zambia
+<option value="ZW" >Zimbabwe
+</select></p>
+</fieldset><p><input type="submit" value="Submit"></p></form>
+<script>
+var nick = document.getElementById("nick");
+var error = document.getElementById("error");
+
+function check(e) {
+    var v = nick.value;
+    var m = "";
+    if (v.length > 16) {
+        m = "Username is too long";
+    } else {
+        for (var i = 0; i < v.length; i++) {
+            var c = v.charCodeAt(i);
+            if (c < 33 || c > 125) m = "Username contains invalid character";
+        }
+    }
+    if (m == "") {
+        error.style.display = "none";
+    } else {
+        error.innerHTML = m;
+        error.style.display = "inline";
+    }
+}
+
+nick.addEventListener("change",check);
+nick.addEventListener("keyup",check);
+</script>

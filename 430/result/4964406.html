@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2023 alku</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Lista</h1>
+<ul class="nav">
+<li><a href="../task/F/index.html" >Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2022-10-31 00:00:00</span></li>
+        <li><b>End:</b> <span>2022-11-14 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1667167200;
+var contest_end = 1668376800;
+var server_time = 1725027908;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=430", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2023 alku - Results</title><table class="summary-table left-align narrow"><caption>Submission details</caption><tr><td >Task:</td><td ><a href="../task/F.html">Lista</a></td></tr>
+<tr><td >Sender:</td><td >okkokko</td></tr>
+<tr><td >Submission time:</td><td >2022-11-12 05:10:52 +0200</td></tr>
+<tr><td >Language:</td><td >text</td></tr>
+<tr><td >Status:</td><td ><span id="status">READY</span></td></tr>
+<tr><td >Result:</td><td ><span class="inline-score task-score c91">91</span></td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Feedback</caption><colgroup><col class="small-col"><col><col class="brief-col"></colgroup>
+<thead><tr><th >group</th><th >verdict</th><th >score</th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >91</td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Test&nbsp;results</caption><colgroup><col class="small-col"><col><col class="brief-col"><col class="brief-col"><col class="details-col"></colgroup>
+<thead><tr><th >test</th><th >verdict</th><th >time</th><th >score</th><th ></th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td >91</td><td ><a class="details-link" href="4964406.html#test1">details</a></td></tr>
+</table>
+<div class="closeable"><h3 class="caption close-trigger">Code</h3><div><script src="../../lib/google-code-prettify/run_prettify.js"></script><pre class="prettyprint linenums nocode resize-horizontal " style="">608  307  1434 527  1384 1497 1547 631  1528 1338 1526 1579 1327 1485 1368 1187 1427 373  1219 1059 1600 1409 1530 1564 1462 1574 1441 1474 1480 1608 1501 1517 1595 1469 1443 1563 1603 2022 1491 1585 1429 1364 1592 1586 1002 798  1614 1408 1682 1648 1694 1524 1568 1683 1476 1540 1598 1467 1642 1536 1619 1582 1542 1650 1578 1570 1126 1551 1518 1622 1449 863  1446 1155 1516 1692 1612 1615 1597 1459 1625 1414 1489 1714 769  1756 1653 1864 1674 1433 1910 1960 1974 1628 1955 1866 1624 1780 1922 1944 1904 1707 1842 1043 892  1581 301  991  1527 1723 1902 1339 1194 1557 1635 1656 1420 1863 1689 1677 946  1716 1505 1860 1737 1888 1754 1631 1742 1854 877  1353 1412 1017 1817 1386 1258 955  1892 1835 967  1594 1290 652  320  838  269  1567 1285 1231 1853 998  1202 389  1299 1168 1268 1284 1734 1277 1686 1295 1560 831  699  1195 1294 845  1039 1523 804  1532 522  735  808  1500 968  1590 1760 1435 1099 1886 1423 364  326  642  773  1577 1197 1589 1584 868  1498 1413 977  128  1129 1116 1630 1698 1177 665  698  758  1311 1152 1265 766  146  759  1493 426  688  171  1323 88   1244 1460 446  604  428  537  748  1098 730  1207 1057 583  727  1477 194  381  1094 408  1350 439  393  1124 394  422  592  553  752  1130 795  979  747  675  1100 217  803  928  149  337  713  457  624  812  511  783  848  490  538  670  494  290  806  180  807  14   378  533  76   27   618  235  181  19   86   124  292  419  276  1044 259  145  598  54   390  719  238  501  220  112  676  225  346  484  679  81   731  329  211  183  227  737  192  768  278  468  15   814  789  854  218  246  526  828  168  813  712  981  834  630  1026 493  739  143  605  623  1077 859  1027 709  640  711  976  755  888  1447 1132 969  849  1069 1925 1717 1514 1303 1454 550  1399 1037 1465 1461 1166 951  1767 1411 1705 1816 1741 857  1415 1856 964  772  1451 1647 1649 1731 922  869  1726 1676 710  958  1138 1175 1672 1035 597  1675 17   1787 961  1776 1496 1719 1458 1237 1145 1783 2015 1554 1784 1555 1753 1583 874  1995 1092 1655 1757 118  610  281  1593 895  715  1490 940  117  1259 1304 1531 1499 1901 1390 1471 636  586  289  1153 479  23   770  298  486  186  643  800  876  521  990  345  1484 205  335  188  293  294  84   219  962  120  327  1032 198  820  380  340  385  606  548  248  424  228  127  79   706  867  487  850  236  817  692  36   166  295  252  386  1951 153  370  105  557  909  55   159  109  72   52   299  607  771  350  214  725  256  215  234  85   829  136  47   369  491  544  63   18   496  447  80   357  317  723  20   681  8    523  239  77   568  407  175  231  7    184  556  690  601  273  686  539  377  809  451  1297 1274 554  974  780  1050 454  702  819  1097 1680 611  1212 460  992  866  685  1079 1417 1046 1315 437  62   918  1664 1181 1115 1358 1670 926  1349 571  1535 1561 1281 1293 532  1644 1645 852  261  792  311  1020 1789 587  634  1093 1165 472  564  1269 1375 310  325  893  1015 718  947  2010 94   191  625  842  549  657  138  22   312  366  130  49   38   878  400  672  862  590  1008 1023 919  960  1123 901  837  361  745  287  199  195  824  98   540  595  558  141  757  1215 418  1245 1263 1102 1278 1602 1805 1076 1823 944  1440 1438 2023 1426 1262 889  1273 1416 1794 1992 1154 1251 1739 1800 1572 1781 1743 1961 1859 1934 1205 1724 1935 1721 1875 1750 1488 1907 1894 41   1954 1775 1899 1405 916  409  1861 1264 1836 1085 1746 1766 1858 1495 1801 1609 1844 1980 1678 1227 1751 1250 1024 1267 524  1793 1774 1977 1357 1310 1986 1604 1056 1983 1832 1529 1128 1908 1855 1266 1684 1942 2013 1967 1993 1939 1552 1769 1941 1815 1701 2008 1917 1930 1346 1141 1605 1830 387  934  1171 1442 1533 1641 1749 1905 938  1045 1122 529  840  1510 382  858  1483 987  420  423  404  500  305  2016 3    6    1    629  11   375  885  662  116  471  21   25   115  244  705  900  746  754  534  347  101  42   570  104  164  661  658  160  39   886  860  580  29   51   414  134  249  562  163  573  781  509  152  1162 1634 43   551  71   1103 34   435  647  61   379  576  250  421  924  1048 321  923  425  161  176  971  333  561  349  593  805  31   316  470  546  505  639  492  777  87   506  574  275  750  430  33   35   119  528  689  204  53   142  125  277  1036 776  56   328  782  572  498  100  669  1073 931  1330 210  279  9    726  91   90   30   96   330  912  945  309  545  1252 57   286  476  555  628  1142 950  26   283  1089 1012 441  579  880  510  774  530  816  1075 729  362  1208 1270 1053 830  1241 1342 1223 372  1778 793  861  359  402  720  1336 1196 959  158  996  497  1127 1976 864  1727 1504 954  464  1964 786  673  1236 1601 575  1403 764  1952 1328 265  751  802  224  207  724  103  185  371  722  1172 1086 1638 897  13   1569 233  1255 1381 552  721  560  93   438  16   668  148  1931 514  162  40   144  651  133  499  1156 147  429  536  108  383  508  577  187  1230 1121 1795 519  1240 1030 165  209  1095 1410 995  1018 1292 1248 1318 156  646  963  251  667  1914 1170 1957 609  734  67   1031 666  887  1921 1082 202  1695 1814 972  1596 432  1534 1391 941  1164 1249 1309 1034 982  844  442  1214 621  353  1448 1456 1291 1232 520  1206 1182 190  223  304  648  779  388  69   111  272  455  1506 4    66   753  547  1101 1662 177  1016 213  216  855  1199 1163 182  760  619  285  581  502  453  1394 822  1159 1436 1061 1025 1356 1509 1283 1738 1808 515  1209 1654 1607 1946 535  1185 1522 1722 1699 1681 1785 1651 1850 1348 1425 1770 1541 1819 1204 1398 1985 1118 1562 1366 1867 1937 1839 2018 1752 1831 1331 1825 1777 1843 1879 1011 1786 1696 1748 1807 1873 1114 994  1134 898  1626 1673 1809 1556 1639 1313 1109 1210 1010 1302 257  1161 1827 1261 966  99   1559 872  612  1468 1389 1513 1679 1019 678  167  1078 365  355  1090 1792 1111 1047 1392 1549 856  1840 973  836  1708 1334 1573 1720 1455 914  1652 1320 823  1643 650  1062 1058 1222 749  933  1553 1616 1376 696  882  1627 943  936  949  1618 1667 884  28   469  1173 744  704  763  920  1022 989  567  915  978  1136 37   253  542  413  513  503  566  1133 482  427  905  2    308  495  24   229  984  1052 596  1001 395  1087 344  462  531  569  1072 939  883  1119 879  656  1235 342  881  284  1629 1428 1370 784  360  811  392  1316 201  762  240  173  1110 1225 682  906  475  1158 1229 728  203  50   448  266  232  620  110  1186 242  599  179  411  1006 483  467  296  170  617  444  700  150  787  255  221  74   975  178  504  891  102  243  1014 113  89   417  348  870  64   659  297  518  903  68   351  480  459  797  517  541  742  189  260  196  622  917  821  851  332  1021 956  582  761  965  398  313  827  478  988  95   1013 403  60   247  331  591  45   135  302  653  122  740  1003 391  716  1189 488  376  602  525  129  415  319  952  1520 1877 1768 1744 1473 1306 980  1804 1377 1216 664  1246 1947 1709 507  1040 481  126  374  641  1000 603  32   368  416  1147 1139 925  738  114  339  434  1271 401  341  1096 154  632  645  937  660  440  461  206  356  1083 865  600  436  1005 1038 1149 245  1286 1174 282  832  1257 910  1060 1253 853  1503 1487 1566 1481 1074 1502 1233 1565 1640 1920 2000 1387 1243 1326 1341 904  1940 741  985  847  1508 1771 775  1962 1545 1183 1975 1669 1324 1713 1344 1646 1234 1747 1735 1838 2012 1948 1637 1876 1042 1351 1486 1852 1369 1606 1135 1180 1802 1444 1406 1687 1685 1221 1911 1978 1936 1896 1143 1959 1913 1889 2001 1810 1857 1657 1829 1730 1550 1821 1872 1987 1782 1633 2007 1693 1803 1818 1759 1869 1943 2009 1218 2011 1661 796  1953 1884 1966 1938 1728 1788 1820 1898 1824 1571 1755 1979 1806 1790 1422 1762 1764 2005 1432 1994 1362 1745 1665 1919 1558 1706 1989 2003 1475 1663 2002 1660 1704 1862 1841 1929 1666 1761 2006 1984 1893 1575 1548 1169 1973 1419 2014 1991 1849 1915 1797 1909 1254 1712 1848 1733 1870 1847 1736 1906 1779 1912 1968 708  1765 1588 1923 1969 1772 1887 1482 1492 1956 1466 1891 1711 921  1203 1599 1988 1363 1878 1871 1226 1881 1360 1883 1591 1538 1828 1617 1718 654  139  1890 1636 1924 1732 1452 1211 1928 1367 1811 1949 2020 1965 1690 1580 695  1333 1445 1276 1932 1758 1137 1697 1464 1729 1543 1945 970  1188 1990 1519 1897 1007 1611 1463 1308 1970 986  1009 1239 913  1312 1610 736  935  1325 1065 1319 680  1321 1515 1379 1063 835  1388 1104 633  5    314  338  237  59   106  1380 58   397  516  671  1198 1228 151  1393 930  75   948  48   1088 627  743  655  97   73   262  463  367  445  267  687  957  733  584  765  70   902  241  477  894  1217 137  300  315  288  123  588  303  280  324  458  613  456  274  825  997  1972 1148 693  1066 1108 875  1055 563  46   691  1372 1688 1479 785  1068 1332 1117 701  794  1620 396  1826 1260 399  291  1160 1371 1544 322  871  932  683  450  1004 334  1105 1112 131  674  157  443  1091 155  433  1054 226  799  707  732  343  663  907  193  121  12   140  107  83   585  756  10   677  197  1033 983  82   896  230  466  615  336  1472 318  410  65   801  1071 1322 268  44   815  92   929  449  644  200  594  1478 1305 1329 1275 473  270  1064 1457 908  405  1144 1179 1084 1361 1525 717  1051 1184 1067 1200 1150 788  1395 1191 714  1190 208  649  1307 1418 1354 465  1314 1404 1345 1421 474  1282 1256 1125 818  993  1070 703  1347 839  1317 358  1201 78   263  258  790  626  694  616  1279 1193 1167 1289 911  1247 172  1407 169  1300 1178 810  1401 1242 1041 1373 589  1192 1402 1296 1081 1337 1845 890  791  1157 1224 412  271  1613 1382 1396 1335 1365 1352 431  826  1301 1288 1049 846  452  406  1546 1703 1659 1437 1140 1799 1521 1998 1450 1587 1106 1355 1511 1576 1691 1702 1400 1298 1512 1453 697  489  1107 1280 767  565  1272 212  637  222  132  1507 1120 1470 1494 833  1028 1220 614  559  363  843  778  1343 635  254  512  1151 306  323  1539 1397 899  1385 354  1378 1359 684  352  1131 1113 1287 485  1080 942  1238 1029 999  1833 174  1146 1374 1439 1340 578  1846 1537 384  2017 1431 638  1715 543  1740 264  841  1874 1424 1996 1213 1176 1383 873  953  1796 927  1430 1916 1885 1882 1933 1837 1632 1981 1865 1700 1773 1668 1813 1950 1812 1997 1710 1725 1903 1958 1880 1868 2019 1926 2021 1658 1798 1999 1834 1927 1918 1900 1623 1982 1822 1971 1851 1671 1763 2004 1791 1895 1963 1621 </pre></div></div><div class="closeable"><h3 class="caption close-trigger">Test details</h3><div><h4 id="test1">Test 1</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>58667&nbsp;68283&nbsp;64141&nbsp;69169&nbsp;67564&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/f26806d0e2d616c082dff11cf636bb17fbcd312fb688e3ba6592e77a0b413771">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/f26806d0e2d616c082dff11cf636bb17fbcd312fb688e3ba6592e77a0b413771">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>688&nbsp;488&nbsp;1060&nbsp;602&nbsp;1171&nbsp;471&nbsp;322&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/fd8a9763a468ba41c33ca50b291e243e35e35957ffa0a40a9c22fae8a2c3b7a0">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/fd8a9763a468ba41c33ca50b291e243e35e35957ffa0a40a9c22fae8a2c3b7a0">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>608&nbsp;&nbsp;307&nbsp;&nbsp;1434&nbsp;527&nbsp;&nbsp;1384&nbsp;1497&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/9d9034e86584369778a697edd5eb5f86024e01094d015670c6e76906c7c5c707">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/9d9034e86584369778a697edd5eb5f86024e01094d015670c6e76906c7c5c707">save</a></div></td></tr></table><br></div></div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="../task/A.html"><span><b>A</b> Kortit</span><span class="task-score ">-</span></a><a  href="../task/B.html"><span><b>B</b> Lehmät</span><span class="task-score ">-</span></a><a  href="../task/C.html"><span><b>C</b> Kertoma</span><span class="task-score ">-</span></a><a  href="../task/D.html"><span><b>D</b> Ruudukko</span><span class="task-score ">-</span></a><a  href="../task/E.html"><span><b>E</b> Sadonkorjuu</span><span class="task-score ">-</span></a><a class="current" href="../task/F.html"><span><b>F</b> Lista</span><span class="task-score ">-</span></a><hr />
+<h4>Submissions (okkokko)</h4>
+
+<a class="current " href="https://cses.fi/430/result/4964406/">2022-11-12 05:10:52 <span class="task-score c91">91</span></a><a class=" " href="https://cses.fi/430/result/4964382/">2022-11-12 05:00:08 <span class="task-score c90">90</span></a><a class=" " href="https://cses.fi/430/result/4964343/">2022-11-12 04:49:57 <span class="task-score c88">88</span></a><a class=" " href="https://cses.fi/430/result/4964218/">2022-11-12 03:36:06 <span class="task-score c84">84</span></a><a class=" " href="https://cses.fi/430/result/4964196/">2022-11-12 03:19:23 <span class="task-score c79">79</span></a><a class=" " href="https://cses.fi/430/result/4964073/">2022-11-12 01:38:02 <span class="task-score c30">30</span></a><a class=" " href="https://cses.fi/430/result/4963979/">2022-11-12 00:40:36 <span class="task-score c4">4</span></a></div>
+</div>
+

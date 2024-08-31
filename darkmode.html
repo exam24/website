@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="lib/fontawesome/css/all.min.css">
+</head>
+<body class=" ">
+  <div class="header">
+    <div>
+      <a href="darkmode.html" class="logo"><img src="logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Code Submission Evaluation System</h1>
+<ul class="nav">
+<li><a href="darkmode.html" class="current">Home</a></li>
+<li><a href="courses.html" >Courses</a></li>
+<li><a href="contests.html" >Contests</a></li>
+<li><a href="stats.html" >Statistics</a></li>
+<li><a href="about.html" >About</a></li>
+</ul>
+    </div>
+  </div>
+  
+  <div class="content-wrapper">
+  <div class="content">
+
+<link rel="stylesheet" href="lib/katex/katex.min.css">
+<script defer src="lib/katex/katex.min.js"></script>
+<script defer src="lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<title>CSES</title><div class="boxes">
+<div><div class="md"><h1 id="csesproblemset">CSES Problem Set</h1>
+<p>The CSES Problem Set contains a collection of algorithm programming practice problems. You can access the problems <a href="problemset/index.html">here</a>.</p>
+</div></div><div><div class="md"><h1 id="datatahtivalmennus">Datatähti-valmennus</h1>
+<p>Kokoelma harjoitustehtäviä, joiden avulla voit harjoitella Datatähteä ja muita kilpailuja varten. Pääset tehtäviin <a href="dt/list/index.html">tästä</a>.</p>
+</div></div><div><div class="md"><h1 id="algoritmitongelmanratkaisussa">Algoritmit ongelmanratkaisussa</h1>
+<p>Helsingin yliopiston kurssi, joka opettaa algoritmien suunnittelua ja ohjelmointia. Pääset kurssille <a href="alon/list/index.html">tästä</a>.</p>
+</div></div><div><div class="md"><h1 id="boicontestcollection">BOI Contest Collection</h1>
+<p>This collection contains all Baltic Olympiad in Informatics contests from 2005 to 2021. You can access the contests <a href="boi/list/index.html">here</a>.</p>
+<h1 id="ceoicontestcollection">CEOI Contest Collection</h1>
+<p>This collection contains all Central European Olympiad in Informatics contests from 2005 to 2021. You can access the contests <a href="ceoi/list/index.html">here</a>.</p>
+</div></div></div>

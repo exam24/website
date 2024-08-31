@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Nested Ranges Check</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/2168/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Nested Ranges Check</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2168">
+<div class="md"><p>Given <span class="math inline">n</span> ranges, your task is to determine for each range if it contains some other range and if some other range contains it.</p>
+<p>Range <span class="math inline">[a,b]</span> contains range <span class="math inline">[c,d]</span> if <span class="math inline">a \le c</span> and <span class="math inline">d \le b</span>.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has an integer <span class="math inline">n</span>: the number of ranges.</p>
+<p>After this, there are <span class="math inline">n</span> lines that describe the ranges. Each line has two integers <span class="math inline">x</span> and <span class="math inline">y</span>: the range is <span class="math inline">[x,y]</span>.</p>
+<p>You may assume that no range appears more than once in the input.</p>
+<h1 id="output">Output</h1>
+<p>First print a line that describes for each range (in the input order) if it contains some other range (1) or not (0).</p>
+<p>Then print a line that describes for each range (in the input order) if some other range contains it (1) or not (0).</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le x &lt; y \le 10^9</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4
+1 6
+2 4
+4 8
+3 6
+</pre>
+<p>Output:</p>
+<pre>1 0 0 0
+0 1 0 1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Sorting and Searching</h4>...
+<a  href="../1163.html">Traffic Lights<span class="task-score icon "></span></a><a  href="../2162.html">Josephus Problem I<span class="task-score icon "></span></a><a  href="../2163.html">Josephus Problem II<span class="task-score icon "></span></a><a class="current" href="../2168.html">Nested Ranges Check<span class="task-score icon "></span></a><a  href="../2169.html">Nested Ranges Count<span class="task-score icon "></span></a><a  href="../1164.html">Room Allocation<span class="task-score icon "></span></a><a  href="../1620.html">Factory Machines<span class="task-score icon "></span></a><a  href="../1630.html">Tasks and Deadlines<span class="task-score icon "></span></a>...
+<hr />

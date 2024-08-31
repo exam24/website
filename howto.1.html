@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="lib/fontawesome/css/all.min.css">
+</head>
+<body class=" ">
+  <div class="header">
+    <div>
+      <a href="darkmode.html" class="logo"><img src="logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>How to use CSES</h1>
+    </div>
+  </div>
+  
+  <div class="content-wrapper">
+  <div class="content">
+
+<script src="lib/google-code-prettify/run_prettify.js"></script>
+<h2>Languages</h2>
+CSES currently supports the following languages:
+<p>
+<table >
+<thead><tr><th >language</th><th >version</th><th >compiler flags</th><th >packages</th></tr>
+</thead><tr><td >Assembly</td><td >NASM 2.15.05</td><td ><code></code></td><td ></td></tr>
+<tr><td >C++</td><td >g++ 11.4.0</td><td ><code>-std=c++11 -O2 -Wall</code><br><code>-std=c++17 -O2 -Wall</code><br><code>-std=c++20 -O2 -Wall</code><br></td><td ></td></tr>
+<tr><td >Haskell</td><td >GHC 9.2.8</td><td ><code>-O2 -Wall</code></td><td ><a href="1/text/2471/index.html">show list</a></td></tr>
+<tr><td >Java</td><td >Java 11.0.21</td><td ><code></code></td><td ></td></tr>
+<tr><td >Make</td><td >Make 4.3</td><td ><code></code></td><td ></td></tr>
+<tr><td >Node.js</td><td >Node.js 12.22.9</td><td ><code></code></td><td ></td></tr>
+<tr><td >Pascal</td><td >FPC 3.2.2</td><td ><code>-O2</code></td><td ></td></tr>
+<tr><td >Python2</td><td >CPython 2.7.18<br>PyPy 2.7.18</td><td ><code></code></td><td ></td></tr>
+<tr><td >Python3</td><td >CPython 3.10.12<br>PyPy 3.8.13</td><td ><code></code></td><td ></td></tr>
+<tr><td >Ruby</td><td >ruby 3.0.2</td><td ><code></code></td><td ></td></tr>
+<tr><td >Rust</td><td >rustc 1.70.0</td><td ><code>--edition=2018 -C opt-level=3</code></td><td >rand 0.8.4</td></tr>
+<tr><td >Scala</td><td >Scala 2.11.12</td><td ><code></code></td><td ></td></tr>
+</table>
+<p>
+Note that all languages are not be available
+in all courses and contests.
+<p>
+The source code size limit is 128 kB for all languages.
+
+<h2>Example programs</h2>
+
+<p>
+
+Here are examples on how to solve the <a href="1/task/A/index.html">A + B</a> problem in the supported languages.
+
+<p>
+
+<b>Assembly</b>
+<pre class="prettyprint wide lang-asm" style="height:200px">
+        section .text
+        global _start
+atoi:   xor rax,rax
+        xor rdx,rdx
+        lodsb
+        cmp al,'-'
+        sete bl
+        jne .lpv
+.lp:    lodsb
+.lpv:   sub al,'0'
+        jl .end
+        imul rdx,10
+        add rdx,rax
+        jmp .lp
+.end:   test bl,bl
+        jz .p
+        neg rdx
+.p      ret
+itoa:   std
+        mov r9,10
+        bt rax,63
+        setc bl
+        jnc .lp
+        neg rax
+.lp:    xor rdx,rdx
+        div r9
+        xchg rax,rdx
+        add rax,'0'
+        stosb
+        xchg rax,rdx
+        test rax,rax
+        jnz .lp
+        test bl,bl
+        jz .p
+        mov al,'-'
+        stosb
+.p:     cld
+        inc rdi
+        ret
+_start: xor rax,rax
+        xor rdi,rdi
+        mov rsi,buff
+        mov rdx,100
+        syscall
+        mov rsi,buff
+        lodsb
+        mov rsi,buff
+        call atoi
+        mov rcx,rdx
+        call atoi
+        add rcx,rdx
+        mov rdi,buff+99
+        mov rsi,rdi
+        std
+        mov rax,10
+        stosb
+        mov rax,rcx
+        call itoa
+        sub rsi,rdi
+        mov rdx,rsi
+        mov rsi,rdi
+        inc rdx
+        mov rax,1
+        mov rdi,rax
+        syscall
+        mov rax,60
+        xor rdi,rdi
+        syscall
+        section .bss
+buff:   resb 100
+</pre>
+
+<p>
+
+<b>C++</b>
+<pre class="prettyprint wide lang-cpp">
+#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+    cout << a+b << "\n";
+}
+</pre>
+
+<p>
+
+<b>Haskell</b>
+<pre class="prettyprint wide lang-haskell">
+main :: IO()
+main = do
+    line <- getLine
+    let [a, b] = map read (words line)
+    print (a + b)
+</pre>
+
+<p>
+
+<b>Java</b>
+<pre class="prettyprint wide lang-java">
+import java.util.*;
+
+public class Sum {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int a = input.nextInt();
+        int b = input.nextInt();
+        System.out.println(a+b);
+    }
+}
+</pre>
+
+<p>
+
+<b>Node.js</b>
+<pre class="prettyprint wide lang-js">
+var readline = require('readline');
+
+var r = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
+});
+
+r.on('line', function (line) {
+    var vals = line.split(" ");
+    console.log(parseInt(vals[0])+parseInt(vals[1]));
+});
+</pre>
+
+<p>
+
+<b>Pascal</b>
+<pre class="prettyprint wide lang-pascal">
+var
+    a, b: longint;
+begin
+    readln(a,b);
+    writeln(a+b);
+end.
+</pre>
+
+<p>
+
+<b>Python2</b>
+<pre class="prettyprint wide lang-python">
+a,b = [int(x) for x in raw_input().split()]
+print(a+b)
+</pre>
+
+<p>
+
+<b>Python3</b>
+<pre class="prettyprint wide lang-python">
+a,b = [int(x) for x in input().split()]
+print(a+b)
+</pre>
+
+<p>
+
+<b>Ruby</b>
+<pre class="prettyprint wide lang-ruby">
+a,b = gets.split.map &:to_i
+puts a+b
+</pre>
+
+<p>
+
+<b>Rust</b>
+<pre class="prettyprint wide lang-rust">
+use std::io::{BufRead, BufReader};
+
+fn main() {
+    let mut input = BufReader::new(std::io::stdin());
+    let mut line = "".to_string();
+    input.read_line(&mut line).unwrap();
+    let mut split = line.split_whitespace();
+    let a: i32 = split.next().unwrap().parse().unwrap();
+    let b: i32 = split.next().unwrap().parse().unwrap();
+    println!("{}", a + b);
+}
+</pre>
+
+<p>
+
+<b>Scala</b>
+<pre class="prettyprint wide lang-scala">
+object Sum {
+    def main(args: Array[String]): Unit = {
+        val Array(a,b) = readLine.split(" ").map(_.toInt)
+        println(a+b)
+    }
+}
+</pre>

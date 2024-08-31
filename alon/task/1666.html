@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Algoritmit ongelmanratkaisussa</a></h3>
+      <h1>Building Roads</h1>
+<ul class="nav">
+<li><a href="1666/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Building Roads</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="alon">
+<input type="hidden" name="task" value="1666">
+<div class="md"><p>Byteland has <span class="math inline">n</span> cities, and <span class="math inline">m</span> roads between them. The goal is to construct new roads so that there is a route between any two cities.</p>
+<p>Your task is to find out the minimum number of roads required, and also determine which roads should be built.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has two integers <span class="math inline">n</span> and <span class="math inline">m</span>: the number of cities and roads. The cities are numbered <span class="math inline">1,2,\dots,n</span>.</p>
+<p>After that, there are <span class="math inline">m</span> lines describing the roads. Each line has two integers <span class="math inline">a</span> and <span class="math inline">b</span>: there is a road between those cities.</p>
+<p>A road always connects two different cities, and there is at most one road between any two cities.</p>
+<h1 id="output">Output</h1>
+<p>First print an integer <span class="math inline">k</span>: the number of required roads.</p>
+<p>Then, print <span class="math inline">k</span> lines that describe the new roads. You can print any valid solution.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le m \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4 2
+1 2
+3 4
+</pre>
+<p>Output:</p>
+<pre>1
+2 3
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Part 1</h4>...
+<a  href="1651.html">Range Update Queries<span class="task-score icon "></span></a><a  href="2169.html">Nested Ranges Count<span class="task-score icon "></span></a><a  href="1734.html">Distinct Values Queries<span class="task-score icon "></span></a><a class="current" href="1666.html">Building Roads<span class="task-score icon "></span></a><a  href="1195.html">Flight Discount<span class="task-score icon "></span></a><a  href="1202.html">Investigation<span class="task-score icon "></span></a><a  href="1691.html">Mail Delivery<span class="task-score icon "></span></a><a  href="1750.html">Planets Queries I<span class="task-score icon "></span></a>...
+<hr />

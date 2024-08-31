@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2022 alku</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2021-10-04 00:00:00</span></li>
+        <li><b>End:</b> <span>2021-10-18 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1633294800;
+var contest_end = 1634504400;
+var server_time = 1725027146;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=367", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2022 alku - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = false;
+  var virtualContest = false;
+  var contestDuration = 0;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[2503,2508,2505,2530,2507,2531]</script>
+<script type="application/json" id="task-chars">{"2503":"A","2508":"B","2505":"C","2530":"D","2507":"E","2531":"F"}</script>
+<script type="application/json" id="C1-data">{"hltk":[["2021-10-04T00:00:40+0300",100],["2021-10-04T00:03:39+0300",200],["2021-10-04T00:40:00+0300",300],["2021-10-04T00:43:39+0300",400],["2021-10-04T00:49:54+0300",500],["2021-10-05T12:50:52+0300",575],["2021-10-05T15:45:07+0300",590],["2021-10-07T20:50:27+0300",599],["2021-10-12T15:22:29+0300",600]],"Mahtimursu":[["2021-10-04T00:01:04+0300",100],["2021-10-04T00:04:48+0300",200],["2021-10-04T00:41:37+0300",235],["2021-10-04T00:52:22+0300",300],["2021-10-04T01:00:07+0300",340],["2021-10-04T01:00:34+0300",400],["2021-10-04T01:16:34+0300",425],["2021-10-04T15:43:45+0300",500],["2021-10-05T16:25:26+0300",507],["2021-10-05T19:42:02+0300",512],["2021-10-05T19:46:19+0300",526],["2021-10-05T19:48:31+0300",527],["2021-10-05T20:08:15+0300",528],["2021-10-05T20:19:58+0300",529],["2021-10-05T20:24:56+0300",530],["2021-10-05T20:28:46+0300",531]],"intoo":[["2021-10-04T00:01:38+0300",100],["2021-10-04T00:09:30+0300",200],["2021-10-04T00:32:48+0300",300],["2021-10-04T15:28:17+0300",400],["2021-10-04T20:41:53+0300",425],["2021-10-04T22:45:31+0300",500],["2021-10-07T00:13:57+0300",534],["2021-10-07T18:56:34+0300",549],["2021-10-07T22:01:49+0300",553]],"T":[["2021-10-04T00:07:04+0300",100],["2021-10-04T00:20:30+0300",200],["2021-10-04T02:53:27+0300",300],["2021-10-16T03:56:59+0300",365],["2021-10-16T04:03:25+0300",375],["2021-10-17T20:28:28+0300",410],["2021-10-17T23:47:22+0300",411]],"eerosahlberg":[["2021-10-04T00:09:07+0300",100],["2021-10-04T01:05:24+0300",200],["2021-10-13T09:11:40+0300",215],["2021-10-13T09:34:17+0300",300]],"motsgar":[["2021-10-04T00:10:27+0300",100],["2021-10-04T00:21:07+0300",200],["2021-10-04T02:41:02+0300",235],["2021-10-04T02:41:53+0300",300],["2021-10-07T05:02:39+0300",340],["2021-10-11T15:10:32+0300",341],["2021-10-17T00:06:44+0300",351],["2021-10-17T00:08:13+0300",441]],"mooc.fi~486604":[["2021-10-04T00:13:08+0300",100],["2021-10-04T00:37:15+0300",200],["2021-10-04T02:37:30+0300",235],["2021-10-04T10:37:20+0300",275],["2021-10-04T11:04:42+0300",340],["2021-10-04T12:54:52+0300",400],["2021-10-05T23:12:05+0300",425],["2021-10-13T13:48:00+0300",452],["2021-10-14T12:20:59+0300",471]],"Septicuss":[["2021-10-04T00:18:21+0300",100],["2021-10-04T00:53:42+0300",200]],"Salama":[["2021-10-04T00:21:23+0300",100],["2021-10-04T01:00:19+0300",200],["2021-10-04T21:24:07+0300",235],["2021-10-11T14:20:44+0300",300],["2021-10-12T19:46:24+0300",310]],"WalkStalker":[["2021-10-04T00:29:12+0300",100],["2021-10-06T12:05:08+0300",115],["2021-10-06T22:43:51+0300",215]],"kpop":[["2021-10-04T00:53:36+0300",100],["2021-10-04T01:04:53+0300",200],["2021-10-06T07:23:47+0300",235],["2021-10-06T12:33:21+0300",300]],"MojoLake":[["2021-10-04T07:27:41+0300",100],["2021-10-04T10:48:28+0300",200],["2021-10-04T21:40:37+0300",240],["2021-10-04T23:22:53+0300",265],["2021-10-04T23:29:15+0300",300],["2021-10-06T12:24:05+0300",335],["2021-10-07T01:59:06+0300",400],["2021-10-10T07:34:08+0300",410],["2021-10-10T07:35:57+0300",425],["2021-10-11T13:23:17+0300",500]],"Anniiiz":[["2021-10-04T08:00:27+0300",100],["2021-10-04T08:35:42+0300",200],["2021-10-04T10:38:37+0300",300],["2021-10-08T13:43:11+0300",340],["2021-10-08T16:20:08+0300",365],["2021-10-11T15:02:58+0300",370],["2021-10-11T17:35:46+0300",388],["2021-10-15T16:06:16+0300",420],["2021-10-15T17:23:52+0300",432]],"Mixu_78":[["2021-10-04T08:27:37+0300",100],["2021-10-04T09:01:26+0300",200],["2021-10-05T14:31:42+0300",235],["2021-10-05T17:24:29+0300",275]],"Vege":[["2021-10-04T08:32:49+0300",100],["2021-10-08T17:33:39+0300",200]],"ZakkeX":[["2021-10-04T08:39:54+0300",100],["2021-10-04T09:00:28+0300",200],["2021-10-04T10:54:03+0300",235],["2021-10-04T14:06:24+0300",300]],"Anttono":[["2021-10-04T09:33:31+0300",100],["2021-10-04T09:45:40+0300",200],["2021-10-04T10:26:32+0300",235],["2021-10-04T10:27:20+0300",300],["2021-10-04T15:03:06+0300",340],["2021-10-06T19:24:15+0300",365],["2021-10-06T20:51:56+0300",440],["2021-10-08T16:51:29+0300",465],["2021-10-17T16:08:03+0300",500],["2021-10-17T18:22:35+0300",502]],"Kertor":[["2021-10-04T09:34:42+0300",100],["2021-10-04T10:35:14+0300",200],["2021-10-04T19:06:33+0300",235],["2021-10-05T10:42:32+0300",300],["2021-10-11T19:38:14+0300",340]],"tlitola":[["2021-10-04T10:00:34+0300",100],["2021-10-04T13:31:59+0300",200],["2021-10-04T18:29:16+0300",235],["2021-10-04T21:43:29+0300",300]],"O3S":[["2021-10-04T10:01:54+0300",100],["2021-10-04T10:03:12+0300",200],["2021-10-04T12:30:52+0300",280],["2021-10-04T12:39:02+0300",300]],"rethesis":[["2021-10-04T10:05:59+0300",100],["2021-10-04T18:17:51+0300",200],["2021-10-14T10:23:40+0300",300],["2021-10-17T20:03:02+0300",340]],"jusola":[["2021-10-04T10:11:47+0300",100],["2021-10-04T11:03:05+0300",200],["2021-10-10T18:50:00+0300",240],["2021-10-10T20:58:53+0300",275],["2021-10-10T21:16:53+0300",340],["2021-10-12T20:57:44+0300",350]],"jogr":[["2021-10-04T10:20:54+0300",100],["2021-10-04T10:32:31+0300",200],["2021-10-04T14:18:10+0300",235],["2021-10-04T15:08:54+0300",300]],"parasdata":[["2021-10-04T10:24:22+0300",100],["2021-10-04T10:57:51+0300",200],["2021-10-04T19:05:50+0300",235],["2021-10-05T18:13:38+0300",300]],"Matenstein":[["2021-10-04T10:31:57+0300",100],["2021-10-04T10:49:34+0300",200],["2021-10-04T13:08:30+0300",220],["2021-10-04T13:14:52+0300",235],["2021-10-04T19:18:22+0300",300],["2021-10-05T11:34:06+0300",340]],"xenial":[["2021-10-04T10:44:42+0300",100],["2021-10-04T11:14:13+0300",200],["2021-10-05T16:35:01+0300",235],["2021-10-05T20:08:01+0300",300],["2021-10-05T20:39:35+0300",310],["2021-10-07T10:53:59+0300",325],["2021-10-08T10:12:17+0300",365],["2021-10-12T08:37:30+0300",440]],"Kaapipo":[["2021-10-04T11:23:38+0300",100],["2021-10-04T11:49:02+0300",200],["2021-10-04T13:15:35+0300",300],["2021-10-05T15:09:28+0300",340],["2021-10-11T13:01:04+0300",350]],"Microwave Abuser":[["2021-10-04T11:33:22+0300",100],["2021-10-04T12:33:18+0300",200],["2021-10-04T15:30:24+0300",300]],"Capibari":[["2021-10-04T11:36:57+0300",100],["2021-10-04T13:16:31+0300",200]],"KalleMikkonen":[["2021-10-04T12:35:41+0300",100],["2021-10-04T20:49:49+0300",200]],"lain":[["2021-10-04T12:36:03+0300",100],["2021-10-04T14:21:17+0300",200],["2021-10-05T11:08:28+0300",235],["2021-10-05T11:41:32+0300",275],["2021-10-06T19:49:47+0300",375],["2021-10-11T22:55:29+0300",440]],"Zexee":[["2021-10-04T12:44:51+0300",100],["2021-10-04T14:07:48+0300",200],["2021-10-07T14:17:51+0300",300]],"Kargeri":[["2021-10-04T12:48:34+0300",100],["2021-10-04T13:08:38+0300",200],["2021-10-06T22:47:02+0300",220],["2021-10-07T16:00:54+0300",235],["2021-10-07T21:06:35+0300",285],["2021-10-07T21:31:07+0300",300]],"Parodontax":[["2021-10-04T12:51:54+0300",100],["2021-10-04T14:26:03+0300",200]],"tonero":[["2021-10-04T12:55:16+0300",100],["2021-10-04T13:21:02+0300",200],["2021-10-05T17:57:29+0300",220],["2021-10-05T18:02:13+0300",235],["2021-10-05T19:04:14+0300",300],["2021-10-10T12:24:15+0300",310],["2021-10-13T21:09:42+0300",350],["2021-10-16T16:09:03+0300",365],["2021-10-17T23:02:02+0300",425]],"andreibe":[["2021-10-04T13:05:55+0300",100],["2021-10-04T13:28:50+0300",200],["2021-10-04T16:02:37+0300",300],["2021-10-05T13:40:41+0300",340],["2021-10-08T18:52:41+0300",350],["2021-10-11T21:41:03+0300",410],["2021-10-14T20:27:44+0300",425],["2021-10-16T12:30:02+0300",442]],"ileska":[["2021-10-04T13:21:18+0300",100],["2021-10-04T13:50:38+0300",200],["2021-10-08T09:17:17+0300",285],["2021-10-08T09:44:26+0300",300]],"LiminalAlien":[["2021-10-04T13:21:31+0300",100],["2021-10-04T13:41:33+0300",200],["2021-10-06T16:17:55+0300",235],["2021-10-07T19:28:59+0300",275],["2021-10-11T14:49:30+0300",285]],"Luukasa":[["2021-10-04T13:24:14+0300",100],["2021-10-05T21:50:08+0300",200],["2021-10-06T00:12:23+0300",235],["2021-10-06T00:24:49+0300",300]],"siar":[["2021-10-04T14:12:16+0300",100]],"Waba":[["2021-10-04T15:18:24+0300",100],["2021-10-04T15:53:34+0300",200],["2021-10-05T14:52:06+0300",235],["2021-10-06T19:51:21+0300",300],["2021-10-06T23:30:42+0300",340]],"EeliH":[["2021-10-04T15:33:21+0300",100],["2021-10-04T16:29:50+0300",200],["2021-10-04T20:26:05+0300",300],["2021-10-04T23:07:49+0300",340],["2021-10-05T15:54:19+0300",400],["2021-10-06T23:41:49+0300",410],["2021-10-06T23:45:41+0300",425]],"Totska":[["2021-10-04T15:46:58+0300",100],["2021-10-04T16:08:54+0300",200],["2021-10-06T17:59:29+0300",220],["2021-10-06T18:04:08+0300",235],["2021-10-06T18:23:18+0300",300],["2021-10-10T20:15:19+0300",340],["2021-10-12T09:37:22+0300",365],["2021-10-12T10:22:06+0300",440],["2021-10-14T19:38:04+0300",465],["2021-10-17T20:00:20+0300",500]],"Erikoisjaakari":[["2021-10-04T16:44:20+0300",100],["2021-10-06T10:44:50+0300",200],["2021-10-06T18:19:04+0300",215],["2021-10-06T18:23:09+0300",235]],"mbezirgan":[["2021-10-04T16:52:07+0300",100],["2021-10-04T18:30:07+0300",200],["2021-10-04T19:04:15+0300",235],["2021-10-14T19:58:05+0300",300],["2021-10-14T23:20:25+0300",340],["2021-10-14T23:38:33+0300",365],["2021-10-17T00:22:48+0300",390]],"Katto":[["2021-10-04T17:03:09+0300",100],["2021-10-04T17:24:44+0300",200],["2021-10-06T18:27:24+0300",235],["2021-10-06T20:14:27+0300",300],["2021-10-09T13:47:27+0300",340]],"jmarttinen":[["2021-10-04T17:14:08+0300",100],["2021-10-04T17:38:26+0300",200],["2021-10-04T20:13:30+0300",235],["2021-10-04T20:19:29+0300",300],["2021-10-05T07:39:51+0300",365],["2021-10-07T22:20:21+0300",390]],"masuman":[["2021-10-04T18:01:00+0300",100],["2021-10-04T19:01:54+0300",200],["2021-10-06T21:50:34+0300",235],["2021-10-07T00:09:31+0300",300],["2021-10-10T17:21:27+0300",340]],"shmoul":[["2021-10-04T18:24:50+0300",100],["2021-10-04T18:25:26+0300",200],["2021-10-05T19:21:45+0300",300],["2021-10-17T22:23:03+0300",310]],"Zatzou":[["2021-10-04T19:10:17+0300",100],["2021-10-04T19:38:46+0300",200]],"ENTL":[["2021-10-04T19:15:41+0300",100],["2021-10-04T19:58:57+0300",200],["2021-10-05T10:37:13+0300",235],["2021-10-05T11:01:38+0300",300],["2021-10-09T14:25:15+0300",340]],"Jellu":[["2021-10-04T19:21:18+0300",100],["2021-10-04T19:42:49+0300",200],["2021-10-05T19:23:31+0300",235],["2021-10-09T13:26:46+0300",300],["2021-10-11T07:06:31+0300",340],["2021-10-11T21:08:16+0300",365],["2021-10-17T11:07:22+0300",375]],"Emunemu":[["2021-10-04T20:49:48+0300",100],["2021-10-04T22:13:50+0300",200],["2021-10-05T16:45:36+0300",235],["2021-10-05T18:22:49+0300",300]],"elias26":[["2021-10-04T21:39:58+0300",100],["2021-10-04T22:21:27+0300",200],["2021-10-09T12:34:13+0300",215]],"johannes":[["2021-10-04T21:54:55+0300",100]],"ToukoP":[["2021-10-04T22:34:18+0300",100],["2021-10-04T22:51:23+0300",200],["2021-10-04T23:02:49+0300",235],["2021-10-05T15:03:32+0300",300],["2021-10-06T17:44:51+0300",325],["2021-10-16T13:31:47+0300",365]],"Turtleb01":[["2021-10-04T23:00:39+0300",100],["2021-10-04T23:13:59+0300",200],["2021-10-05T00:36:05+0300",300]],"AnttiE":[["2021-10-04T23:17:35+0300",100],["2021-10-04T23:26:18+0300",200],["2021-10-05T17:57:36+0300",235]],"OivaP":[["2021-10-05T10:25:22+0300",100]],"Og3":[["2021-10-05T11:34:06+0300",100],["2021-10-05T14:23:40+0300",135],["2021-10-05T15:54:19+0300",235],["2021-10-07T12:22:33+0300",300]],"cowperso":[["2021-10-05T11:56:25+0300",100],["2021-10-05T12:25:14+0300",200],["2021-10-05T20:27:55+0300",235],["2021-10-05T20:33:54+0300",300],["2021-10-07T20:50:12+0300",400],["2021-10-09T10:00:58+0300",425]],"tassu":[["2021-10-05T12:15:51+0300",100],["2021-10-05T12:19:35+0300",200],["2021-10-05T17:19:02+0300",210],["2021-10-05T20:08:19+0300",245],["2021-10-06T07:38:48+0300",260]],"Markus N":[["2021-10-05T13:19:03+0300",100],["2021-10-05T16:32:33+0300",200],["2021-10-07T11:53:54+0300",300]],"erhuht":[["2021-10-05T14:47:21+0300",100],["2021-10-05T22:54:21+0300",200],["2021-10-06T19:34:59+0300",235],["2021-10-06T20:37:19+0300",300]],"raikasdev":[["2021-10-05T15:58:05+0300",100]],"Juho":[["2021-10-05T16:27:15+0300",100],["2021-10-05T16:52:41+0300",200],["2021-10-06T19:13:36+0300",300],["2021-10-06T20:24:45+0300",400],["2021-10-07T16:57:00+0300",500]],"Ebin :D":[["2021-10-05T19:31:43+0300",100],["2021-10-11T09:29:08+0300",200],["2021-10-15T08:30:52+0300",215]],"eaittok":[["2021-10-05T19:56:02+0300",100],["2021-10-05T21:24:48+0300",200],["2021-10-06T14:37:27+0300",300],["2021-10-07T18:17:13+0300",340]],"jaaskelainen":[["2021-10-05T20:02:13+0300",100],["2021-10-05T20:33:53+0300",200],["2021-10-05T21:27:18+0300",235]],"Bliz":[["2021-10-05T20:35:35+0300",100],["2021-10-05T20:36:19+0300",200],["2021-10-05T20:37:27+0300",235],["2021-10-05T21:22:47+0300",300],["2021-10-06T22:11:54+0300",340]],"MatvaZ":[["2021-10-05T22:03:43+0300",100],["2021-10-06T11:53:41+0300",200]],"eetul":[["2021-10-06T10:35:33+0300",100],["2021-10-06T11:20:27+0300",200],["2021-10-06T17:10:51+0300",235],["2021-10-17T20:04:51+0300",300]],"Sahari Kempo":[["2021-10-06T10:56:07+0300",100],["2021-10-06T20:00:32+0300",200],["2021-10-10T21:24:27+0300",235],["2021-10-14T16:29:00+0300",300]],"okkokko":[["2021-10-06T11:16:01+0300",100],["2021-10-06T11:31:00+0300",200],["2021-10-06T17:37:43+0300",285],["2021-10-06T17:59:01+0300",300],["2021-10-07T16:36:59+0300",365],["2021-10-07T22:52:06+0300",400],["2021-10-11T17:17:21+0300",425],["2021-10-14T19:37:55+0300",500],["2021-10-17T04:56:15+0300",526],["2021-10-17T08:25:16+0300",544],["2021-10-17T08:31:54+0300",548],["2021-10-17T08:39:18+0300",557],["2021-10-17T09:39:46+0300",565],["2021-10-17T09:52:58+0300",566]],"Tipu":[["2021-10-06T12:31:44+0300",100],["2021-10-06T15:59:12+0300",200],["2021-10-07T13:20:37+0300",235],["2021-10-09T14:19:54+0300",300],["2021-10-14T09:54:57+0300",310]],"HJfod":[["2021-10-06T13:01:37+0300",100],["2021-10-06T14:17:38+0300",200]],"fait":[["2021-10-06T13:58:12+0300",100],["2021-10-06T20:48:13+0300",200]],"Vlad":[["2021-10-06T17:16:50+0300",100],["2021-10-06T20:32:56+0300",200]],"berqiamouad":[["2021-10-06T17:22:40+0300",100],["2021-10-06T17:53:13+0300",200]],"ZU7U":[["2021-10-06T17:47:43+0300",100],["2021-10-09T17:17:44+0300",200]],"kkaktuss":[["2021-10-06T20:47:58+0300",100],["2021-10-11T13:04:29+0300",200],["2021-10-13T16:24:37+0300",300]],"jymyzy":[["2021-10-06T21:34:07+0300",100],["2021-10-11T09:48:08+0300",200]],"suspi":[["2021-10-06T22:00:44+0300",100]],"xnor":[["2021-10-06T23:02:07+0300",100],["2021-10-06T23:02:27+0300",200],["2021-10-06T23:02:44+0300",300],["2021-10-06T23:02:59+0300",400],["2021-10-06T23:03:18+0300",500],["2021-10-06T23:03:43+0300",600]],"victor05":[["2021-10-07T10:08:45+0300",100],["2021-10-07T20:00:39+0300",200],["2021-10-09T16:00:23+0300",235],["2021-10-17T17:02:54+0300",245]],"Nikedi":[["2021-10-07T12:49:54+0300",100],["2021-10-08T09:19:55+0300",200],["2021-10-08T18:38:25+0300",220],["2021-10-08T18:41:26+0300",235],["2021-10-09T15:19:25+0300",300],["2021-10-14T13:51:50+0300",340],["2021-10-17T15:26:10+0300",341]],"Zendium":[["2021-10-07T14:55:42+0300",100],["2021-10-07T15:36:10+0300",200],["2021-10-07T16:46:24+0300",235],["2021-10-07T18:59:08+0300",300],["2021-10-15T22:02:19+0300",310]],"JuhaniA":[["2021-10-07T20:06:39+0300",100]],"rixu":[["2021-10-07T20:48:16+0300",100],["2021-10-08T02:07:16+0300",200]],"wolruso":[["2021-10-07T21:42:09+0300",100],["2021-10-08T17:04:39+0300",200],["2021-10-10T18:53:04+0300",235],["2021-10-10T20:00:20+0300",300],["2021-10-17T23:17:37+0300",340]],"Helja":[["2021-10-08T00:29:37+0300",100]],"arde100":[["2021-10-08T11:18:49+0300",100],["2021-10-08T11:46:35+0300",200],["2021-10-08T19:13:49+0300",215],["2021-10-09T23:12:58+0300",235],["2021-10-10T14:26:41+0300",300]],"voidsgrasp":[["2021-10-08T11:33:38+0300",100]],"toyota":[["2021-10-08T16:16:02+0300",100],["2021-10-08T18:15:31+0300",200]],"Lexa_ft":[["2021-10-08T19:32:05+0300",100],["2021-10-08T19:54:19+0300",200],["2021-10-09T18:00:45+0300",235],["2021-10-09T21:15:30+0300",300]],"Harvest":[["2021-10-09T10:29:21+0300",100],["2021-10-12T10:45:16+0300",200]],"qanpi":[["2021-10-09T22:35:01+0300",100],["2021-10-09T23:43:58+0300",200]],"waltteri":[["2021-10-09T23:11:58+0300",100],["2021-10-09T23:30:34+0300",200]],"pingumies779":[["2021-10-10T09:20:55+0300",100],["2021-10-10T10:37:48+0300",200]],"Alv":[["2021-10-11T10:44:15+0300",100],["2021-10-11T13:16:07+0300",200],["2021-10-12T23:24:54+0300",235],["2021-10-14T04:24:19+0300",300]],"OivaPeltola":[["2021-10-12T23:31:45+0300",100],["2021-10-13T21:23:22+0300",200],["2021-10-14T00:34:36+0300",235]],"Kirill_Akimov":[["2021-10-12T23:38:26+0300",100],["2021-10-12T23:38:44+0300",200],["2021-10-12T23:39:20+0300",300],["2021-10-16T23:36:29+0300",400],["2021-10-17T20:17:39+0300",425]],"valk":[["2021-10-13T00:25:40+0300",100],["2021-10-13T15:22:40+0300",200],["2021-10-13T19:54:04+0300",215],["2021-10-14T10:57:03+0300",235]],"Theelevinr":[["2021-10-13T10:37:02+0300",100],["2021-10-14T09:25:47+0300",200]],"severi":[["2021-10-13T12:43:10+0300",100],["2021-10-13T12:55:20+0300",200],["2021-10-14T14:51:24+0300",215],["2021-10-14T16:48:38+0300",235],["2021-10-17T13:23:06+0300",300]],"Kaspersaarivirta":[["2021-10-13T15:47:22+0300",100]],"Julius_boiii":[["2021-10-13T17:19:31+0300",100]],"PMikael":[["2021-10-13T19:59:54+0300",100]],"xyrj":[["2021-10-13T22:54:22+0300",10],["2021-10-13T22:55:26+0300",100],["2021-10-13T22:59:09+0300",200],["2021-10-13T23:22:28+0300",300],["2021-10-14T13:52:33+0300",335],["2021-10-14T14:20:55+0300",400],["2021-10-16T14:18:52+0300",440],["2021-10-16T14:59:06+0300",441],["2021-10-17T23:16:31+0300",442],["2021-10-17T23:58:29+0300",443]],"Lizene":[["2021-10-14T23:44:51+0300",100],["2021-10-15T00:29:24+0300",200],["2021-10-15T17:43:07+0300",300]],"EmilCoder":[["2021-10-16T14:23:12+0300",100],["2021-10-16T14:50:05+0300",200]],"ErkkaP":[["2021-10-16T18:09:24+0300",100]]}</script>
+<script type="application/json" id="C2-data">{"C++":185,"Python3":170,"text":24,"Java":13,"Ruby":7,"Node.js":6,"Rust":6,"Haskell":4,"Assembly":1}</script>
+<script type="application/json" id="C3-data">{"2503":[47,0,17,33,12,0,2,0,4,0,0,2,0,0,0,0,0,0,0],"2508":[24,6,13,7,11,4,6,0,4,10,2,12,1,2,0,0,0,0,0],"2505":[40,2,1,16,1,0,12,3,1,1,1,0,0,0,1,0,0,0,0],"2530":[5,1,0,10,3,4,5,1,2,2,8,7,3,1,0,0,0,0,0],"2507":[3,2,1,2,1,1,2,4,3,6,2,5,7,3,0,0,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"2503":[0,0,1,1,7,19,30,28,15,11,4,1,0,0,0,0,0,0,0,0,0,0,0,0],"2508":[0,0,0,0,1,1,13,13,29,31,9,3,2,0,0,0,0,0,0,0,0,0,0,0],"2505":[0,0,0,0,0,0,0,2,3,16,21,22,8,7,0,0,0,0,0,0,0,0,0,0],"2530":[0,0,0,0,0,1,1,0,4,12,12,12,5,2,2,1,0,0,0,0,0,0,0,0],"2507":[0,0,0,0,0,1,0,1,0,6,9,6,9,4,5,1,0,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"2503":2.142857142857143,"2508":1.66,"2505":5.367088607594937,"2530":4.975,"2507":5.882352941176471,"2531":4.769230769230769}</script>
+<script type="application/json" id="people-names">[]</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>131</td>
+    <td>1667</td>
+    <td>33058</td>
+    <td>310</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>12.7</td>
+    <td>252.4</td>
+    <td>2.4</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

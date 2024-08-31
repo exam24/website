@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Inversiot</h1>
+<ul class="nav">
+<li><a href="3049/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Inversiot</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3049">
+<div class="md"><p>Annettuna on lista, joka muodostuu luvuista <span class="math inline">1 \dots n</span>. Indeksipari <span class="math inline">(i,j)</span> on <em>inversio</em>, jos <span class="math inline">i&lt;j</span> ja listan kohdassa <span class="math inline">i</span> on suurempi luku kuin kohdassa <span class="math inline">j</span>.</p>
+<p>Voit olettaa, että <span class="math inline">n</span> on enintään <span class="math inline">100</span>.</p>
+<p>Toteuta tiedostoon <code>inversions.py</code> funktio <code>count</code>, joka laskee inversioiden määrän.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def count(t):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(count([1,3,2])) # 1
+    print(count([1])) # 0
+    print(count([4,3,2,1])) # 6
+    print(count([1,8,2,7,3,6,4,5])) # 12
+</pre>
+<p><em>Selitys</em>: Listassa <span class="math inline">[4,3,2,1]</span> inversiot ovat <span class="math inline">(0,1)</span>, <span class="math inline">(0,2)</span>, <span class="math inline">(0,3)</span>, <span class="math inline">(1,2)</span>, <span class="math inline">(1,3)</span> ja <span class="math inline">(2,3)</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 1</h4><a  href="3055.html">Karkit<span class="task-score icon "></span></a><a class="current" href="3049.html">Inversiot<span class="task-score icon "></span></a><a  href="3054.html">Samat bitit<span class="task-score icon "></span></a><a  href="2643.html">Toistaminen<span class="task-score icon "></span></a><a  href="3052.html">Tehokkuustesti<span class="task-score icon "></span></a><a  href="3248.html">Lukujono<span class="task-score icon "></span></a><a  href="3051.html">Aikavaativuudet<span class="task-score icon "></span></a><a  href="2821.html">Suorakulmiot<span class="task-score icon "></span></a><hr />

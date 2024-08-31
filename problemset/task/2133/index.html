@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Dynamic Connectivity</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/2133/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Dynamic Connectivity</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2133">
+<div class="md"><p>Consider an undirected graph that consists of <span class="math inline">n</span> nodes and <span class="math inline">m</span> edges. There are two types of events that can happen:</p>
+<ol>
+<li>A new edge is created between nodes <span class="math inline">a</span> and <span class="math inline">b</span>.</li>
+<li>An existing edge between nodes <span class="math inline">a</span> and <span class="math inline">b</span> is removed.</li>
+</ol>
+<p>Your task is to report the number of components after every event.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has three integers <span class="math inline">n</span>, <span class="math inline">m</span> and <span class="math inline">k</span>: the number of nodes, edges and events.</p>
+<p>After this there are <span class="math inline">m</span> lines describing the edges. Each line has two integers <span class="math inline">a</span> and <span class="math inline">b</span>: there is an edge between nodes <span class="math inline">a</span> and <span class="math inline">b</span>. There is at most one edge between any pair of nodes.</p>
+<p>Then there are <span class="math inline">k</span> lines describing the events. Each line has the form &quot;<span class="math inline">t</span> <span class="math inline">a</span> <span class="math inline">b</span>&quot; where <span class="math inline">t</span> is 1 (create a new edge) or 2 (remove an edge). A new edge is always created between two nodes that do not already have an edge between them, and only existing edges can get removed.</p>
+<h1 id="output">Output</h1>
+<p>Print <span class="math inline">k+1</span> integers: first the number of components before the first event, and after this the new number of components after each event.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">2 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le m,k \le 10^5</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5 3 3
+1 4
+2 3
+3 5
+1 2 5
+2 3 5
+1 1 2
+</pre>
+<p>Output:</p>
+<pre>2 2 2 1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Advanced Techniques</h4>...
+<a  href="../2111.html">Apples and Bananas<span class="task-score icon "></span></a><a  href="../2112.html">One Bit Positions<span class="task-score icon "></span></a><a  href="../2113.html">Signal Processing<span class="task-score icon "></span></a><a  href="../2101.html">New Roads Queries<span class="task-score icon "></span></a><a class="current" href="../2133.html">Dynamic Connectivity<span class="task-score icon "></span></a><a  href="../2121.html">Parcel Delivery<span class="task-score icon "></span></a><a  href="../2129.html">Task Assignment<span class="task-score icon "></span></a><a  href="../2130.html">Distinct Routes II<span class="task-score icon "></span></a><hr />

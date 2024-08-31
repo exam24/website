@@ -1,0 +1,156 @@
+		<!DOCTYPE html>
+				<html lang="fi" >
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			
+			<title>Ohjelmointiputka: Toinen sivusto pyytää tietojasi</title>
+
+							<link rel="stylesheet" href="https://www.ohjelmointiputka.net/css/perustyylit.css?t=20240211172020" type="text/css">
+							<link rel="stylesheet" href="https://www.ohjelmointiputka.net/css/asettelu.css?t=20221219094800" type="text/css">
+							<link rel="stylesheet" href="https://www.ohjelmointiputka.net/css/viestit.css?t=20210616155018" type="text/css">
+							<link rel="stylesheet" href="https://www.ohjelmointiputka.net/css/varit-harmaa.css?t=20240211172222" type="text/css">
+							<link rel="stylesheet" href="https://www.ohjelmointiputka.net/css/koodit.css?t=20170808094348" type="text/css">
+						<link rel="stylesheet" media="print" href="https://www.ohjelmointiputka.net/css/varit-harmaa.css?t=20240211172222">
+			<link rel="stylesheet" media="print" href="https://www.ohjelmointiputka.net/css/print.css?t=20190222120154">
+			<link rel="shortcut icon" href="https://www.ohjelmointiputka.net/favicon.ico">
+
+			
+							<script src="https://www.ohjelmointiputka.net/js-jquery/jquery.min.js?t=20200222172851"></script>
+				<script src="https://www.ohjelmointiputka.net/js-jquery/ohjelmointiputka.js?t=20200617124928"></script>
+				<script>
+					$(function(){
+						function f(a,b) {
+							$.ajax({dataType: "script", cache: true, url: a}).done(b);
+						}
+						OP.alusta({"root":"\/","ajax":{"docroot_uri_path_cwd":"\/api\/oauth"},"kayttaja":null,"debug":null,"ignore_kayttajat":[]});
+													f("/js-jquery/sivupalkki.js?t=20150717110445");
+													f("/js-jquery/tyokalut.js?t=20130505122321");
+													f("/js-jquery/muotoilunapit.js?t=20220623191742");
+													f("/js-jquery/muotoilu.js?t=20210616155048");
+													f("/js-jquery/textarea.tabit.js?t=20170326110416");
+													f("/js-jquery/tuplalahetys.js?t=20130505122241");
+													f("/js-jquery/poistumisvahvistus.js?t=20130505122228");
+													f("/js-jquery/esikatselu.js?t=20190922003754");
+													f("/js-jquery/lainaus.js?t=20210116122016");
+													f("/js-jquery/muokkaus.js?t=20190922003504");
+													f("/js-jquery/ajaxpaivitys.js?t=20131013195543");
+													f("/js-jquery/korvausefekti.js?t=20130505121834");
+													f("/js-jquery/asetussivu.js?t=20130505121432");
+													f("/js-jquery/kysely.js?t=20210123093320");
+													f("/js-jquery/ignore.js?t=20180819224227");
+						
+						// Facebook-linkki, jos käytössä.
+						(function(d, s, id) {
+							if (!$(".facebook").length) return;
+							if (!$("#fb-root").length) $("body").append("<div id='fb-root'></div>");
+							var js, fjs = d.getElementsByTagName(s)[0];
+							if (d.getElementById(id)) return;
+							js = d.createElement(s); js.id = id;
+							js.src = "//connect.facebook.net/fi_FI/sdk.js#xfbml=1&version=v2.4";
+							fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));
+
+						// Lomakkeet, joissa eväste on välttämätön (eli kirjautumislomake).
+						for (let form of document.querySelectorAll("form.needs-cookie-enabled")) {
+							form.addEventListener("submit", e => {
+								if (navigator.cookieEnabled === false) {
+									alert("Evästeet täytyy sallia!");
+									e.preventDefault();
+									return false;
+								}
+							});
+						}
+					});
+				</script>
+								</head>
+		<body>
+			<div id="logo" class="logo"><span>Ohjelmointiputka</span></div>
+			<ul id="navigaatio" class="navigaatio linkkilista">
+									<li><a href="https://www.ohjelmointiputka.net/">Etusivu</a></li>
+									<li><a href="https://www.ohjelmointiputka.net/oppaat/">Oppaat</a></li>
+									<li><a href="https://www.ohjelmointiputka.net/koodivinkit/">Koodivinkit</a></li>
+									<li><a href="https://www.ohjelmointiputka.net/keskustelu/">Keskustelu</a></li>
+									<li><a href="https://www.ohjelmointiputka.net/kilpailut.php">Kilpailut</a></li>
+									<li><a href="https://www.ohjelmointiputka.net/tehtavat.php">Tehtävät</a></li>
+									<li><a href="https://www.ohjelmointiputka.net/palaute.php">Palaute</a></li>
+							</ul>
+							<div id="sivupalkki" class="sivupalkki">
+										<div class="sivulaatikko">
+				<h2>Kirjautuminen</h2>
+				<form action="https://www.ohjelmointiputka.net/sisaan.php" method="post" class="needs-cookie-enabled">
+					<input type='hidden' name='OP-CSRF' value='R6keLfOTGgyFjMes0JoxM0AG9EatJEJ8' />					<input type='hidden' name='referer' value='https://www.ohjelmointiputka.net/api/oauth/authorize?client_id=cses.fi&amp;redirect_uri=https%3A%2F%2Fcses.fi%2Flogin%2Foauth-callback&amp;response_type=code&amp;state=putka%3A7ca6eed6063eb2c20c643e08294aa812' />					<dl class="allekkain">
+						<dt><label for="66d1d48540b8b-tunnus">Tunnus</label></dt>
+						<dd><input type="text" id="66d1d48540b8b-tunnus" name="tunnus" required="required" /></dd>
+						<dt><label for="66d1d48540b8b-salasana">Salasana</label></dt>
+						<dd><input type="password" id="66d1d48540b8b-salasana" name="salasana" /></dd>
+					</dl>
+					<fieldset class="submit">
+						<button type="submit" class="needs-cookie-enabled">Kirjaudu</button>
+					</fieldset>
+					<ul>
+						<li><a href="https://www.ohjelmointiputka.net/rek.php">Uusi käyttäjä?</a></li>
+						<li><a href="https://www.ohjelmointiputka.net/kayttajat/palautus.php" rel="nofollow">Unohditko tietosi?</a></li>
+					</ul>
+				</form>
+			</div>
+						<div class="sivulaatikko sivulaatikko-tarpeeton">
+			<h2><a href="https://www.ohjelmointiputka.net/haku.php">Haku</a></h2>
+			<form id="haku" action="https://www.ohjelmointiputka.net/haku.php" method="get">
+				<input type="search" name="sana" required="required" />
+				<button type="submit">Hae!</button>
+			</form>
+		</div>
+				<div class="sivulaatikko sivulaatikko-tarpeeton">
+		<h2>Tehtävät</h2>
+		<ul>
+			<li><a href="https://www.ohjelmointiputka.net/postit/">Putkaposti</a></li>
+			<li><a href="https://www.ohjelmointiputka.net/phph/">PHP-haaste</a></li>
+			<li><a href="https://www.ohjelmointiputka.net/slh/">SL-haaste</a></li>
+					</ul>
+		</div>
+					<div class="sivulaatikko sivulaatikko-tarpeeton">
+			<h2>Koodivinkit</h2>
+			<ul>
+													<li><em>Päivän nosto:</em><br /><a href="https://www.ohjelmointiputka.net/koodivinkit/23487-qb-v%C3%83%C2%A4riliuku">QB: Väriliuku</a> (grafiikka, koodi näytille, vinkki)</li>
+							</ul>
+			</div>
+					<div class="sivulaatikko sivulaatikko-tarpeeton">
+			<h2><a href="https://www.ohjelmointiputka.net/keskustelu/uudet.php">Uudet viestit</a></h2>
+			<div id="sivupalkki_keskustelun_uusin">
+				<div class="sivupalkki-keskustelu-uusin-viesti" data-kayttaja-id="15632">
+					<p>Voi, mutta vaatii hieman vähemmän ohjel­moin­ti­o­saa­mista kuin sama C++:lla tai...
+</p>				</div>
+				(<a href="https://www.ohjelmointiputka.net/keskustelu/32508-voiko-matplotlibill%C3%83%C2%A4-tehd%C3%83%C2%A4-minigeogebran/v-246889">Ohjelmointikysymykset, Voiko Matplotlibillä tehdä minigeogebran?</a>, <a href="https://www.ohjelmointiputka.net/kayttajat/profiili/mavavilj">mavavilj</a>)
+			</div>
+		</div>
+						</div>
+									<div id="sisalto" class="sisalto">
+		
+		<h1>Toinen sivusto pyytää tietojasi</h1>
+		<p>CSES (cses.fi) pyytää pääsyä käyttäjätietoihisi.</p>
+
+					<p>Kirjaudu sisään Ohjelmointiputkaan ensin.</p>
+			<form action="https://www.ohjelmointiputka.net/sisaan.php" method="post">
+			<input type='hidden' name='OP-CSRF' value='R6keLfOTGgyFjMes0JoxM0AG9EatJEJ8' />			<input type='hidden' name='referer' value='https://www.ohjelmointiputka.net/api/oauth/authorize?client_id=cses.fi&amp;redirect_uri=https%3A%2F%2Fcses.fi%2Flogin%2Foauth-callback&amp;response_type=code&amp;state=putka%3A7ca6eed6063eb2c20c643e08294aa812' />			<dl>
+				<dt>Tunnus</dt>
+				<dd><input type="text" name="tunnus" size="20" required="required" /></dd>
+
+				<dt>Salasana</dt>
+				<dd><input type="password" name="salasana" size="20" required="required" /></dd>
+			</dl>
+			<fieldset class="submit">
+				<button type="submit">Kirjaudu</button>
+			</fieldset>
+			</form>
+		
+		<form action="https://cses.fi/login/oauth-callback" method="GET">
+			<input value="putka:7ca6eed6063eb2c20c643e08294aa812" type="hidden" name="state" />			<input value="access_denied" type="hidden" name="error" />			<fieldset class="submit"><button type="submit">En, kiellä pääsy!</button></fieldset>
+		</form>
+
+					</div>
+						<div id="alapalkki" class="alapalkki">
+				<a href="https://www.ohjelmointiputka.net/ohje.php">Tietoa sivustosta</a>							</div>
+		</body>
+		</html>
+		

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Tekniset ohjeet</h1>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+<title>CSES - Tekniset ohjeet</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="311">
+<div class="md"><h1 id="tehtavanratkaiseminen">Tehtävän ratkaiseminen</h1>
+<p>Jokaisessa tehtävässä on tarkoitus laatia ohjelma, joka lukee syötteen standardisyötteestä ja kirjoittaa tulosteen standarditulosteeseen. CSES tarkistaa automaattisesti ohjelman toimivuuden testaamalla sitä joukolla syötteitä.</p>
+<p>Tehtävän testiaineisto ja ohjelman antamat tulokset on mahdollista nähdä ohjelman lähettämisen jälkeen. Ratkaisun tulisi kuitenkin olla sellainen, että siihen olisi ollut mahdollista päätyä pelkän tehtävänannon perusteella.</p>
+<h1 id="virhetilanteet">Virhetilanteet</h1>
+<p>CSES tunnistaa seuraavat virhetilanteet:</p>
+<p><em>COMPILE ERROR</em>: Ohjelman kääntäminen ei onnistunut. Lisätiedoissa näet kääntäjän virheilmoituksen.</p>
+<p><em>OUTPUT LIMIT EXCEEDED</em>: Ohjelma tuotti liikaa tulostetta.</p>
+<p><em>TIME LIMIT EXCEEDED</em>: Ohjelman suoritus kesti liian kauan.</p>
+<p><em>RUNTIME ERROR</em>: Ohjelma palautti nollasta poikkeavan palautusarvon (exit code). Tämä tulee esimerkiksi, jos muisti loppuu kesken tai koodi heittää käsittelemättömän poikkeuksen.</p>
+<p>Mikäli ohjelma tuottaa useamman virheen, niistä näytetään edellisen listan mukaan ensimmäinen.</p>
+<h1 id="ohjelmointikielet">Ohjelmointikielet</h1>
+<p>Sallitut ohjelmointikielet ovat Assembly, C++, Java, Python ja Haskell. C++ on suositeltava kieli, ja joissakin tehtävissä muut kielet voivat olla liian hitaita.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Yleistä</h4><a  href="373.html">Johdanto</a><a class="current" href="311.html">Tekniset ohjeet</a><a  href="1307.html">Kisat ja leirit (arkisto)</a></div>
+</div>

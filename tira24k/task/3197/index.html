@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Uudet tiet</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Uudet tiet</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3197">
+<div class="md"><p>Bittimaassa on <span class="math inline">n</span> kaupunkia, joiden välillä ei ole alussa teitä. Tavoitteena on yhdistää kaikki kaupungit toisiinsa teiden avulla.</p>
+<p>Annettuna on joukko mahdollisia teitä ja jokaisesta tiestä rakentamisen hinta. Mikä on pienin kustannus, jolla voidaan rakentaa tieverkosto niin, että jokaisen kahden kaupungin välillä on reitti?</p>
+<p>Toteuta luokka <code>NewRoads</code>, jossa on seuraavat metodit:</p>
+<ul>
+<li><code>add_road</code> tarjoaa kaupunkien <span class="math inline">a</span> ja <span class="math inline">b</span> välille tietä, jonka hinta on <span class="math inline">x</span></li>
+<li><code>min_cost</code> ilmoittaa pienimmän rakentamisen kokonaiskustannuksen (tai <span class="math inline">-1</span>, jos ei ole mahdollista yhdistää kaikkia kaupunkeja)</li>
+</ul>
+<p>Toteuta luokka tiedostoon <code>newroads.py</code> seuraavan esimerkin mukaisesti.</p>
+<pre class="resize-horizontal prettyprint lang-auto">class NewRoads:
+    def __init__(self, n):
+        # TODO
+
+    def add_road(self, a, b, x):
+        # TODO
+
+    def min_cost(self):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    n = NewRoads(4)
+    n.add_road(1, 2, 2)
+    n.add_road(1, 3, 5)
+    print(n.min_cost()) # -1
+    n.add_road(3, 4, 4)
+    print(n.min_cost()) # 11
+    n.add_road(2, 3, 1)
+    print(n.min_cost()) # 7
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 15</h4><a  href="../2928.html">Pienin virittävä puu<span class="task-score icon "></span></a><a  href="../2929.html">Suurin virittävä puu<span class="task-score icon "></span></a><a  href="../3196.html">Komponentit<span class="task-score icon "></span></a><a class="current" href="../3197.html">Uudet tiet<span class="task-score icon "></span></a><a  href="../3198.html">Suurin joukko<span class="task-score icon "></span></a><a  href="../3199.html">Samat painot<span class="task-score icon "></span></a><a  href="../3200.html">Seinät ja lattiat<span class="task-score icon "></span></a><a  href="../3201.html">Kaikki puut<span class="task-score icon "></span></a><hr />

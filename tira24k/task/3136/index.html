@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Kaavan tehokkuus</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Kaavan tehokkuus</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<form action="https://cses.fi/course/quiz_send.php" method="post" >
+<input type="hidden" name="csrf_token" value="7ca6eed6063eb2c20c643e08294aa812">
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3136">
+<div class="md"><p>Sulkulausekkeiden määrä voidaan laskea myös kaavalla</p>
+<p><span class="math display">\frac{1}{n/2+1}{n \choose n/2}.</span></p>
+<p>Tässä <span class="math inline">{a \choose b}</span> on binomikerroin, joka voidaan laskea kaavalla</p>
+<p><span class="math display">\frac{a!}{b!(a-b)!}.</span></p>
+<p>Toteuta näihin kaavoihin perustuva funktio <code>count_sequences</code> ja varmista, että funktio antaa oikean tuloksen tapauksessa <span class="math inline">n=100</span>. Vertaa lisäksi tämän funktion ja kurssimateriaalissa annettujen dynaamisen ohjelmoinnin funktioiden tehokkuutta eri <span class="math inline">n</span>:n arvoilla.</p>
+<p>Tässä tehtävässä saat pisteen automaattisesti, kun annat funktion toteutuksen ja vertailun tulokset ja painat lähetysnappia.</p>
+<p>Funktion toteutus:<br />
+<textarea name="text[]" rows=10 cols=80 required></textarea></p>
+<p>Tehokkuusvertailu:<br />
+<textarea name="text[]" rows=10 cols=80 required></textarea></p>
+</div><p><input type="submit" value="Submit answers"></p></form>
+<script>
+var inputs = document.forms[0].elements;
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].disabled = true;
+}
+</script>
+    </div>
+    <div class="nav sidebar">
+<h4>Viikko 10</h4><a  href="../3309.html">Eniten kolikkoja<span class="task-score icon "></span></a><a  href="../3126.html">Alijonon muodostus<span class="task-score icon "></span></a><a class="current" href="../3136.html">Kaavan tehokkuus<span class="task-score icon "></span></a><a  href="../3127.html">Kaikki alijonot<span class="task-score icon "></span></a><a  href="../3315.html">Rekursion poisto<span class="task-score icon "></span></a><a  href="../3310.html">Pienimmät määrät<span class="task-score icon "></span></a><a  href="../3313.html">Bittipoisto<span class="task-score icon "></span></a><a  href="../3137.html">Kurssi<span class="task-score icon "></span></a><hr />

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h1>Grid Puzzle I</h1>
+<ul class="nav">
+<li><a href="2432/index.html" class="current">Task</a></li>
+<li><a href="../stats/2432/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Grid Puzzle I</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2432">
+<div class="md"><p>There is an <span class="math inline">n \times n</span> grid, and your task is to choose from each row and column some number of squares. How can you do that?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has an integer <span class="math inline">n</span>: the size of the grid. The rows and columns are numbered <span class="math inline">1,2,\dots,n</span>.</p>
+<p>The next line has <span class="math inline">n</span> integers <span class="math inline">a_1,a_2,\ldots,a_n</span>: You must choose exactly <span class="math inline">a_i</span> squares from the <span class="math inline">i</span>th row.</p>
+<p>The las line has <span class="math inline">n</span> integers <span class="math inline">b_1,b_2,\ldots,b_n</span>: You must choose exactly <span class="math inline">b_j</span> squares from the <span class="math inline">j</span>th column.</p>
+<h1 id="output">Output</h1>
+<p>Print <span class="math inline">n</span> lines describing which squares you choose (<code>X</code> means that you choose a square, <code>.</code> means that you don't choose it). You can print any valid solution.</p>
+<p>If it is not possible to satisfy the conditions print only <span class="math inline">-1</span>.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 50</span></li>
+<li><span class="math inline">0 \le a_i \le n</span></li>
+<li><span class="math inline">0 \le b_j \le n</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5
+0 1 3 2 0
+1 2 2 0 1
+</pre>
+<p>Output:</p>
+<pre>.....
+..X..
+.XX.X
+XX...
+.....
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Additional Problems</h4>...
+<a  href="2174.html">Removing Digits II<span class="task-score icon "></span></a><a  href="2180.html">Coin Arrangement<span class="task-score icon "></span></a><a  href="2176.html">Counting Bishops<span class="task-score icon "></span></a><a class="current" href="2432.html">Grid Puzzle I<span class="task-score icon "></span></a><a  href="2131.html">Grid Puzzle II<span class="task-score icon "></span></a><a  href="1080.html">Empty String<span class="task-score icon "></span></a><a  href="1078.html">Grid Paths<span class="task-score icon "></span></a><a  href="2115.html">Bit Substrings<span class="task-score icon "></span></a>...
+<hr />

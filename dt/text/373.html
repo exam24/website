@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Johdanto</h1>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+<title>CSES - Johdanto</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="373">
+<div class="md"><p>Tästä löydät kokoelman tehtäviä, joiden tarkoituksena on opettaa sinulle algoritmien ohjelmointia. Tehtävien tueksi löydät myös Kisakoodarin käsikirjan (KKKK), jonka lukuihin tehtävät liittyvät.</p>
+<p>Kokoelmassa on 200 tehtävää, jotka käsittelevät kisakoodauksen keskeisiä aiheita. Tehtävät vaativat paljon työtä ja aikaa, mutta voit luottaa siihen, että tulet oppimaan paljon algoritmiikasta tehtäviä ratkomalla.</p>
+<p>Jos et ole vielä koodannut C++:lla, nyt on hyvä hetki siirtyä siihen. Se on ominaisuuksiensa ja tehokkuutensa ansiosta paras valinta kisakoodaukseen. Voit opetella C++:n perusteet Tie koodariksi -sivuston <a href="https://tie.koodariksi.fi/cpp/">kurssilla</a>.</p>
+<p>Datatähden loppukilpailun jälkeen ryhdymme kokoamaan joukkueita kansainvälisiin ohjelmointikilpailuihin:</p>
+<ul>
+<li>
+<p><em>Baltic Olympiad in Informatics</em>: BOI 2024 järjestetään Liettuassa toukokuussa 2024. Joukkueen koko on 6 kilpailijaa.</p>
+</li>
+<li>
+<p><em>International Olympiad in Informatics</em>: IOI 2024 järjestetään Egyptissä syyskuussa 2024. Joukkueen koko on 4 kilpailijaa.</p>
+</li>
+</ul>
+<p>Jos ratkot aktiivisesti tehtäviä CSES:ssä, sinulla on hyvä mahdollisuus päästä joukkueeseen tänä vuonna tai myöhemmin.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Yleistä</h4><a class="current" href="373.html">Johdanto</a><a  href="311.html">Tekniset ohjeet</a><a  href="1307.html">Kisat ja leirit (arkisto)</a></div>
+</div>

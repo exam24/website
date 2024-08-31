@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>HIIT Open 2018</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2018-05-26 11:00:00</span></li>
+        <li><b>End:</b> <span>2018-05-26 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1527321600;
+var contest_end = 1527339600;
+var server_time = 1725027202;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=177", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2018 - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = true;
+  var virtualContest = false;
+  var contestDuration = 0;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[1327,1326,1322,1341,1330,1323,1314,1325,1329,1324,1331,1328,1332]</script>
+<script type="application/json" id="task-chars">{"1327":"A","1326":"B","1322":"C","1341":"D","1330":"E","1323":"F","1314":"G","1325":"H","1329":"I","1324":"J","1331":"K","1328":"L","1332":"M"}</script>
+<script type="application/json" id="C1-data">{"HIIT18-015":[["2018-05-26T11:04:58+0300",100],["2018-05-26T11:10:08+0300",200],["2018-05-26T11:34:55+0300",300],["2018-05-26T11:57:17+0300",400],["2018-05-26T12:35:41+0300",500]],"HIIT18-003":[["2018-05-26T11:05:33+0300",100],["2018-05-26T11:19:27+0300",200],["2018-05-26T11:23:28+0300",300],["2018-05-26T11:33:05+0300",400],["2018-05-26T11:41:09+0300",500],["2018-05-26T11:58:43+0300",600],["2018-05-26T12:27:24+0300",700],["2018-05-26T12:49:23+0300",800],["2018-05-26T14:46:43+0300",900]],"HIIT18-010":[["2018-05-26T11:07:04+0300",100],["2018-05-26T11:18:29+0300",200],["2018-05-26T11:23:07+0300",300],["2018-05-26T11:57:03+0300",400],["2018-05-26T12:38:04+0300",500],["2018-05-26T13:17:26+0300",600],["2018-05-26T13:51:38+0300",700],["2018-05-26T14:49:47+0300",800],["2018-05-26T15:14:33+0300",900],["2018-05-26T15:31:26+0300",1000],["2018-05-26T15:49:45+0300",1100]],"HIIT18-005":[["2018-05-26T11:11:46+0300",100],["2018-05-26T11:16:16+0300",200],["2018-05-26T11:32:06+0300",300],["2018-05-26T12:00:53+0300",400],["2018-05-26T13:44:36+0300",500],["2018-05-26T15:17:30+0300",600]],"HIIT18-012":[["2018-05-26T11:11:47+0300",100],["2018-05-26T11:14:03+0300",200],["2018-05-26T11:23:27+0300",300],["2018-05-26T11:27:25+0300",400],["2018-05-26T11:37:29+0300",500],["2018-05-26T11:41:23+0300",600],["2018-05-26T11:53:26+0300",700],["2018-05-26T12:03:13+0300",800],["2018-05-26T13:53:48+0300",900],["2018-05-26T14:13:46+0300",1000],["2018-05-26T15:53:54+0300",1100]],"HIIT18-002":[["2018-05-26T11:16:14+0300",100],["2018-05-26T11:22:19+0300",200],["2018-05-26T11:30:13+0300",300],["2018-05-26T11:52:55+0300",400],["2018-05-26T12:14:34+0300",500],["2018-05-26T13:00:50+0300",600],["2018-05-26T14:23:37+0300",700],["2018-05-26T15:46:02+0300",800]],"HIIT18-013":[["2018-05-26T11:19:46+0300",100],["2018-05-26T11:27:57+0300",200],["2018-05-26T11:58:21+0300",300],["2018-05-26T12:38:35+0300",400]],"HIIT18-007":[["2018-05-26T11:19:54+0300",100],["2018-05-26T12:02:22+0300",200],["2018-05-26T12:37:33+0300",300],["2018-05-26T12:47:36+0300",400],["2018-05-26T14:53:35+0300",500]],"HIIT18-014":[["2018-05-26T11:27:05+0300",100],["2018-05-26T13:34:24+0300",200],["2018-05-26T13:41:47+0300",300]],"HIIT18-011":[["2018-05-26T11:29:29+0300",100],["2018-05-26T12:09:39+0300",200],["2018-05-26T13:15:13+0300",300],["2018-05-26T13:36:20+0300",400],["2018-05-26T14:16:19+0300",500]],"HIIT18-001":[["2018-05-26T11:36:38+0300",100],["2018-05-26T11:44:22+0300",200],["2018-05-26T11:49:38+0300",300],["2018-05-26T12:06:04+0300",400],["2018-05-26T13:06:13+0300",500]],"HIIT18-008":[["2018-05-26T11:40:46+0300",100],["2018-05-26T12:16:10+0300",200],["2018-05-26T13:13:51+0300",300],["2018-05-26T14:21:13+0300",400]],"HIIT18-016":[["2018-05-26T11:40:57+0300",100],["2018-05-26T12:50:20+0300",200],["2018-05-26T13:27:34+0300",300]],"HIIT18-004":[["2018-05-26T12:09:34+0300",100],["2018-05-26T13:10:34+0300",200],["2018-05-26T14:02:09+0300",300]],"HIIT18-009":[["2018-05-26T12:22:06+0300",100],["2018-05-26T13:23:09+0300",200],["2018-05-26T14:40:51+0300",300]]}</script>
+<script type="application/json" id="C2-data">{"C++":95,"Python3":11,"Java":5,"Haskell":1}</script>
+<script type="application/json" id="C3-data">{"1327":[0,5,4,2,1,2,1,0,0,1,0,0,0,0,0,0,0,0,0],"1326":[0,0,0,0,0,1,0,1,1,3,5,1,0,0,0,0,0,0,0],"1322":[0,0,0,0,0,0,0,1,0,0,1,3,2,2,0,0,0,0,0],"1341":[0,0,0,0,0,0,0,0,0,1,1,1,0,3,0,0,0,0,0],"1330":[0,0,0,0,1,2,0,0,1,0,1,0,1,0,0,0,0,0,0],"1323":[0,2,3,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0],"1314":[0,0,0,0,1,6,3,3,0,0,0,1,1,1,0,0,0,0,0],"1325":[1,2,1,0,0,1,1,1,1,2,6,0,0,0,0,0,0,0,0],"1329":[0,0,1,2,0,7,1,0,0,0,1,3,0,0,0,0,0,0,0],"1324":[0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],"1331":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1328":[0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],"1332":[0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"1327":[0,0,0,0,0,1,2,3,8,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0],"1326":[0,0,0,0,0,0,0,0,0,5,2,5,0,0,0,0,0,0,0,0,0,0,0,0],"1322":[0,0,0,0,0,0,0,0,0,1,3,1,1,3,0,0,0,0,0,0,0,0,0,0],"1341":[0,0,0,0,0,0,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1330":[0,0,0,0,0,0,0,0,0,0,1,1,1,2,1,0,0,0,0,0,0,0,0,0],"1323":[0,0,0,0,0,0,0,0,0,0,0,2,4,2,0,0,0,0,0,0,0,0,0,0],"1314":[0,0,0,0,0,0,0,0,0,2,9,5,0,0,0,0,0,0,0,0,0,0,0,0],"1325":[0,0,0,0,0,0,0,0,2,2,5,4,3,0,0,0,0,0,0,0,0,0,0,0],"1329":[0,0,0,0,0,0,1,3,6,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0],"1324":[0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0],"1331":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1328":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0],"1332":[0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"1327":2.6666666666666665,"1329":1,"1314":1.6666666666666667,"1326":1.7,"1325":2.3,"1322":1.6666666666666667,"1323":2.6,"1341":1.5,"1332":2.25,"1324":4,"1330":2,"1328":1}</script>
+<script type="application/json" id="people-names">{"HIIT18-001":"HIIT AND RUN","HIIT18-002":"KnowYourArchitecture","HIIT18-003":"Karhukopla","HIIT18-004":"DualCore","HIIT18-005":"Tefyn virallinen maajoukkue","HIIT18-006":"Sloths","HIIT18-007":"Lucinda","HIIT18-008":"Puhi~","HIIT18-009":"Robotiimi","HIIT18-010":"Wave of Technology","HIIT18-011":"Oispa nutellaa","HIIT18-012":"Ukkonen Fan Club","HIIT18-013":"TreamDeam","HIIT18-014":"El Numero Uno","HIIT18-015":"barely div 2.8 burgeria","HIIT18-016":"DROP TABLE"}</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td>316</td>
+    <td>8500</td>
+    <td>85</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>21.1</td>
+    <td>566.7</td>
+    <td>5.7</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

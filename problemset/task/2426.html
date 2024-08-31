@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h1>Programmers and Artists</h1>
+<ul class="nav">
+<li><a href="2426/index.html" class="current">Task</a></li>
+<li><a href="../stats/2426/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Programmers and Artists</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2426">
+<div class="md"><p>A company wants to hire <span class="math inline">a</span> programmers and <span class="math inline">b</span> artists.</p>
+<p>There are a total of <span class="math inline">n</span> applicants, and each applicant can become either a programmer or an artist. You know each applicant's programming and artistic skills.</p>
+<p>Your task is to select the new employees so that the sum of their skills is maximum.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has three integers <span class="math inline">a</span>, <span class="math inline">b</span> and <span class="math inline">n</span>: the required number of programmers and artists, and the total number of applicants.</p>
+<p>After this, there are <span class="math inline">n</span> lines that describe the applicants. Each line has two integers <span class="math inline">x</span> and <span class="math inline">y</span>: the applicant's programming and artistic skills.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the maximum sum of skills.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">0 \le a,b \le n</span></li>
+<li><span class="math inline">a+b \le n</span></li>
+<li><span class="math inline">1 \le x,y \le 10^9</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>2 1 4
+3 7
+9 8
+1 5
+4 2
+</pre>
+<p>Output:</p>
+<pre>20
+</pre>
+<p>Explanation: An optimal solution is to hire two programmers with skills <span class="math inline">9</span> and <span class="math inline">4</span> and one artist with skill <span class="math inline">7</span>. The sum of the skills is <span class="math inline">9+4+7=20</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Additional Problems</h4>...
+<a  href="1706.html">School Excursion<span class="task-score icon "></span></a><a  href="1709.html">Coin Grid<span class="task-score icon "></span></a><a  href="1742.html">Robot Path<span class="task-score icon "></span></a><a class="current" href="2426.html">Programmers and Artists<span class="task-score icon "></span></a><a  href="1757.html">Course Schedule II<span class="task-score icon "></span></a><a  href="2174.html">Removing Digits II<span class="task-score icon "></span></a><a  href="2180.html">Coin Arrangement<span class="task-score icon "></span></a><a  href="2176.html">Counting Bishops<span class="task-score icon "></span></a>...
+<hr />

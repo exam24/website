@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Algoritmit ongelmanratkaisussa</a></h3>
+      <h1>Stick Lengths</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Stick Lengths</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="alon">
+<input type="hidden" name="task" value="1074">
+<div class="md"><p>There are <span class="math inline">n</span> sticks with some lengths. Your task is to modify the sticks so that each stick has the same length.</p>
+<p>You can either lengthen and shorten each stick. Both operations cost <span class="math inline">x</span> where <span class="math inline">x</span> is the difference between the new and original length.</p>
+<p>What is the minimum total cost?</p>
+<h1 id="input">Input</h1>
+<p>The first input line contains an integer <span class="math inline">n</span>: the number of sticks.</p>
+<p>Then there are <span class="math inline">n</span> integers: <span class="math inline">p_1,p_2,\ldots,p_n</span>: the lengths of the sticks.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the minimum total cost.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le p_i \le 10^9</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5
+2 3 1 5 2
+</pre>
+<p>Output:</p>
+<pre>5
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Part 1</h4>...
+<a  href="../1097.html">Removal Game<span class="task-score icon "></span></a><a  href="../2413.html">Counting Towers<span class="task-score icon "></span></a><a  href="../2220.html">Counting Numbers<span class="task-score icon "></span></a><a class="current" href="../1074.html">Stick Lengths<span class="task-score icon "></span></a><a  href="../1645.html">Nearest Smaller Values<span class="task-score icon "></span></a><a  href="../1620.html">Factory Machines<span class="task-score icon "></span></a><a  href="../1085.html">Array Division<span class="task-score icon "></span></a><a  href="../1628.html">Meet in the Middle<span class="task-score icon "></span></a>...
+<hr />

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Aliverkot</h1>
+<ul class="nav">
+<li><a href="404/index.html" class="current">Task</a></li>
+<li><a href="../stats/404/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Aliverkot</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="404">
+<div class="md"><p>Syrjälässä on <span class="math inline">n</span> tietokonetta, joiden välillä on <span class="math inline">m</span> yhteyttä. Koneet muodostavat aliverkkoja niin, että jokainen aliverkko sisältää kaikki koneet, joihin pystyy olemaan yhteydessä toisistaan.</p>
+<p>Syrjälässä ei ole ketään, joka ymmärtäisi verkon toimintaa. Niinpä jos koneiden välinen yhteys katkeaa, kukaan ei korjaa sitä. Yhteyden katkeamisen seurauksena jokin aliverkko saattaa jakautua kahdeksi aliverkoksi.</p>
+<p>Tehtäväsi on laskea aliverkkojen määrä kunkin yhteyden katkeamisen jälkeen.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteessä on ensin kolme kokonaislukua <span class="math inline">n</span>, <span class="math inline">m</span> ja <span class="math inline">k</span>: koneiden määrä, yhteyksien määrä ja katkeamisten määrä. Koneet on numeroitu <span class="math inline">1,2,\ldots,n</span>.</p>
+<p>Sitten syötteessä on <span class="math inline">m</span> riviä, jotka kuvaavat yhteydet. Jokaisella rivillä on kaksi kokonaislukua <span class="math inline">a</span> ja <span class="math inline">b</span>: koneiden <span class="math inline">a</span> ja <span class="math inline">b</span> välillä on yhteys. Kaikki yhteydet ovat kaksisuuntaisia. Koneesta ei voi olla yhteyttä itseensä, ja jokaisen kahden koneen välillä on enintään yksi yhteys.</p>
+<p>Lopuksi syötteessä on <span class="math inline">k</span> riviä, jotka kuvaavat katkeamiset. Jokaisella rivillä on kaksi kokonaislukua <span class="math inline">a</span> ja <span class="math inline">b</span>: koneiden <span class="math inline">a</span> ja <span class="math inline">b</span> välinen yhteys katkeaa.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosta jokaisen katkeamisen jälkeen aliverkkojen määrä.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le m \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le k \le m</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>5 5 3
+1 2
+1 3
+2 3
+3 4
+4 5
+3 4
+2 3
+4 5
+</pre>
+<p>Tuloste:</p>
+<pre>2 2 3
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 15</h4><a  href="402.html">Kunnostus<span class="task-score icon "></span></a><a  href="403.html">Porukat<span class="task-score icon "></span></a><a class="current" href="404.html">Aliverkot<span class="task-score icon "></span></a><a  href="405.html">Keskukset<span class="task-score icon "></span></a><a  href="406.html">Veturit<span class="task-score icon "></span></a><hr />

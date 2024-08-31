@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Bittipoisto</h1>
+<ul class="nav">
+<li><a href="3313/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Bittipoisto</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3313">
+<div class="md"><p>Annettuna on bittijono, jossa on <span class="math inline">n</span> merkkiä. Joka askeleella saat poistaa kaksi vierekkäistä bittiä, jotka ovat eri bitit. Monellako tavalla voit poistaa kaikki bitit?</p>
+<p>Esimerkiksi kun bittijono on <span class="math inline">101100</span>, mahdollisia tapoja on <span class="math inline">5</span>:</p>
+<ul>
+<li><span class="math inline">\underline{10}1100 \rightarrow 1\underline{10}0 \rightarrow \underline{10} \rightarrow</span> (tyhjä)</li>
+<li><span class="math inline">1\underline{01}100 \rightarrow 1\underline{10}0 \rightarrow \underline{10} \rightarrow</span> (tyhjä)</li>
+<li><span class="math inline">101\underline{10}0 \rightarrow \underline{10}10 \rightarrow \underline{10} \rightarrow</span> (tyhjä)</li>
+<li><span class="math inline">101\underline{10}0 \rightarrow 1\underline{01}0 \rightarrow \underline{10} \rightarrow</span> (tyhjä)</li>
+<li><span class="math inline">101\underline{10}0 \rightarrow 10\underline{10} \rightarrow \underline{10} \rightarrow</span> (tyhjä)</li>
+</ul>
+<p>Voit olettaa, että <span class="math inline">1 \le n \le 30</span>. Koodisi tulee toimia tehokkaasti kaikissa näissä tapauksissa.</p>
+<p>Toteuta tiedostoon <code>biterase.py</code> funktio <code>count</code>, joka kertoo, monellako tapaa voit poistaa kaikki bitit.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def count(s):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(count(&quot;1001&quot;)) # 2
+    print(count(&quot;1100&quot;)) # 1
+    print(count(&quot;101100&quot;)) # 5
+    print(count(&quot;11001&quot;)) # 0
+    print(count(&quot;01110100100110&quot;)) # 6027
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 10</h4><a  href="3309.html">Eniten kolikkoja<span class="task-score icon "></span></a><a  href="3126.html">Alijonon muodostus<span class="task-score icon "></span></a><a  href="3136.html">Kaavan tehokkuus<span class="task-score icon "></span></a><a  href="3127.html">Kaikki alijonot<span class="task-score icon "></span></a><a  href="3315.html">Rekursion poisto<span class="task-score icon "></span></a><a  href="3310.html">Pienimmät määrät<span class="task-score icon "></span></a><a class="current" href="3313.html">Bittipoisto<span class="task-score icon "></span></a><a  href="3137.html">Kurssi<span class="task-score icon "></span></a><hr />

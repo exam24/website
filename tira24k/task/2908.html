@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Huoneet</h1>
+<ul class="nav">
+<li><a href="2908/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Huoneet</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="2908">
+<div class="md"><p>Annettuna on <span class="math inline">n \times m</span> -ruudukko, joka esittää talon pohjapiirrosta. Jokainen ruutu on joko lattiaa (<code>.</code>) tai seinää (<code>#</code>), ja jokainen reunalla oleva ruutu on seinää.</p>
+<p>Kaksi lattiaruutua kuuluvat samaan huoneeseen, jos ne ovat vierekkäin pysty- tai vaakasuunnassa. Montako huonetta talossa on?</p>
+<p>Voit olettaa, että <span class="math inline">1 \le n, m \le 20</span>.</p>
+<p>Toteuta tiedostoon <code>chambers.py</code> funktio <code>count</code>, joka antaa huoneiden määrän.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def count(r):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    r = [&quot;########&quot;,
+         &quot;#..#...#&quot;,
+         &quot;####.#.#&quot;,
+         &quot;#..#.#.#&quot;,
+         &quot;########&quot;]
+    print(count(r)) # 3
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 8</h4><a  href="3274.html">Kurssin päätös<span class="task-score icon "></span></a><a  href="2905.html">Komponentit<span class="task-score icon "></span></a><a  href="3275.html">Kaupungit<span class="task-score icon "></span></a><a  href="3276.html">Tietoverkko<span class="task-score icon "></span></a><a class="current" href="2908.html">Huoneet<span class="task-score icon "></span></a><a  href="2909.html">Labyrintti<span class="task-score icon "></span></a><a  href="3277.html">Väritys<span class="task-score icon "></span></a><a  href="2911.html">Laatikko<span class="task-score icon "></span></a><hr />

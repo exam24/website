@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Alipuut</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Alipuut</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3271">
+<div class="md"><p>Tehtäväsi on laskea, monessako puun solmussa kaikkien lasten alipuissa on yhtä monta solmua.</p>
+<p>Toteuta tiedostoon <code>subtrees.py</code> funktio <code>count</code>, joka laskee tuloksen.</p>
+<pre class="resize-horizontal prettyprint lang-auto">class Node:
+    def __init__(self, value, children=[]):
+        self.value = value
+        self.children = children
+
+def count(node):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    tree = Node(1, [
+               Node(2),
+               Node(3, [Node(4, [Node(5), Node(6)])]),
+               Node(7, [Node(8), Node(9)])
+           ])
+
+    print(count(tree)) # 8
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 7</h4><a  href="../3266.html">Lehdet<span class="task-score icon "></span></a><a  href="../3267.html">Ei haaraa<span class="task-score icon "></span></a><a  href="../3268.html">Lapset<span class="task-score icon "></span></a><a  href="../3269.html">Syvyydet<span class="task-score icon "></span></a><a  href="../3270.html">Sama syvyys<span class="task-score icon "></span></a><a class="current" href="../3271.html">Alipuut<span class="task-score icon "></span></a><a  href="../3272.html">Kuningattaret<span class="task-score icon "></span></a><a  href="../3103.html">Kaikki puut<span class="task-score icon "></span></a><hr />

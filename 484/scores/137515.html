@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2024 alku</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="index.html" >Scoreboard</a></li>
+<li><a href="../stats/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2023-10-30 00:00:00</span></li>
+        <li><b>End:</b> <span>2023-11-13 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1698616800;
+var contest_end = 1699826400;
+var server_time = 1725027640;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=484", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<h2>Contest progress: adex720</h2><p><a href="https://cses.fi/user/137515/">Show user profile</a></p><p><img src="https://cses.fi/contest/graph.php?id=484&amp;s=137515"></p><title>CSES - Datatähti 2024 alku - Contest progress</title><table class="full-width">
+<colgroup><col><col><col class="brief-col"><col class="fixed-brief-col"><col class="details-col"></colgroup>
+<thead><tr><th >time</th><th >task</th><th >lang</th><th >score</th><th ></th></tr>
+</thead><tr><td >2023-11-12 21:38:42</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c66">66</td><td ><a class="details-link" href="https://cses.fi/484/result/7672807/">details</a></td></tr>
+<tr><td >2023-11-12 21:33:06</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c68">68</td><td ><a class="details-link" href="https://cses.fi/484/result/7672745/">details</a></td></tr>
+<tr><td >2023-11-12 21:32:52</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c67">67</td><td ><a class="details-link" href="https://cses.fi/484/result/7672740/">details</a></td></tr>
+<tr><td >2023-11-12 21:32:28</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c67">67</td><td ><a class="details-link" href="https://cses.fi/484/result/7672735/">details</a></td></tr>
+<tr><td >2023-11-12 21:32:08</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c68">68</td><td ><a class="details-link" href="https://cses.fi/484/result/7672730/">details</a></td></tr>
+<tr><td >2023-11-12 21:31:18</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c68">68</td><td ><a class="details-link" href="https://cses.fi/484/result/7672719/">details</a></td></tr>
+<tr><td >2023-11-12 21:31:00</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c66">66</td><td ><a class="details-link" href="https://cses.fi/484/result/7672717/">details</a></td></tr>
+<tr><td >2023-11-12 21:30:41</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c66">66</td><td ><a class="details-link" href="https://cses.fi/484/result/7672713/">details</a></td></tr>
+<tr><td >2023-11-12 21:30:23</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c66">66</td><td ><a class="details-link" href="https://cses.fi/484/result/7672707/">details</a></td></tr>
+<tr><td >2023-11-12 21:28:11</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c66">66</td><td ><a class="details-link" href="https://cses.fi/484/result/7672679/">details</a></td></tr>
+<tr><td >2023-11-12 21:27:49</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c66">66</td><td ><a class="details-link" href="https://cses.fi/484/result/7672675/">details</a></td></tr>
+<tr><td >2023-11-12 20:48:50</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c54">54</td><td ><a class="details-link" href="https://cses.fi/484/result/7672251/">details</a></td></tr>
+<tr><td >2023-11-12 20:48:30</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c49">49</td><td ><a class="details-link" href="https://cses.fi/484/result/7672246/">details</a></td></tr>
+<tr><td >2023-11-12 20:39:16</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c63">63</td><td ><a class="details-link" href="https://cses.fi/484/result/7672166/">details</a></td></tr>
+<tr><td >2023-11-12 20:39:00</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c63">63</td><td ><a class="details-link" href="https://cses.fi/484/result/7672165/">details</a></td></tr>
+<tr><td >2023-11-12 20:38:46</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c64">64</td><td ><a class="details-link" href="https://cses.fi/484/result/7672161/">details</a></td></tr>
+<tr><td >2023-11-12 20:33:09</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c58">58</td><td ><a class="details-link" href="https://cses.fi/484/result/7672107/">details</a></td></tr>
+<tr><td >2023-11-12 20:31:09</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c59">59</td><td ><a class="details-link" href="https://cses.fi/484/result/7672086/">details</a></td></tr>
+<tr><td >2023-11-12 20:22:25</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c57">57</td><td ><a class="details-link" href="https://cses.fi/484/result/7672000/">details</a></td></tr>
+<tr><td >2023-11-12 20:22:11</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c58">58</td><td ><a class="details-link" href="https://cses.fi/484/result/7671994/">details</a></td></tr>
+<tr><td >2023-11-12 20:21:25</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c59">59</td><td ><a class="details-link" href="https://cses.fi/484/result/7671987/">details</a></td></tr>
+<tr><td >2023-11-12 20:18:44</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c51">51</td><td ><a class="details-link" href="https://cses.fi/484/result/7671943/">details</a></td></tr>
+<tr><td >2023-11-12 20:18:00</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c54">54</td><td ><a class="details-link" href="https://cses.fi/484/result/7671926/">details</a></td></tr>
+<tr><td >2023-11-12 20:17:17</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c54">54</td><td ><a class="details-link" href="https://cses.fi/484/result/7671909/">details</a></td></tr>
+<tr><td >2023-11-12 03:33:02</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c100">100</td><td ><a class="details-link" href="https://cses.fi/484/result/7664720/">details</a></td></tr>
+<tr><td >2023-11-12 02:03:41</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7664546/">details</a></td></tr>
+<tr><td >2023-11-12 01:51:46</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7664525/">details</a></td></tr>
+<tr><td >2023-11-12 01:46:17</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7664516/">details</a></td></tr>
+<tr><td >2023-11-12 01:17:14</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7664441/">details</a></td></tr>
+<tr><td >2023-11-12 01:16:54</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7664438/">details</a></td></tr>
+<tr><td >2023-11-12 01:12:11</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7664423/">details</a></td></tr>
+<tr><td >2023-11-11 22:47:59</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7663692/">details</a></td></tr>
+<tr><td >2023-11-11 21:14:26</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7663033/">details</a></td></tr>
+<tr><td >2023-11-11 21:07:28</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662993/">details</a></td></tr>
+<tr><td >2023-11-11 21:06:47</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662990/">details</a></td></tr>
+<tr><td >2023-11-11 21:06:35</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662989/">details</a></td></tr>
+<tr><td >2023-11-11 21:04:48</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662976/">details</a></td></tr>
+<tr><td >2023-11-11 21:03:34</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662967/">details</a></td></tr>
+<tr><td >2023-11-11 20:55:57</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662926/">details</a></td></tr>
+<tr><td >2023-11-11 20:54:52</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7662921/">details</a></td></tr>
+<tr><td >2023-11-11 20:45:46</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7662835/">details</a></td></tr>
+<tr><td >2023-11-11 20:44:25</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7662824/">details</a></td></tr>
+<tr><td >2023-11-11 18:16:09</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7661370/">details</a></td></tr>
+<tr><td >2023-11-11 18:05:46</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7661199/">details</a></td></tr>
+<tr><td >2023-11-11 11:04:03</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7656862/">details</a></td></tr>
+<tr><td >2023-11-11 11:03:11</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score icon compile-err"></td><td ><a class="details-link" href="https://cses.fi/484/result/7656857/">details</a></td></tr>
+<tr><td >2023-11-11 11:01:18</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c48">48</td><td ><a class="details-link" href="https://cses.fi/484/result/7656837/">details</a></td></tr>
+<tr><td >2023-11-11 11:00:39</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c37">37</td><td ><a class="details-link" href="https://cses.fi/484/result/7656831/">details</a></td></tr>
+<tr><td >2023-11-11 10:57:01</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c46">46</td><td ><a class="details-link" href="https://cses.fi/484/result/7656808/">details</a></td></tr>
+<tr><td >2023-11-11 10:56:34</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c44">44</td><td ><a class="details-link" href="https://cses.fi/484/result/7656803/">details</a></td></tr>
+<tr><td >2023-11-11 10:56:09</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c17">17</td><td ><a class="details-link" href="https://cses.fi/484/result/7656794/">details</a></td></tr>
+<tr><td >2023-11-11 10:55:44</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c17">17</td><td ><a class="details-link" href="https://cses.fi/484/result/7656790/">details</a></td></tr>
+<tr><td >2023-11-11 10:55:19</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c39">39</td><td ><a class="details-link" href="https://cses.fi/484/result/7656785/">details</a></td></tr>
+<tr><td >2023-11-11 10:54:47</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c39">39</td><td ><a class="details-link" href="https://cses.fi/484/result/7656778/">details</a></td></tr>
+<tr><td >2023-11-11 10:53:36</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c40">40</td><td ><a class="details-link" href="https://cses.fi/484/result/7656768/">details</a></td></tr>
+<tr><td >2023-11-11 01:06:51</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c100">100</td><td ><a class="details-link" href="https://cses.fi/484/result/7653989/">details</a></td></tr>
+<tr><td >2023-11-10 21:10:57</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7652864/">details</a></td></tr>
+<tr><td >2023-11-10 21:10:34</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7652862/">details</a></td></tr>
+<tr><td >2023-11-10 21:01:39</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7652764/">details</a></td></tr>
+<tr><td >2023-11-10 21:01:18</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7652762/">details</a></td></tr>
+<tr><td >2023-11-10 20:56:16</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7652724/">details</a></td></tr>
+<tr><td >2023-11-10 19:44:18</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score icon compile-err"></td><td ><a class="details-link" href="https://cses.fi/484/result/7652014/">details</a></td></tr>
+<tr><td >2023-11-10 19:40:01</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651957/">details</a></td></tr>
+<tr><td >2023-11-10 19:38:17</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651941/">details</a></td></tr>
+<tr><td >2023-11-10 19:37:21</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651932/">details</a></td></tr>
+<tr><td >2023-11-10 19:37:04</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651929/">details</a></td></tr>
+<tr><td >2023-11-10 19:34:38</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651905/">details</a></td></tr>
+<tr><td >2023-11-10 19:34:23</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651902/">details</a></td></tr>
+<tr><td >2023-11-10 19:33:19</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651888/">details</a></td></tr>
+<tr><td >2023-11-10 19:32:57</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651880/">details</a></td></tr>
+<tr><td >2023-11-10 19:32:36</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651876/">details</a></td></tr>
+<tr><td >2023-11-10 19:32:15</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651867/">details</a></td></tr>
+<tr><td >2023-11-10 19:31:52</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651864/">details</a></td></tr>
+<tr><td >2023-11-10 19:31:35</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651860/">details</a></td></tr>
+<tr><td >2023-11-10 19:31:10</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651851/">details</a></td></tr>
+<tr><td >2023-11-10 19:30:53</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651848/">details</a></td></tr>
+<tr><td >2023-11-10 19:30:30</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651839/">details</a></td></tr>
+<tr><td >2023-11-10 19:30:07</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651834/">details</a></td></tr>
+<tr><td >2023-11-10 19:29:24</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651821/">details</a></td></tr>
+<tr><td >2023-11-10 19:29:09</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651818/">details</a></td></tr>
+<tr><td >2023-11-10 19:28:23</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651814/">details</a></td></tr>
+<tr><td >2023-11-10 19:28:06</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651810/">details</a></td></tr>
+<tr><td >2023-11-10 19:27:51</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651806/">details</a></td></tr>
+<tr><td >2023-11-10 19:27:36</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651805/">details</a></td></tr>
+<tr><td >2023-11-10 19:27:05</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651799/">details</a></td></tr>
+<tr><td >2023-11-10 19:26:44</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651798/">details</a></td></tr>
+<tr><td >2023-11-10 19:25:20</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651781/">details</a></td></tr>
+<tr><td >2023-11-10 19:24:56</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7651777/">details</a></td></tr>
+<tr><td >2023-11-10 19:21:40</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651740/">details</a></td></tr>
+<tr><td >2023-11-10 19:21:28</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651734/">details</a></td></tr>
+<tr><td >2023-11-10 19:21:15</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score icon compile-err"></td><td ><a class="details-link" href="https://cses.fi/484/result/7651729/">details</a></td></tr>
+<tr><td >2023-11-10 19:20:54</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651726/">details</a></td></tr>
+<tr><td >2023-11-10 19:20:42</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651719/">details</a></td></tr>
+<tr><td >2023-11-10 19:20:26</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651716/">details</a></td></tr>
+<tr><td >2023-11-10 19:20:02</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651712/">details</a></td></tr>
+<tr><td >2023-11-10 18:22:04</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651197/">details</a></td></tr>
+<tr><td >2023-11-10 18:21:51</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651194/">details</a></td></tr>
+<tr><td >2023-11-10 18:18:52</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651171/">details</a></td></tr>
+<tr><td >2023-11-10 18:18:28</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651166/">details</a></td></tr>
+<tr><td >2023-11-10 18:17:04</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651152/">details</a></td></tr>
+<tr><td >2023-11-10 18:15:40</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651139/">details</a></td></tr>
+<tr><td >2023-11-10 18:15:04</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651135/">details</a></td></tr>
+<tr><td >2023-11-10 18:14:28</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651132/">details</a></td></tr>
+<tr><td >2023-11-10 18:14:08</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651127/">details</a></td></tr>
+<tr><td >2023-11-10 18:12:14</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7651111/">details</a></td></tr>
+<tr><td >2023-11-10 17:36:28</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7650790/">details</a></td></tr>
+<tr><td >2023-11-09 20:02:38</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c65">65</td><td ><a class="details-link" href="https://cses.fi/484/result/7642811/">details</a></td></tr>
+<tr><td >2023-11-09 19:54:31</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642749/">details</a></td></tr>
+<tr><td >2023-11-09 19:53:40</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642737/">details</a></td></tr>
+<tr><td >2023-11-09 19:52:41</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642721/">details</a></td></tr>
+<tr><td >2023-11-09 19:51:36</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642711/">details</a></td></tr>
+<tr><td >2023-11-09 19:51:06</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642707/">details</a></td></tr>
+<tr><td >2023-11-09 19:44:12</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642631/">details</a></td></tr>
+<tr><td >2023-11-09 19:31:28</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642471/">details</a></td></tr>
+<tr><td >2023-11-09 19:28:59</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7642446/">details</a></td></tr>
+<tr><td >2023-11-09 18:25:55</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7641760/">details</a></td></tr>
+<tr><td >2023-11-09 18:11:29</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7641633/">details</a></td></tr>
+<tr><td >2023-11-08 18:41:37</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7631771/">details</a></td></tr>
+<tr><td >2023-11-08 18:41:23</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7631767/">details</a></td></tr>
+<tr><td >2023-11-08 18:36:03</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7631713/">details</a></td></tr>
+<tr><td >2023-11-08 18:16:11</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7631568/">details</a></td></tr>
+<tr><td >2023-11-07 22:01:33</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7624818/">details</a></td></tr>
+<tr><td >2023-11-07 21:48:15</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7624753/">details</a></td></tr>
+<tr><td >2023-11-07 21:35:47</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c44">44</td><td ><a class="details-link" href="https://cses.fi/484/result/7624691/">details</a></td></tr>
+<tr><td >2023-11-07 20:31:10</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c43">43</td><td ><a class="details-link" href="https://cses.fi/484/result/7624347/">details</a></td></tr>
+<tr><td >2023-11-07 20:07:19</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c40">40</td><td ><a class="details-link" href="https://cses.fi/484/result/7624214/">details</a></td></tr>
+<tr><td >2023-11-07 19:29:04</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7623971/">details</a></td></tr>
+<tr><td >2023-11-07 19:13:52</td><td ><a href="../task/B/index.html">Monistus</a></td><td >Python3</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7623827/">details</a></td></tr>
+<tr><td >2023-11-07 19:13:32</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7623825/">details</a></td></tr>
+<tr><td >2023-11-06 20:15:19</td><td ><a href="../task/B/index.html">Monistus</a></td><td >Python3</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7616653/">details</a></td></tr>
+<tr><td >2023-11-06 20:15:04</td><td ><a href="../task/B/index.html">Monistus</a></td><td >Python3</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7616650/">details</a></td></tr>
+<tr><td >2023-11-06 20:14:34</td><td ><a href="../task/B/index.html">Monistus</a></td><td >Python3</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7616645/">details</a></td></tr>
+<tr><td >2023-11-06 19:54:12</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7616476/">details</a></td></tr>
+<tr><td >2023-11-06 19:26:38</td><td ><a href="../task/B/index.html">Monistus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7616292/">details</a></td></tr>
+<tr><td >2023-11-05 15:49:38</td><td ><a href="../task/D/index.html">Uolevin kalansaalis</a></td><td >C++</td><td class="task-score c100">100</td><td ><a class="details-link" href="https://cses.fi/484/result/7605751/">details</a></td></tr>
+<tr><td >2023-11-05 14:44:00</td><td ><a href="../task/D/index.html">Uolevin kalansaalis</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7605041/">details</a></td></tr>
+<tr><td >2023-11-05 14:43:11</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7605034/">details</a></td></tr>
+<tr><td >2023-11-05 12:34:05</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7603857/">details</a></td></tr>
+<tr><td >2023-11-05 00:49:46</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7600791/">details</a></td></tr>
+<tr><td >2023-11-05 00:47:08</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7600780/">details</a></td></tr>
+<tr><td >2023-11-05 00:46:31</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7600775/">details</a></td></tr>
+<tr><td >2023-11-05 00:23:14</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7600694/">details</a></td></tr>
+<tr><td >2023-11-05 00:22:56</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7600693/">details</a></td></tr>
+<tr><td >2023-11-05 00:22:03</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7600685/">details</a></td></tr>
+<tr><td >2023-11-04 11:56:53</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7595321/">details</a></td></tr>
+<tr><td >2023-11-04 11:50:43</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7595284/">details</a></td></tr>
+<tr><td >2023-11-01 16:22:26</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7567297/">details</a></td></tr>
+<tr><td >2023-11-01 16:22:09</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7567289/">details</a></td></tr>
+<tr><td >2023-11-01 16:21:54</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7567286/">details</a></td></tr>
+<tr><td >2023-11-01 16:03:20</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7567071/">details</a></td></tr>
+<tr><td >2023-11-01 16:02:13</td><td ><a href="../task/F/index.html">Säähavainnot</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7567061/">details</a></td></tr>
+<tr><td >2023-11-01 15:53:22</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c32">32</td><td ><a class="details-link" href="https://cses.fi/484/result/7566964/">details</a></td></tr>
+<tr><td >2023-10-30 18:51:12</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c13">13</td><td ><a class="details-link" href="https://cses.fi/484/result/7548325/">details</a></td></tr>
+<tr><td >2023-10-30 18:46:04</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7548269/">details</a></td></tr>
+<tr><td >2023-10-30 18:44:52</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7548253/">details</a></td></tr>
+<tr><td >2023-10-30 18:44:15</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7548243/">details</a></td></tr>
+<tr><td >2023-10-30 18:40:41</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7548188/">details</a></td></tr>
+<tr><td >2023-10-30 18:03:58</td><td ><a href="../task/E/index.html">Käännöt</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7547803/">details</a></td></tr>
+<tr><td >2023-10-30 17:57:00</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c100">100</td><td ><a class="details-link" href="https://cses.fi/484/result/7547744/">details</a></td></tr>
+<tr><td >2023-10-30 17:56:20</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c53">53</td><td ><a class="details-link" href="https://cses.fi/484/result/7547738/">details</a></td></tr>
+<tr><td >2023-10-30 17:56:07</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c53">53</td><td ><a class="details-link" href="https://cses.fi/484/result/7547736/">details</a></td></tr>
+<tr><td >2023-10-30 17:53:57</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c53">53</td><td ><a class="details-link" href="https://cses.fi/484/result/7547718/">details</a></td></tr>
+<tr><td >2023-10-30 17:51:51</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c53">53</td><td ><a class="details-link" href="https://cses.fi/484/result/7547700/">details</a></td></tr>
+<tr><td >2023-10-30 17:50:32</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c53">53</td><td ><a class="details-link" href="https://cses.fi/484/result/7547684/">details</a></td></tr>
+<tr><td >2023-10-30 17:37:43</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7547526/">details</a></td></tr>
+<tr><td >2023-10-30 17:30:43</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7547457/">details</a></td></tr>
+<tr><td >2023-10-30 17:25:15</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7547386/">details</a></td></tr>
+<tr><td >2023-10-30 17:17:19</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7547303/">details</a></td></tr>
+<tr><td >2023-10-30 17:10:45</td><td ><a href="../task/C/index.html">Laskettelukeskus</a></td><td >C++</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7547251/">details</a></td></tr>
+<tr><td >2023-10-30 14:14:34</td><td ><a href="../task/B/index.html">Monistus</a></td><td >Python3</td><td class="task-score c71">71</td><td ><a class="details-link" href="https://cses.fi/484/result/7545551/">details</a></td></tr>
+<tr><td >2023-10-30 08:32:32</td><td ><a href="../task/B/index.html">Monistus</a></td><td >Python3</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7542535/">details</a></td></tr>
+<tr><td >2023-10-30 08:20:40</td><td ><a href="../task/A/index.html">Lumimyrsky</a></td><td >Python3</td><td class="task-score c100">100</td><td ><a class="details-link" href="https://cses.fi/484/result/7542424/">details</a></td></tr>
+<tr><td >2023-10-30 08:19:24</td><td ><a href="../task/A/index.html">Lumimyrsky</a></td><td >Python3</td><td class="task-score c0">0</td><td ><a class="details-link" href="https://cses.fi/484/result/7542417/">details</a></td></tr>
+</table>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../../list/index.html">Datatähti 2017 loppu</a>
+        <a href="../../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Ohjeet</h1>
+<ul class="nav">
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2017-01-19 12:15:00</span></li>
+        <li><b>End:</b> <span>2017-01-19 17:15:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1484820900;
+var contest_end = 1484838900;
+var server_time = 1725027232;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=93", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2017 loppu - Ohjeet</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="777">
+<div class="md"><p>Ratkaisut arvostellaan automaattisesti niiden toimivuuden ja tehokkuuden perusteella. Kunkin tehtävän yhteydessä on ilmoitettu, paljonko aikaa ja muistia saat käyttää tehtävän ratkaisuun. Lisäksi tehtävät jakautuvat osatehtäviin, jotka on järjestetty helpoimmasta vaikeimpaan.</p>
+<p>Kun lähetät koodin palvelimelle, sitä testataan joukolla syötteitä. Kukin osatehtävä arvostellaan erikseen niin, että saat pisteet osatehtävästä, jos koodisi läpäisee kaikki siihen kuuluvat testit. Voit lähettää samaan tehtävään useita koodeja, ja lopullinen pistemääräsi on korkein saamistasi pistemääristä.</p>
+<h1 id="arvostelu">Arvostelu</h1>
+<p>Kun lähetät koodin arvosteltavaksi, jokaisen syötteen tulos on yksi seuraavista:</p>
+<ul>
+<li><em>ACCEPTED</em>: Koodi tulosti oikean vastauksen.</li>
+<li><em>WRONG ANSWER</em>: Koodi tulosti väärän vastauksen.</li>
+<li><em>TIME LIMIT EXCEEDED</em>: Koodin suoritus kesti liian kauan.</li>
+<li><em>OUTPUT LIMIT EXCEEDED</em>: Koodi tuotti liikaa tulostetta.</li>
+<li><em>RUNTIME ERROR</em>: Virhe suorituksessa, esimerkiksi muisti loppui kesken tai koodi heitti käsittelemättömän poikkeuksen.</li>
+</ul>
+<p>Saat pisteet osatehtävästä, jos jokaisen syötteen tulos on <em>ACCEPTED</em>. Muussa tapauksessa saat osatehtävästä 0 pistettä.</p>
+<h1 id="koodinkaannossuoritusclla">Koodin käännös/suoritus C++:lla</h1><pre>g++ -std=c++11 koodi.cpp -o koodi
+</pre><pre>./koodi
+</pre><h1 id="teknistatietoa">Teknistä tietoa</h1>
+<p>Koodin suurin sallittu koko on 128 kt.</p>
+<p>C++-kääntäjä on g++ 5.4.1 ja kääntäjäliput ovat <code>-std=c++11 -O2 -Wall</code>.</p>
+<p>Java-kääntäjä on OpenJDK 1.8.0_151 (eli Java 8).</p>
+<p>Python-tulkit ovat Python 2.7.6 ja Python 3.4.3.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="../../task/A.html"><span><b>A</b> Jäätelö</span><span class="task-score ">-</span></a><a  href="../../task/B.html"><span><b>B</b> Mex-luku</span><span class="task-score ">-</span></a><a  href="../../task/C.html"><span><b>C</b> Tunnelit</span><span class="task-score ">-</span></a><a  href="../../task/D.html"><span><b>D</b> Ohjelma</span><span class="task-score ">-</span></a><a  href="../../task/E.html"><span><b>E</b> Ruudukko</span><span class="task-score ">-</span></a><a  href="../../task/F.html"><span><b>F</b> Noitapeli</span><span class="task-score ">-</span></a><a  href="../../task/G.html"><span><b>G</b> Sukujuhla</span><span class="task-score ">-</span></a><hr />

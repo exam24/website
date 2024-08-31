@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Tiedonvälitys</h1>
+<ul class="nav">
+<li><a href="3205/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Tiedonvälitys</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3205">
+<div class="md"><p>Annettuna on tietoverkko, jossa on <span class="math inline">n</span> tietokonetta ja niiden välisiä yhteyksiä. Jokaisen yhteyden kautta voi lähettää tietoa koneesta toiseen tietyn määrän bittejä sekunnissa.</p>
+<p>Tehtäväsi on tutkia, mikä on suurin mahdollinen tiedon määrä, joka voidaan välittää annetusta koneesta toiseen sekunnissa.</p>
+<p>Toteuta luokka <code>Download</code>, jossa on seuraavat metodit:</p>
+<ul>
+<li><code>add_link</code> lisää koneesta <span class="math inline">a</span> koneeseen <span class="math inline">b</span> yhteyden, joka siirtää <span class="math inline">x</span> bittiä sekunnissa</li>
+<li><code>calculate</code> laskee suurimman mahdollisen siirtomäärän koneesta <span class="math inline">a</span> koneeseen <span class="math inline">b</span></li>
+</ul>
+<p>Toteuta luokka tiedostoon <code>download.py</code> seuraavan esimerkin mukaisesti.</p>
+<pre class="resize-horizontal prettyprint lang-python">class Download:
+    def __init__(self, n):
+        # TODO
+
+    def add_link(self, a, b, x):
+        # TODO
+
+    def calculate(self, a, b):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    d = Download(4)
+    print(d.calculate(1, 4)) # 0
+    d.add_link(1, 2, 5)
+    d.add_link(2, 4, 6)
+    d.add_link(1, 4, 2)
+    print(d.calculate(1, 4)) # 7
+    d.add_link(1, 3, 4)
+    d.add_link(3, 2, 2)
+    print(d.calculate(1, 4)) # 8
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 16</h4><a  href="3317.html">Kurssin päätös<span class="task-score icon "></span></a><a  href="3204.html">Maksimivirtaus<span class="task-score icon "></span></a><a class="current" href="3205.html">Tiedonvälitys<span class="task-score icon "></span></a><a  href="3206.html">Planeetat<span class="task-score icon "></span></a><a  href="3207.html">Tanssiaiset<span class="task-score icon "></span></a><a  href="3208.html">Ratsuparit<span class="task-score icon "></span></a><a  href="3209.html">Uudet seinät<span class="task-score icon "></span></a><a  href="3210.html">Ruudukko<span class="task-score icon "></span></a><hr />

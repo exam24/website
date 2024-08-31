@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2017 loppu</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="index.html" class="current">Scoreboard</a></li>
+<li><a href="../stats/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2017-01-19 12:15:00</span></li>
+        <li><b>End:</b> <span>2017-01-19 17:15:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1484820900;
+var contest_end = 1484838900;
+var server_time = 1725027230;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=93", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2017 loppu - Scoreboard</title></div></div></div>
+<div class="scoreboard-wrapper">
+<table class="scoreboard ioi">
+  <colgroup>
+    <col class="rank" />
+    <col class="name" />
+    <col class="score" />
+    <col class="task" span=7 />
+  </colgroup>
+<thead><tr><th >#</th><th >name</th><th >score</th><th ><a href="https://cses.fi/93/task/A/" title="Jäätelö">A</a></th><th ><a href="https://cses.fi/93/task/B/" title="Mex-luku">B</a></th><th ><a href="https://cses.fi/93/task/C/" title="Tunnelit">C</a></th><th ><a href="https://cses.fi/93/task/D/" title="Ohjelma">D</a></th><th ><a href="https://cses.fi/93/task/E/" title="Ruudukko">E</a></th><th ><a href="https://cses.fi/93/task/F/" title="Noitapeli">F</a></th><th ><a href="https://cses.fi/93/task/G/" title="Sukujuhla">G</a></th></tr>
+</thead><tr><td >1</td><td ><a href="https://cses.fi/93/scores/361">siirikuoppala</a></td><td class="task-score c79">554</td><td class="task-score c100"><a href="https://cses.fi/93/result/39565">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39584">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39596">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39632">100</a></td><td class="task-score c35"><a href="https://cses.fi/93/result/39818">35</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39798">100</a></td><td class="task-score c19"><a href="https://cses.fi/93/result/39880">19</a></td></tr>
+<tr><td >2</td><td ><a href="https://cses.fi/93/scores/129">Kuha</a></td><td class="task-score c71">501</td><td class="task-score c100"><a href="https://cses.fi/93/result/39560">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39570">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39608">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39646">100</a></td><td class="task-score c35"><a href="https://cses.fi/93/result/39700">35</a></td><td class="task-score c47"><a href="https://cses.fi/93/result/39912">47</a></td><td class="task-score c19"><a href="https://cses.fi/93/result/39779">19</a></td></tr>
+<tr><td >3</td><td ><a href="https://cses.fi/93/scores/316">ollpu</a></td><td class="task-score c68">477</td><td class="task-score c100"><a href="https://cses.fi/93/result/39561">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39581">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39613">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39687">100</a></td><td class="task-score c35"><a href="https://cses.fi/93/result/39941">35</a></td><td class="task-score c23"><a href="https://cses.fi/93/result/39917">23</a></td><td class="task-score c19"><a href="https://cses.fi/93/result/39991">19</a></td></tr>
+<tr><td >4</td><td ><a href="https://cses.fi/93/scores/828">mangolassi</a></td><td class="task-score c66">466</td><td class="task-score c100"><a href="https://cses.fi/93/result/39562">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39610">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39626">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39652">100</a></td><td class="task-score ">-</td><td class="task-score c47"><a href="https://cses.fi/93/result/39781">47</a></td><td class="task-score c19"><a href="https://cses.fi/93/result/39915">19</a></td></tr>
+<tr><td >5</td><td ><a href="https://cses.fi/93/scores/338">Pohjantahti</a></td><td class="task-score c54">381</td><td class="task-score c100"><a href="https://cses.fi/93/result/39568">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39765">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39637">100</a></td><td class="task-score c58"><a href="https://cses.fi/93/result/39672">58</a></td><td class="task-score ">-</td><td class="task-score c23"><a href="https://cses.fi/93/result/39884">23</a></td><td class="task-score ">-</td></tr>
+<tr><td >6</td><td ><a href="https://cses.fi/93/scores/350">while(false)</a></td><td class="task-score c52">370</td><td class="task-score c100"><a href="https://cses.fi/93/result/39582">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39993">100</a></td><td class="task-score c47"><a href="https://cses.fi/93/result/39713">47</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39743">100</a></td><td class="task-score c0"><a href="https://cses.fi/93/result/39820">0</a></td><td class="task-score c23"><a href="https://cses.fi/93/result/39845">23</a></td><td class="task-score ">-</td></tr>
+<tr><td >7</td><td ><a href="https://cses.fi/93/scores/130">fergusq</a></td><td class="task-score c46">324</td><td class="task-score c100"><a href="https://cses.fi/93/result/39576">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/40022">100</a></td><td class="task-score ">-</td><td class="task-score c58"><a href="https://cses.fi/93/result/39870">58</a></td><td class="task-score ">-</td><td class="task-score c47"><a href="https://cses.fi/93/result/39964">47</a></td><td class="task-score c19"><a href="https://cses.fi/93/result/39987">19</a></td></tr>
+<tr><td >8</td><td ><a href="https://cses.fi/93/scores/845">JesseNiininen</a></td><td class="task-score c46">323</td><td class="task-score c100"><a href="https://cses.fi/93/result/39567">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39815">100</a></td><td class="task-score ">-</td><td class="task-score c100"><a href="https://cses.fi/93/result/39720">100</a></td><td class="task-score c0"><a href="https://cses.fi/93/result/39883">0</a></td><td class="task-score c23"><a href="https://cses.fi/93/result/39836">23</a></td><td class="task-score ">-</td></tr>
+<tr><td >9</td><td ><a href="https://cses.fi/93/scores/363">joshimasta</a></td><td class="task-score c40">286</td><td class="task-score c100"><a href="https://cses.fi/93/result/39572">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39595">28</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39630">100</a></td><td class="task-score c58"><a href="https://cses.fi/93/result/39714">58</a></td><td class="task-score c0"><a href="https://cses.fi/93/result/39981">0</a></td><td class="task-score c0"><a href="https://cses.fi/93/result/40026">0</a></td><td class="task-score ">-</td></tr>
+<tr><td >10</td><td ><a href="https://cses.fi/93/scores/736">On</a></td><td class="task-score c39">275</td><td class="task-score c100"><a href="https://cses.fi/93/result/39579">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39680">28</a></td><td class="task-score c47"><a href="https://cses.fi/93/result/39934">47</a></td><td class="task-score c58"><a href="https://cses.fi/93/result/39736">58</a></td><td class="task-score ">-</td><td class="task-score c23"><a href="https://cses.fi/93/result/39771">23</a></td><td class="task-score c19"><a href="https://cses.fi/93/result/39892">19</a></td></tr>
+<tr><td >11</td><td ><a href="https://cses.fi/93/scores/833">inkeri</a></td><td class="task-score c36">258</td><td class="task-score c100"><a href="https://cses.fi/93/result/39907">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39817">100</a></td><td class="task-score ">-</td><td class="task-score c58"><a href="https://cses.fi/93/result/39967">58</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >12</td><td ><a href="https://cses.fi/93/scores/848">ankka22</a></td><td class="task-score c35">249</td><td class="task-score c100"><a href="https://cses.fi/93/result/39563">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39654">28</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39896">100</a></td><td class="task-score c21"><a href="https://cses.fi/93/result/39683">21</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="https://cses.fi/93/result/40014">0</a></td><td class="task-score ">-</td></tr>
+<tr><td >13</td><td ><a href="https://cses.fi/93/scores/817">OulaK</a></td><td class="task-score c32">228</td><td class="task-score c100"><a href="https://cses.fi/93/result/39588">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39996">28</a></td><td class="task-score ">-</td><td class="task-score c100"><a href="https://cses.fi/93/result/39876">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >14</td><td ><a href="https://cses.fi/93/scores/838">kh</a></td><td class="task-score c31">223</td><td class="task-score c100"><a href="https://cses.fi/93/result/39615">100</a></td><td class="task-score c100"><a href="https://cses.fi/93/result/39814">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score c23"><a href="https://cses.fi/93/result/39938">23</a></td><td class="task-score ">-</td></tr>
+<tr><td >15</td><td ><a href="https://cses.fi/93/scores/727">Senpai</a></td><td class="task-score c28">200</td><td class="task-score c100"><a href="https://cses.fi/93/result/39611">100</a></td><td class="task-score c0"><a href="https://cses.fi/93/result/40035">0</a></td><td class="task-score ">-</td><td class="task-score c100"><a href="https://cses.fi/93/result/39936">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >16</td><td ><a href="https://cses.fi/93/scores/737">FSMnArmosta</a></td><td class="task-score c24">172</td><td class="task-score c100"><a href="https://cses.fi/93/result/39566">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39712">28</a></td><td class="task-score ">-</td><td class="task-score c21"><a href="https://cses.fi/93/result/39819">21</a></td><td class="task-score ">-</td><td class="task-score c23"><a href="https://cses.fi/93/result/39968">23</a></td><td class="task-score ">-</td></tr>
+<tr><td >17</td><td ><a href="https://cses.fi/93/scores/855">kapesu8</a></td><td class="task-score c24">172</td><td class="task-score c100"><a href="https://cses.fi/93/result/39589">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39697">28</a></td><td class="task-score ">-</td><td class="task-score c21"><a href="https://cses.fi/93/result/40023">21</a></td><td class="task-score ">-</td><td class="task-score c23"><a href="https://cses.fi/93/result/39923">23</a></td><td class="task-score ">-</td></tr>
+<tr><td >18</td><td ><a href="https://cses.fi/93/scores/840">gokuha</a></td><td class="task-score c18">128</td><td class="task-score c100"><a href="https://cses.fi/93/result/39806">100</a></td><td class="task-score c28"><a href="https://cses.fi/93/result/39948">28</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="https://cses.fi/93/result/40034">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >19</td><td ><a href="https://cses.fi/93/scores/820">katsotkos NaN</a></td><td class="task-score c14">100</td><td class="task-score c100"><a href="https://cses.fi/93/result/39590">100</a></td><td class="task-score c0"><a href="https://cses.fi/93/result/39770">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+</table>

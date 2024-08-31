@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Algoritmit ongelmanratkaisussa</a></h3>
+      <h1>Counting Divisors</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Counting Divisors</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="alon">
+<input type="hidden" name="task" value="1713">
+<div class="md"><p>Given <span class="math inline">n</span> integers, your task is to report for each integer the number of its divisors.</p>
+<p>For example, if <span class="math inline">x=18</span>, the correct answer is <span class="math inline">6</span> because its divisors are <span class="math inline">1,2,3,6,9,18</span>.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has an integer <span class="math inline">n</span>: the number of integers.</p>
+<p>After this, there are <span class="math inline">n</span> lines, each containing an integer <span class="math inline">x</span>.</p>
+<h1 id="output">Output</h1>
+<p>For each integer, print the number of its divisors.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le x \le 10^6</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>3
+16
+17
+18
+</pre>
+<p>Output:</p>
+<pre>5
+2
+6
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Part 1</h4>...
+<a  href="../1700.html">Tree Isomorphism I<span class="task-score icon "></span></a><a  href="../2079.html">Finding a Centroid<span class="task-score icon "></span></a><a  href="../1701.html">Tree Isomorphism II<span class="task-score icon "></span></a><a class="current" href="../1713.html">Counting Divisors<span class="task-score icon "></span></a><a  href="../1081.html">Common Divisors<span class="task-score icon "></span></a><a  href="../1079.html">Binomial Coefficients<span class="task-score icon "></span></a><a  href="../1715.html">Creating Strings II<span class="task-score icon "></span></a><a  href="../1716.html">Distributing Apples<span class="task-score icon "></span></a>...
+<hr />

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Eri summat</h1>
+<ul class="nav">
+<li><a href="3044/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Eri summat</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3044">
+<div class="md"><p>Muodosta lista, jossa on luvut <span class="math inline">1 \dots n</span> ja kaikkien vierekkäisten lukuparien summat ovat erisuuria. Voit antaa minkä tahansa listan, joka täyttää tämän vaatimuksen.</p>
+<p>Voit olettaa, että <span class="math inline">n</span> on välillä <span class="math inline">1 \dots 100</span>.</p>
+<p>Toteuta tiedostoon <code>sumdiff.py</code> funktio <code>create</code>, joka palauttaa halutunlaisen listan.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def create(n):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(create(6)) # [3, 1, 6, 2, 4, 5]
+    print(create(10)) # [7, 10, 3, 1, 5, 4, 8, 6, 9, 2]
+    print(create(15)) # [9, 4, 6, 14, 15, 13, 12, 11, 5, 2, 3, 8, 1, 7, 10]
+</pre>
+<p><em>Selitys</em>: Koodipohjan esimerkissä <span class="math inline">[3,1,6,2,4,5]</span>, vierekkäisten lukujen summat ovat <span class="math inline">4</span>, <span class="math inline">7</span>, <span class="math inline">8</span>, <span class="math inline">6</span> ja <span class="math inline">9</span>. Koska kaikki nämä luvut ovat erisuuria, on ratkaisu kelvollinen. Kuitenkaan esimerkiksi <span class="math inline">[1,5,2,6,4,3]</span> ei olisi kelvollinen ratkaisu, sillä <span class="math inline">5+2=7</span> ja <span class="math inline">4+3=7</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 2</h4><a  href="3042.html">Listan tehokkuus I<span class="task-score icon "></span></a><a  href="3043.html">Listan tehokkuus II<span class="task-score icon "></span></a><a  href="3047.html">Listan kasvatus<span class="task-score icon "></span></a><a class="current" href="3044.html">Eri summat<span class="task-score icon "></span></a><a  href="3048.html">Piirileikki<span class="task-score icon "></span></a><a  href="3045.html">Kaksi listaa<span class="task-score icon "></span></a><a  href="3046.html">Sisäkkäinen lista<span class="task-score icon "></span></a><a  href="3050.html">Taas inversiot<span class="task-score icon "></span></a><hr />

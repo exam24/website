@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Pitkä reitti</h1>
+<ul class="nav">
+<li><a href="3077/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Pitkä reitti</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3077">
+<div class="md"><p>Robotti liikkuu kuten viikon aiemmassa tehtävässä, mutta toistaa samaa liikesarjaa <span class="math inline">k</span> kertaa peräkkäin. Monessako eri ruudussa robotti käy yhteensä?</p>
+<p>Voit olettaa, että liikesarjassa on enintään <span class="math inline">100</span> komentoa ja <span class="math inline">k</span> on välillä <span class="math inline">1 \dots 10^9</span>. Algoritmin tulee toimia tehokkaasti näillä rajoilla.</p>
+<p>Toteuta tiedostoon <code>longroute.py</code> funktio <code>count</code>, joka ilmoittaa eri ruutujen määrän, kun sille annetaan robotin liikesarja ja toistojen määrä.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def count(s,k):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(count(&quot;UR&quot;, 100)) # 201
+    print(count(&quot;UD&quot;, 100)) # 2
+    print(count(&quot;UURRDDL&quot;, 500)) # 1506
+    print(count(&quot;L&quot;, 10**9)) # 1000000001
+    print(count(&quot;DLUR&quot;, 10**9)) # 4
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 4</h4><a  href="3074.html">Robotin reitti<span class="task-score icon "></span></a><a  href="3070.html">Puuttuva pari<span class="task-score icon "></span></a><a  href="3071.html">Samojen etäisyys<span class="task-score icon "></span></a><a  href="3072.html">Soittolistat<span class="task-score icon "></span></a><a  href="3258.html">Suuri voitto<span class="task-score icon "></span></a><a  href="3260.html">Sama hajautus<span class="task-score icon "></span></a><a  href="3259.html">Osalistat<span class="task-score icon "></span></a><a class="current" href="3077.html">Pitkä reitti<span class="task-score icon "></span></a><hr />

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Monster Game II</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/2085/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Monster Game II</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2085">
+<div class="md"><p>You are playing a game that consists of <span class="math inline">n</span> levels. Each level has a monster. On levels <span class="math inline">1,2,\dots,n-1</span>, you can either kill or escape the monster. However, on level <span class="math inline">n</span> you must kill the final monster to win the game.</p>
+<p>Killing a monster takes <span class="math inline">sf</span> time where <span class="math inline">s</span> is the monster's strength and <span class="math inline">f</span> is your skill factor. After killing a monster, you get a new skill factor  (lower skill factor is better). What is the minimum total time in which you can win the game?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has two integers <span class="math inline">n</span> and <span class="math inline">x</span>: the number of levels and your initial skill factor.</p>
+<p>The second line has <span class="math inline">n</span> integers <span class="math inline">s_1,s_2,\dots,s_n</span>: each monster's strength.</p>
+<p>The third line has <span class="math inline">n</span> integers <span class="math inline">f_1,f_2,\dots,f_n</span>: your new skill factor after killing a monster.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the minimum total time to win the game.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le x \le 10^6</span></li>
+<li><span class="math inline">1 \le s_i, f_i \le 10^6</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5 100
+50 20 30 90 30
+60 20 20 10 90
+</pre>
+<p>Output:</p>
+<pre>2600
+</pre>
+<p>Explanation: The best way to play is to kill the second and fifth monster.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Advanced Techniques</h4>...
+<a  href="../2077.html">Necessary Cities<span class="task-score icon "></span></a><a  href="../2078.html">Eulerian Subgraphs<span class="task-score icon "></span></a><a  href="../2084.html">Monster Game I<span class="task-score icon "></span></a><a class="current" href="../2085.html">Monster Game II<span class="task-score icon "></span></a><a  href="../2086.html">Subarray Squares<span class="task-score icon "></span></a><a  href="../2087.html">Houses and Schools<span class="task-score icon "></span></a><a  href="../2088.html">Knuth Division<span class="task-score icon "></span></a><a  href="../2111.html">Apples and Bananas<span class="task-score icon "></span></a>...
+<hr />

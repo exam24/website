@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>HIIT Open 2019</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2019-05-25 11:00:00</span></li>
+        <li><b>End:</b> <span>2019-05-25 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1558771200;
+var contest_end = 1558789200;
+var server_time = 1725027177;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=251", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2019 - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = true;
+  var virtualContest = false;
+  var contestDuration = 0;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[1775,1782,1786,1773,1776,1777,1774,1779,1784,1781,1785,1783,1780]</script>
+<script type="application/json" id="task-chars">{"1775":"A","1782":"B","1786":"C","1773":"D","1776":"E","1777":"F","1774":"G","1779":"H","1784":"I","1781":"J","1785":"K","1783":"L","1780":"M"}</script>
+<script type="application/json" id="C1-data">{"HIIT19_007":[["2019-05-25T11:04:16+0300",100],["2019-05-25T11:06:37+0300",200],["2019-05-25T11:21:11+0300",300],["2019-05-25T11:31:04+0300",400],["2019-05-25T11:52:27+0300",500],["2019-05-25T12:10:37+0300",600],["2019-05-25T13:12:39+0300",700],["2019-05-25T13:25:02+0300",800],["2019-05-25T14:53:55+0300",900]],"HIIT19_010":[["2019-05-25T11:05:52+0300",100],["2019-05-25T11:10:28+0300",200],["2019-05-25T11:16:30+0300",300],["2019-05-25T11:23:06+0300",400],["2019-05-25T11:41:45+0300",500],["2019-05-25T11:52:49+0300",600],["2019-05-25T12:14:16+0300",700],["2019-05-25T12:42:13+0300",800]],"HIIT19_005":[["2019-05-25T11:07:01+0300",100],["2019-05-25T11:15:28+0300",200],["2019-05-25T11:21:57+0300",300]],"HIIT19_002":[["2019-05-25T11:07:13+0300",100],["2019-05-25T11:10:35+0300",200],["2019-05-25T11:15:46+0300",300],["2019-05-25T11:18:25+0300",400],["2019-05-25T11:25:37+0300",500],["2019-05-25T11:52:55+0300",600],["2019-05-25T12:04:04+0300",700],["2019-05-25T12:29:59+0300",800],["2019-05-25T13:36:21+0300",900],["2019-05-25T14:10:13+0300",1000],["2019-05-25T14:25:59+0300",1100]],"HIIT19_008":[["2019-05-25T11:08:02+0300",100],["2019-05-25T11:45:11+0300",200],["2019-05-25T11:53:53+0300",300],["2019-05-25T12:49:06+0300",400],["2019-05-25T12:50:26+0300",500]],"HIIT19_009":[["2019-05-25T11:08:30+0300",100],["2019-05-25T11:13:04+0300",200],["2019-05-25T11:15:46+0300",300],["2019-05-25T11:20:55+0300",400],["2019-05-25T11:33:01+0300",500],["2019-05-25T11:38:15+0300",600],["2019-05-25T12:15:11+0300",700],["2019-05-25T12:32:05+0300",800],["2019-05-25T13:07:15+0300",900],["2019-05-25T13:43:55+0300",1000],["2019-05-25T14:53:17+0300",1100]],"HIIT19_014":[["2019-05-25T11:10:38+0300",100],["2019-05-25T11:22:10+0300",200],["2019-05-25T11:29:32+0300",300],["2019-05-25T11:44:20+0300",400],["2019-05-25T12:37:56+0300",500],["2019-05-25T14:18:55+0300",600],["2019-05-25T14:38:13+0300",700],["2019-05-25T15:43:26+0300",800]],"HIIT19_001":[["2019-05-25T11:10:49+0300",100],["2019-05-25T11:19:32+0300",200],["2019-05-25T11:28:31+0300",300],["2019-05-25T12:22:25+0300",400],["2019-05-25T13:44:10+0300",500],["2019-05-25T15:21:32+0300",600]],"HIIT19_003":[["2019-05-25T11:15:03+0300",100],["2019-05-25T12:10:54+0300",200],["2019-05-25T13:22:50+0300",300],["2019-05-25T13:27:25+0300",400],["2019-05-25T14:31:50+0300",500],["2019-05-25T15:01:25+0300",600],["2019-05-25T15:20:45+0300",700],["2019-05-25T15:52:24+0300",800]],"HIIT19_012":[["2019-05-25T11:23:18+0300",100],["2019-05-25T11:46:39+0300",200],["2019-05-25T11:52:01+0300",300],["2019-05-25T13:06:42+0300",400],["2019-05-25T14:53:01+0300",500]],"HIIT19_004":[["2019-05-25T11:25:05+0300",100],["2019-05-25T11:38:55+0300",200],["2019-05-25T11:47:28+0300",300],["2019-05-25T12:04:37+0300",400],["2019-05-25T13:11:15+0300",500],["2019-05-25T14:12:29+0300",600]],"HIIT19_006":[["2019-05-25T11:25:45+0300",100],["2019-05-25T11:38:06+0300",200],["2019-05-25T11:42:10+0300",300]],"HIIT19_011":[["2019-05-25T11:45:19+0300",100],["2019-05-25T11:53:16+0300",200],["2019-05-25T13:41:03+0300",300]],"HIIT19_013":[["2019-05-25T13:06:39+0300",100]]}</script>
+<script type="application/json" id="C2-data">{"C++":77,"Python3":23,"Python2":2,"Java":2,"Haskell":2}</script>
+<script type="application/json" id="C3-data">{"1775":[0,0,0,1,3,9,0,0,0,0,0,1,0,0,0,0,0,0,0],"1782":[0,0,0,1,0,5,1,1,0,2,0,0,0,1,1,0,0,0,0],"1786":[0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],"1773":[0,0,0,0,0,0,5,1,3,1,4,0,0,0,0,0,0,0,0],"1776":[0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1777":[0,0,1,0,0,0,0,3,2,3,0,0,0,0,0,0,0,0,0],"1774":[1,0,2,1,3,0,1,0,1,1,0,0,0,0,1,0,0,0,0],"1779":[0,0,0,3,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0],"1784":[0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0],"1781":[0,0,0,9,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0],"1785":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1783":[0,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1780":[0,0,0,0,2,4,2,0,0,0,1,1,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"1775":[0,0,0,0,0,5,2,3,0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0],"1782":[0,0,0,0,0,1,0,1,0,5,2,2,1,0,0,0,0,0,0,0,0,0,0,0],"1786":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],"1773":[0,0,0,0,0,0,2,3,3,5,1,0,0,0,0,0,0,0,0,0,0,0,0,0],"1776":[0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0],"1777":[0,0,0,0,0,0,0,0,1,0,5,3,0,0,0,0,0,0,0,0,0,0,0,0],"1774":[0,0,0,0,0,0,0,0,0,2,7,2,0,0,0,0,0,0,0,0,0,0,0,0],"1779":[0,0,0,0,0,0,0,0,0,0,0,2,1,4,0,0,0,0,0,0,0,0,0,0],"1784":[0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0,0,0,0,0,0,0],"1781":[0,0,0,0,0,0,3,6,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1785":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"1783":[0,0,0,0,0,0,0,0,0,0,0,2,2,1,1,0,0,0,0,0,0,0,0,0],"1780":[0,0,0,0,0,0,0,0,0,0,3,6,1,0,0,0,0,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"1775":1.9230769230769231,"1781":1.1428571428571428,"1773":1.3076923076923077,"1774":1.7,"1780":1.7142857142857142,"1782":2.3333333333333335,"1777":1,"1779":1.7142857142857142,"1776":1.6666666666666667,"1784":1.5,"1783":1}</script>
+<script type="application/json" id="people-names">{"HIIT19_001":"O(n^10)","HIIT19_002":"Game of Nolife","HIIT19_003":".*","HIIT19_004":"tykkipeli","HIIT19_005":"bits pls","HIIT19_006":"Agonaudid","HIIT19_007":"Varokaa J:tä","HIIT19_008":"Piltit","HIIT19_009":"bigint bugaa","HIIT19_010":"Lahna","HIIT19_011":"Haapsaari","HIIT19_012":"Omochiikaeri~!","HIIT19_013":"Team Lewd","HIIT19_014":"Barely div 1"}</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>218</td>
+    <td>8700</td>
+    <td>87</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>15.6</td>
+    <td>621.4</td>
+    <td>6.2</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

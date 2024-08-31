@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Programming for performance 2024</a></h3>
+      <h1>A22 Bit Array Location</h1>
+<ul class="nav">
+<li><a href="3007/index.html" class="current">Task</a></li>
+<li><a href="../stats/3007/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - A22 Bit Array Location</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="pfp24">
+<input type="hidden" name="task" value="3007">
+<div class="md"><p>In the Bit Array class from task A20, implement the &quot;location(i)&quot; method that calculates the index of the ith 1-bit (i.e. the smallest index x, such that <code>rank(x) == i</code>). The class constructor and &quot;set&quot; should work as before. Watch out for off-by-one errors and note that <code>location(0)</code> should always be 0.</p>
+<p>The program that uses the Bit Array class should accept an optional input file argument to read from file, or if no file is present read from standard input. The program should accept the <code>-l</code> flag to specify that &quot;location&quot; operations are to be tested, and the <code>-t</code> flag to indicate that timing data for set and get operations should be output separately to std::cerr.</p>
+<h1 id="input">Input</h1>
+<p>The input is a binary data stream either from file or standard input.</p>
+<p>The file contains the 64-bit integers:</p>
+<ol>
+<li>n - number of insertions and queries.</li>
+<li>m - number of bits to allocate for the bit array.</li>
+<li>n values to set.</li>
+<li>n values for location queries.</li>
+</ol>
+<h1 id="output">Output</h1>
+<p>For each value i, output the index of the ith 1-bit in the Bit Array.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li>n and m are less than 10^9.</li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<p>As 64-bit binary:</p>
+<pre>4 10 2 4 6 8 3 4 5 6
+</pre>
+<p>Output:</p>
+<pre>1
+1
+2
+2
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Set 2</h4><a  href="3005.html">A20 Bit Array Get<span class="task-score icon "></span></a><a  href="3006.html">A21 Bit Array Sum<span class="task-score icon "></span></a><a class="current" href="3007.html">A22 Bit Array Location<span class="task-score icon "></span></a><a  href="3008.html">A23 Packed Array<span class="task-score icon "></span></a><a  href="3010.html">B21 Bit Array Sum<span class="task-score icon "></span></a><a  href="3011.html">B22 Bit Array Location<span class="task-score icon "></span></a><hr />

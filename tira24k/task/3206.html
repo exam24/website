@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Planeetat</h1>
+<ul class="nav">
+<li><a href="3206/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Planeetat</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3206">
+<div class="md"><p>Pelissä on <span class="math inline">n</span> planeettaa, jotka on numeroitu <span class="math inline">1,2,\dots,n</span>. Pelaaja aloittaa planeetalta <span class="math inline">1</span> ja voittaa pelin, kun pääsee planeetalle <span class="math inline">n</span>.</p>
+<p>Planeettojen välillä voi liikkua teleporteilla. Jokainen teleportti voidaan kuvata parilla <span class="math inline">(a,b)</span>, missä <span class="math inline">a&lt;b</span>: teleportti vie planeetalta <span class="math inline">a</span> planeetalle <span class="math inline">b</span>.</p>
+<p>Olet päässyt pelin läpi itse, mutta haluat estää, että kukaan voi enää voittaa peliä. Montako teleporttia sinun tulee poistaa vähintään pelistä?</p>
+<p>Toteuta luokka <code>Planets</code>, jossa on seuraavat metodit:</p>
+<ul>
+<li><code>add_teleport</code> lisää teleportin planeetalta <span class="math inline">a</span> planeetalle <span class="math inline">b</span></li>
+<li><code>calculate</code> ilmoittaa pienimmän poistettavien teleporttien määrän</li>
+</ul>
+<p>Toteuta luokka tiedostoon <code>planets.py</code> seuraavan esimerkin mukaisesti.</p>
+<pre class="resize-horizontal prettyprint lang-python">class Planets:
+    def __init__(self, n):
+        # TODO
+
+    def add_teleport(self, a, b):
+        # TODO
+
+    def calculate(self):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    p = Planets(5)
+    print(p.calculate()) # 0
+    p.add_teleport(1, 2)
+    p.add_teleport(2, 5)
+    print(p.calculate()) # 1
+    p.add_teleport(1, 5)
+    print(p.calculate()) # 2
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 16</h4><a  href="3317.html">Kurssin päätös<span class="task-score icon "></span></a><a  href="3204.html">Maksimivirtaus<span class="task-score icon "></span></a><a  href="3205.html">Tiedonvälitys<span class="task-score icon "></span></a><a class="current" href="3206.html">Planeetat<span class="task-score icon "></span></a><a  href="3207.html">Tanssiaiset<span class="task-score icon "></span></a><a  href="3208.html">Ratsuparit<span class="task-score icon "></span></a><a  href="3209.html">Uudet seinät<span class="task-score icon "></span></a><a  href="3210.html">Ruudukko<span class="task-score icon "></span></a><hr />

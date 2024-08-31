@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h1>Planets Queries II</h1>
+<ul class="nav">
+<li><a href="1160/index.html" class="current">Task</a></li>
+<li><a href="../stats/1160/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Planets Queries II</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1160">
+<div class="md"><p>You are playing a game consisting of n planets. Each planet has a teleporter to another planet (or the planet itself).</p>
+<p>You have to process <span class="math inline">q</span> queries of the form: You are now on planet <span class="math inline">a</span> and want to reach planet <span class="math inline">b</span>. What is the minimum number of teleportations?</p>
+<h1 id="input">Input</h1>
+<p>The first input line contains two integers <span class="math inline">n</span> and <span class="math inline">q</span>: the number of planets and queries. The planets are numbered <span class="math inline">1,2,\ldots,n</span>.</p>
+<p>The second line contains <span class="math inline">n</span> integers <span class="math inline">t_1,t_2,\ldots,t_n</span>: for each planet, the destination of the teleporter.</p>
+<p>Finally, there are <span class="math inline">q</span> lines describing the queries. Each line has two integers <span class="math inline">a</span> and <span class="math inline">b</span>: you are now on planet <span class="math inline">a</span> and want to reach planet <span class="math inline">b</span>.</p>
+<h1 id="output">Output</h1>
+<p>For each query, print the minimum number of teleportations. If it is not possible to reach the destination, print <span class="math inline">-1</span>.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n, q \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5 3
+2 3 2 3 2
+1 2
+1 3
+1 4
+</pre>
+<p>Output:</p>
+<pre>1
+2
+-1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Graph Algorithms</h4>...
+<a  href="1681.html">Game Routes<span class="task-score icon "></span></a><a  href="1202.html">Investigation<span class="task-score icon "></span></a><a  href="1750.html">Planets Queries I<span class="task-score icon "></span></a><a class="current" href="1160.html">Planets Queries II<span class="task-score icon "></span></a><a  href="1751.html">Planets Cycles<span class="task-score icon "></span></a><a  href="1675.html">Road Reparation<span class="task-score icon "></span></a><a  href="1676.html">Road Construction<span class="task-score icon "></span></a><a  href="1682.html">Flight Routes Check<span class="task-score icon "></span></a>...
+<hr />

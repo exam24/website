@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>AVL-puu</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - AVL-puu</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3173">
+<div class="md"><p>Toteuta luokka <code>TreeSet</code> niin, että sen taustalla on kurssimateriaalin mukaisesti toteutettu AVL-puu.</p>
+<p>Toteuta tiedostoon <code>avltree.py</code> luokka <code>TreeSet</code> seuraavan mallin mukaisesti.</p>
+<pre class="resize-horizontal prettyprint lang-auto">class TreeSet:
+    def add(self, x):
+        # TODO
+
+    def __contains__(self, x):
+        # TODO
+
+    def __repr__(self):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    s = TreeSet()
+    s.add(1)
+    s.add(2)
+    s.add(4)
+    print(1 in s) # True
+    print(2 in s) # True
+    print(3 in s) # False
+    print(4 in s) # True
+    print(s) # [1, 2, 4]
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 12</h4><a  href="../3167.html">Joukon koko<span class="task-score icon "></span></a><a  href="../3165.html">Puun korkeus<span class="task-score icon "></span></a><a  href="../3166.html">Lisäysjärjestys<span class="task-score icon "></span></a><a  href="../3168.html">Pienin ja suurin<span class="task-score icon "></span></a><a  href="../3170.html">Edellinen ja seuraava<span class="task-score icon "></span></a><a  href="../3171.html">Alkion poisto<span class="task-score icon "></span></a><a  href="../3172.html">Monta alkiota<span class="task-score icon "></span></a><a class="current" href="../3173.html">AVL-puu<span class="task-score icon "></span></a><hr />

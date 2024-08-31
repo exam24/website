@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2024 loppu</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Palindromi</h1>
+<ul class="nav">
+<li><a href="../task/A/index.html" >Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2024-01-20 13:00:00</span></li>
+        <li><b>End:</b> <span>2024-01-20 17:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1705748400;
+var contest_end = 1705762800;
+var server_time = 1725027551;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=490", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2024 loppu - Results</title><table class="summary-table left-align narrow"><caption>Submission details</caption><tr><td >Task:</td><td ><a href="../task/A.html">Palindromi</a></td></tr>
+<tr><td >Sender:</td><td >vgtcross</td></tr>
+<tr><td >Submission time:</td><td >2024-01-20 13:14:09 +0200</td></tr>
+<tr><td >Language:</td><td >C++20</td></tr>
+<tr><td >Status:</td><td ><span id="status">READY</span></td></tr>
+<tr><td >Result:</td><td ><span class="inline-score task-score c100">100</span></td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Feedback</caption><colgroup><col class="small-col"><col><col class="brief-col"></colgroup>
+<thead><tr><th >group</th><th >verdict</th><th >score</th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >100</td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Test&nbsp;results</caption><colgroup><col class="small-col"><col><col class="brief-col"><col class="details-col"></colgroup>
+<thead><tr><th >test</th><th >verdict</th><th >time</th><th ></th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test1">details</a></td></tr>
+<tr><td >#2</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test2">details</a></td></tr>
+<tr><td >#3</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test3">details</a></td></tr>
+<tr><td >#4</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test4">details</a></td></tr>
+<tr><td >#5</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test5">details</a></td></tr>
+<tr><td >#6</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test6">details</a></td></tr>
+<tr><td >#7</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test7">details</a></td></tr>
+<tr><td >#8</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test8">details</a></td></tr>
+<tr><td >#9</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test9">details</a></td></tr>
+<tr><td >#10</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test10">details</a></td></tr>
+<tr><td >#11</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test11">details</a></td></tr>
+<tr><td >#12</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test12">details</a></td></tr>
+<tr><td >#13</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test13">details</a></td></tr>
+<tr><td >#14</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test14">details</a></td></tr>
+<tr><td >#15</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test15">details</a></td></tr>
+<tr><td >#16</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test16">details</a></td></tr>
+<tr><td >#17</td><td class="verdict ac">ACCEPTED</td><td >0.00 s</td><td ><a class="details-link" href="8235173.html#test17">details</a></td></tr>
+</table>
+<div class="closeable"><h3 class="caption close-trigger">Compiler report</h3><div><pre>input/code.cpp: In function 'void solve()':
+input/code.cpp:17:23: warning: comparison of integer expressions of different signedness: 'std::__cxx11::basic_string&lt;char&gt;::size_type' {aka 'long unsigned int'} and 'int' [-Wsign-compare]
+   17 |     while (ans.size() &lt; k) ans += pal;
+      |            ~~~~~~~~~~~^~~
+input/code.cpp:18:23: warning: comparison of integer expressions of different signedness: 'std::__cxx11::basic_string&lt;char&gt;::size_type' {aka 'long unsigned int'} and 'int' [-Wsign-compare]
+   18 |     while (ans.size() &lt; n) ans += dump;
+      |            ~~~~~~~~~~~^~~</pre></div></div><div class="closeable"><h3 class="caption close-trigger">Code</h3><div><script src="../../lib/google-code-prettify/run_prettify.js"></script><pre class="prettyprint linenums  resize-horizontal lang-cpp" style="">#include &lt;bits/stdc++.h&gt;
+
+#define fi first
+#define se second
+
+using namespace std;
+using ll = long long;
+using pic = pair&lt;int, char&gt;;
+
+void solve() {
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+    string dump = &quot;abc&quot;;
+    string pal = &quot;d&quot;;
+
+    string ans;
+    while (ans.size() &lt; k) ans += pal;
+    while (ans.size() &lt; n) ans += dump;
+    ans.resize(n);
+    cout &lt;&lt; ans &lt;&lt; '\n';
+}
+
+int main() {
+    cin.tie(0) -&gt; sync_with_stdio(0);
+
+    solve();
+
+    return 0;
+}</pre></div></div><div class="closeable"><h3 class="caption close-trigger">Test details</h3><div><h4 id="test1">Test 1</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1&nbsp;1</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/3f11ad6bbc7ecca0b2416b713dee77f1a635c00aaeaa946e14cde1c2bfae56d5">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/3f11ad6bbc7ecca0b2416b713dee77f1a635c00aaeaa946e14cde1c2bfae56d5">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>a</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>d</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZAo=">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZAo=">save</a></div></td></tr></table><br><h4 id="test2">Test 2</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>2&nbsp;1</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/dfac347cb71ae693ba8a54687f7112aff24ec67f88a3c66f69a7bf968fa2ac16">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/dfac347cb71ae693ba8a54687f7112aff24ec67f88a3c66f69a7bf968fa2ac16">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>ab</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/a63d8014dba891345b30174df2b2a57efbb65b4f9f09b98f245d1b3192277ece">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/a63d8014dba891345b30174df2b2a57efbb65b4f9f09b98f245d1b3192277ece">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>da</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGEK">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGEK">save</a></div></td></tr></table><br><h4 id="test3">Test 3</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>2&nbsp;2</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/f65ceaae246de02135c1326ff5188bdd166c9749c021c91e49c0b9a79f9c7262">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/f65ceaae246de02135c1326ff5188bdd166c9749c021c91e49c0b9a79f9c7262">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aa</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/d9cd8155764c3543f10fad8a480d743137466f8d55213c8eaefcd12f06d43a80">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/d9cd8155764c3543f10fad8a480d743137466f8d55213c8eaefcd12f06d43a80">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dd</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGQK">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGQK">save</a></div></td></tr></table><br><h4 id="test4">Test 4</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>3&nbsp;1</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/a279f0fe018bb1305d69ee251cd2a29919d20c910b86e3730fc1b857dd3c573a">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/a279f0fe018bb1305d69ee251cd2a29919d20c910b86e3730fc1b857dd3c573a">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>abc</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dab</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGFiCg==">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGFiCg==">save</a></div></td></tr></table><br><h4 id="test5">Test 5</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>3&nbsp;2</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/ece3d232c1ca9ef8a80b6fdb1585b8f5cf653b9dd023b0521c8da64db859ffac">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/ece3d232c1ca9ef8a80b6fdb1585b8f5cf653b9dd023b0521c8da64db859ffac">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aab</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/72be0aa10eb226762322b185b3dbceb6c21baec9e58d528c8a07b16f9e4c7e1d">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/72be0aa10eb226762322b185b3dbceb6c21baec9e58d528c8a07b16f9e4c7e1d">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dda</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGRhCg==">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGRhCg==">save</a></div></td></tr></table><br><h4 id="test6">Test 6</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>3&nbsp;3</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/1dc008d228c479a1728c002e3b40df8ccf8dc403fe358057c73c896b9885480e">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/1dc008d228c479a1728c002e3b40df8ccf8dc403fe358057c73c896b9885480e">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaa</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/17e682f060b5f8e47ea04c5c4855908b0a5ad612022260fe50e11ecb0cc0ab76">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/17e682f060b5f8e47ea04c5c4855908b0a5ad612022260fe50e11ecb0cc0ab76">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>ddd</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGRkCg==">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGRkCg==">save</a></div></td></tr></table><br><h4 id="test7">Test 7</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>4&nbsp;1</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/8e426e752417be3d8fad586a3f1b24129da1d1f5b504a0201057acb0e66fdc5c">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/8e426e752417be3d8fad586a3f1b24129da1d1f5b504a0201057acb0e66fdc5c">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>abca</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/51dac229955c68ea502d1c351541ec5e869c139f0abca018e1f70b4ec3d1aab3">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/51dac229955c68ea502d1c351541ec5e869c139f0abca018e1f70b4ec3d1aab3">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dabc</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGFiYwo=">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGFiYwo=">save</a></div></td></tr></table><br><h4 id="test8">Test 8</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>4&nbsp;2</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/1ff1273ff0843500f56e865a8db4eef6b86f93e801c74545141fe0de19fff83e">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/1ff1273ff0843500f56e865a8db4eef6b86f93e801c74545141fe0de19fff83e">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aabc</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/6a3bafe0ba9667407a35ba0d980c1a332b2db7415abd622ac3f3819022679aea">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/6a3bafe0ba9667407a35ba0d980c1a332b2db7415abd622ac3f3819022679aea">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>ddab</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGRhYgo=">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGRhYgo=">save</a></div></td></tr></table><br><h4 id="test9">Test 9</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>4&nbsp;3</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/c84ee08831e31415e32cdb604fbe79f9aef82e00a33ae7579f7d82dfa8c41eef">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/c84ee08831e31415e32cdb604fbe79f9aef82e00a33ae7579f7d82dfa8c41eef">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaab</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/2147c1367957e51f71a19aeb22b59a370d07d65abb9ca0d4b2743fd10f981366">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/2147c1367957e51f71a19aeb22b59a370d07d65abb9ca0d4b2743fd10f981366">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>ddda</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGRkYQo=">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGRkYQo=">save</a></div></td></tr></table><br><h4 id="test10">Test 10</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>4&nbsp;4</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/c74ca9fbdc8f2a3d035d2dabe6e476e33e61bb7741f94b8c4d947186c36d866f">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/c74ca9fbdc8f2a3d035d2dabe6e476e33e61bb7741f94b8c4d947186c36d866f">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaaa</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/11a77c3d96c06974b53d7f40a577e6813739eb5c811b2a86f59038ea90add772">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/11a77c3d96c06974b53d7f40a577e6813739eb5c811b2a86f59038ea90add772">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dddd</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/3/!ZGRkZAo=">view</a> <a class="save" title="Save" href="https://cses.fi/save/3/!ZGRkZAo=">save</a></div></td></tr></table><br><h4 id="test11">Test 11</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;1</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/e3792ce28f5534fb3a9fa9a166c2e8e5c05d2559900a122928949bfb63603966">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/e3792ce28f5534fb3a9fa9a166c2e8e5c05d2559900a122928949bfb63603966">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>abcabcabcabcabcabcabcabcabcabc...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/3ade7ecf8c1126f8552134f0bc8c50274c3c61130c0d67e1dd5f019cde91f279">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/3ade7ecf8c1126f8552134f0bc8c50274c3c61130c0d67e1dd5f019cde91f279">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dabcabcabcabcabcabcabcabcabcab...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test12">Test 12</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;2</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/e0e826db5a471855900e50454f940840b900474a64d3084c9c1d0d96a4cf0908">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/e0e826db5a471855900e50454f940840b900474a64d3084c9c1d0d96a4cf0908">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aabcabcabcabcabcabcabcabcabcab...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/65c1e4bcb7256527d3307975f62795cc5912e9009378c37621c786fa237b2e8e">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/65c1e4bcb7256527d3307975f62795cc5912e9009378c37621c786fa237b2e8e">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>ddabcabcabcabcabcabcabcabcabca...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test13">Test 13</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;5</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/f367c74f0bd9834832528d3cebdb838b1d686848f45ef865d3c9c651301b2364">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/f367c74f0bd9834832528d3cebdb838b1d686848f45ef865d3c9c651301b2364">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaaaabcabcabcabcabcabcabcabcab...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/89aedb5f51a42bda45617387c25dbf73af70427821b6b3d1061f46d2427a0af8">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/89aedb5f51a42bda45617387c25dbf73af70427821b6b3d1061f46d2427a0af8">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dddddabcabcabcabcabcabcabcabca...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test14">Test 14</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;10</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/dd1a87b70c485b708dfafc664896b96934e5ec738977d75d22e266a3c1f2fcd5">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/dd1a87b70c485b708dfafc664896b96934e5ec738977d75d22e266a3c1f2fcd5">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaaaaaaaaabcabcabcabcabcabcabc...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/d78144a4504ffcead373964bbd6bbe79d3de4f0e7b6efc58747d87ed1fd6317b">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/d78144a4504ffcead373964bbd6bbe79d3de4f0e7b6efc58747d87ed1fd6317b">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>ddddddddddabcabcabcabcabcabcab...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test15">Test 15</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;50</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/dd2b2b0031312105da5100360af44baa8c55e72d7e6da7b402cd73a6b4c9ddc0">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/dd2b2b0031312105da5100360af44baa8c55e72d7e6da7b402cd73a6b4c9ddc0">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/8fff96f31b8c98595eb2074b5615d5d1cc64daee6b1ed1b306d44fc3fd72844f">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/8fff96f31b8c98595eb2074b5615d5d1cc64daee6b1ed1b306d44fc3fd72844f">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dddddddddddddddddddddddddddddd...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test16">Test 16</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;90</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/0776ac340fe4ef29a01a7c71e9712c7bf8d2ad981a5bbe51299adcfaea1ce9bf">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/0776ac340fe4ef29a01a7c71e9712c7bf8d2ad981a5bbe51299adcfaea1ce9bf">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/90662a3e01ebd8ae54bfe2f4c3d5ea9a9e78923f6c29d9f12af19874bb892b84">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/90662a3e01ebd8ae54bfe2f4c3d5ea9a9e78923f6c29d9f12af19874bb892b84">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dddddddddddddddddddddddddddddd...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test17">Test 17</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>100&nbsp;100</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/37b26abc9c8e1af827e42db5e5d828ef302872d17fadc312536b91068f3e2670">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/37b26abc9c8e1af827e42db5e5d828ef302872d17fadc312536b91068f3e2670">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/cb866aba0333f85565e1ccf27cbf2e0c3531feaa9f16b75e087841d76fdd5daf">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/cb866aba0333f85565e1ccf27cbf2e0c3531feaa9f16b75e087841d76fdd5daf">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>dddddddddddddddddddddddddddddd...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br></div></div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a class="current" href="../task/A.html"><span><b>A</b> Palindromi</span><span class="task-score ">-</span></a><a  href="../task/B.html"><span><b>B</b> Sukat</span><span class="task-score ">-</span></a><a  href="../task/C.html"><span><b>C</b> Sulut</span><span class="task-score ">-</span></a><a  href="../task/D.html"><span><b>D</b> Peli</span><span class="task-score ">-</span></a><a  href="../task/E.html"><span><b>E</b> Retkeily</span><span class="task-score ">-</span></a><a  href="../task/F.html"><span><b>F</b> Polut</span><span class="task-score ">-</span></a><hr />
+<h4>Submissions (vgtcross)</h4>
+
+<a class="current " href="https://cses.fi/490/result/8235173/">2024-01-20 13:14:09 <span class="task-score c100">100</span></a></div>
+</div>
+

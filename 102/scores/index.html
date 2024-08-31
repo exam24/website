@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>HIIT Open 2017</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="index.html" class="current">Scoreboard</a></li>
+<li><a href="../stats/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2017-05-27 11:00:00</span></li>
+        <li><b>End:</b> <span>2017-05-27 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1495872000;
+var contest_end = 1495890000;
+var server_time = 1725027220;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=102", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2017 - Scoreboard</title></div></div></div>
+  <div class="scoreboard-wrapper">
+ <table class="scoreboard icpc">
+ <colgroup>
+    <col class="rank" />
+    <col class="name" />
+    <col class="affiliation" />
+    <col class="amount" />
+    <col class="time" />
+    <col class="task" span=13 />
+  </colgroup>
+
+<thead><tr><th>#</th><th colspan=2>team</th><th>sol.</th><th>time</th>
+<th><a href="https://cses.fi/102/task/A/" title="Algorithm">A</a></th><th><a href="https://cses.fi/102/task/B/" title="Book writing">B</a></th><th><a href="https://cses.fi/102/task/C/" title="Contest">C</a></th><th><a href="https://cses.fi/102/task/D/" title="Dynamic duo">D</a></th><th><a href="https://cses.fi/102/task/E/" title="Epic set">E</a></th><th><a href="https://cses.fi/102/task/F/" title="Factory">F</a></th><th><a href="https://cses.fi/102/task/G/" title="Grid">G</a></th><th><a href="https://cses.fi/102/task/H/" title="HIIT game">H</a></th><th><a href="https://cses.fi/102/task/I/" title="Impatience">I</a></th><th><a href="https://cses.fi/102/task/J/" title="Jonnesort">J</a></th><th><a href="https://cses.fi/102/task/K/" title="Klotski">K</a></th><th><a href="https://cses.fi/102/task/L/" title="Labyrinth">L</a></th><th><a href="https://cses.fi/102/task/M/" title="Median string">M</a></th></thead><tbody><tr><td >1</td><td >Game of Nolife</td><td ></td><td >11</td><td >596</td><td class="solved-first"><a href="https://cses.fi/102/result/55270">1<br>2</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55287">1<br>22</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55307">1<br>45</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55275">1<br>11</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55300">2<br>35</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55338">1<br>101</a></td><td class="solved"><a href="https://cses.fi/102/result/55314">1<br>53</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55272">1<br>7</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55284">1<br>19</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55374">1<br>196</a></td><td class="failed"><a href="https://cses.fi/102/result/55438">8<br>--</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55330">1<br>85</a></td></tr>
+<tr><td >2</td><td >Ace of Spades</td><td ></td><td >9</td><td >1060</td><td class="solved"><a href="https://cses.fi/102/result/55281">1<br>15</a></td><td class="solved"><a href="https://cses.fi/102/result/55320">2<br>67</a></td><td class="solved"><a href="https://cses.fi/102/result/55363">6<br>136</a></td><td class="solved"><a href="https://cses.fi/102/result/55304">2<br>40</a></td><td class="solved"><a href="https://cses.fi/102/result/55372">2<br>185</a></td><td class="failed"><a href="https://cses.fi/102/result/55435">6<br>--</a></td><td class="solved-first"><a href="https://cses.fi/102/result/55306">3<br>43</a></td><td class="solved"><a href="https://cses.fi/102/result/55319">1<br>66</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved-first"><a href="https://cses.fi/102/result/55282">1<br>16</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55396">3<br>252</a></td></tr>
+<tr><td >3</td><td >KnowYourArchitecture</td><td ></td><td >7</td><td >666</td><td class="solved"><a href="https://cses.fi/102/result/55278">1<br>12</a></td><td class="solved"><a href="https://cses.fi/102/result/55341">2<br>106</a></td><td class="solved"><a href="https://cses.fi/102/result/55386">1<br>239</a></td><td class="solved"><a href="https://cses.fi/102/result/55309">1<br>47</a></td><td class="failed"><a href="https://cses.fi/102/result/55436">3<br>--</a></td><td class="failed"><a href="https://cses.fi/102/result/55411">1<br>--</a></td><td class="solved"><a href="https://cses.fi/102/result/55355">1<br>128</a></td><td class="solved"><a href="https://cses.fi/102/result/55328">1<br>84</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55296">1<br>30</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+<tr><td >4</td><td >Kanadan virallinen maajoukkue</td><td ></td><td >7</td><td >793</td><td class="solved"><a href="https://cses.fi/102/result/55283">1<br>17</a></td><td class="solved"><a href="https://cses.fi/102/result/55336">2<br>98</a></td><td class="solved"><a href="https://cses.fi/102/result/55377">4<br>209</a></td><td class="solved"><a href="https://cses.fi/102/result/55301">1<br>37</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55430">4<br>--</a></td><td class="solved"><a href="https://cses.fi/102/result/55364">3<br>142</a></td><td class="solved"><a href="https://cses.fi/102/result/55342">1<br>106</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55318">1<br>64</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55402">1<br>--</a></td></tr>
+<tr><td >5</td><td >Nää jäbät</td><td ></td><td >6</td><td >489</td><td class="solved"><a href="https://cses.fi/102/result/55271">1<br>2</a></td><td class="solved"><a href="https://cses.fi/102/result/55323">2<br>75</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55277">1<br>12</a></td><td class="solved"><a href="https://cses.fi/102/result/55405">1<br>267</a></td><td class="failed"><a href="https://cses.fi/102/result/55421">3<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55305">2<br>42</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55312">1<br>51</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+<tr><td >6</td><td >kyy-kol</td><td ></td><td >6</td><td >787</td><td class="solved"><a href="https://cses.fi/102/result/55280">1<br>15</a></td><td class="solved"><a href="https://cses.fi/102/result/55353">2<br>124</a></td><td class="solved"><a href="https://cses.fi/102/result/55412">2<br>281</a></td><td class="solved"><a href="https://cses.fi/102/result/55324">2<br>75</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55313">2<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55346">1<br>112</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55351">1<br>120</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+<tr><td >7</td><td >Proudly div 2</td><td ></td><td >5</td><td >352</td><td class="solved"><a href="https://cses.fi/102/result/55273">1<br>7</a></td><td class="solved"><a href="https://cses.fi/102/result/55354">1<br>124</a></td><td class="failed"><a href="https://cses.fi/102/result/55437">9<br>--</a></td><td class="solved"><a href="https://cses.fi/102/result/55290">1<br>25</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55397">1<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55335">2<br>96</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55316">2<br>60</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+<tr><td >8</td><td >oispa opiskelupaikka tefyllä ;...;</td><td ></td><td >5</td><td >418</td><td class="solved"><a href="https://cses.fi/102/result/55276">1<br>11</a></td><td class="solved"><a href="https://cses.fi/102/result/55381">4<br>221</a></td><td class="failed"><a href="https://cses.fi/102/result/55414">9<br>--</a></td><td class="solved"><a href="https://cses.fi/102/result/55310">1<br>49</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55424">1<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55285">1<br>19</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55303">2<br>38</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+<tr><td >9</td><td >HIIT AND RUN</td><td ></td><td >5</td><td >527</td><td class="solved"><a href="https://cses.fi/102/result/55348">2<br>115</a></td><td class="solved"><a href="https://cses.fi/102/result/55367">2<br>165</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55311">1<br>49</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55433">6<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55321">1<br>69</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55332">1<br>89</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+<tr><td >10</td><td >IOG</td><td ></td><td >3</td><td >484</td><td class="solved"><a href="https://cses.fi/102/result/55337">5<br>98</a></td><td class="failed"><a href="https://cses.fi/102/result/55389">5<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55362">2<br>135</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="failed"><a href="https://cses.fi/102/result/55393">3<br>--</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="solved"><a href="https://cses.fi/102/result/55333">4<br>91</a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td><td class="white"><a href="https://cses.fi/102/result/"><br></a></td></tr>
+</tbody></table>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Paras reitti</h1>
+<ul class="nav">
+<li><a href="3178/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Paras reitti</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3178">
+<div class="md"><p>Bittimaassa on <span class="math inline">n</span> kaupunkia, joiden välillä ei ole vielä teitä. Tehtäväsi on toteuttaa luokka, jonka avulla pystyy lisäämään tien kahden kaupungin välille sekä etsimään lyhimmän reitin kahden kaupungin välillä.</p>
+<p>Luokassa tulee olla seuraavat metodit:</p>
+<ul>
+<li><code>add_road</code>: lisää tien kaupungista <span class="math inline">a</span> kaupunkiin <span class="math inline">b</span>, jonka pituus on <span class="math inline">x</span></li>
+<li><code>find_route</code>: palauttaa lyhimmän reitin pituuden kaupungista <span class="math inline">a</span> kaupunkiin <span class="math inline">b</span> (jos mitään reittiä ei ole olemassa, metodin tulee palauttaa <span class="math inline">-1</span>)</li>
+</ul>
+<p>Kaupungit on numeroitu <span class="math inline">1,2,\dots,n</span>. Huomaa, että kaikki tiet ovat kaksisuuntaisia eli ei ole väliä, kummin päin kaupungit annetaan.</p>
+<p>Toteuta tiedostoon <code>bestroute.py</code> luokka <code>BestRoute</code>, joka toimii seuraavan esimerkin mukaisesti.</p>
+<pre class="resize-horizontal prettyprint lang-auto">class BestRoute:
+    def __init__(self, n):
+        # TODO
+
+    def add_road(self, a, b, x):
+        # TODO
+
+    def find_route(self, a, b):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    b = BestRoute(3)
+    b.add_road(1, 2, 2)
+    print(b.find_route(1, 3)) # -1
+    b.add_road(1, 3, 5)
+    print(b.find_route(1, 3)) # 5
+    b.add_road(2, 3, 1)
+    print(b.find_route(1, 3)) # 3
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 14</h4><a  href="3176.html">Bellman–Ford-algoritmi<span class="task-score icon "></span></a><a  href="3177.html">Dijkstran algoritmi<span class="task-score icon "></span></a><a class="current" href="3178.html">Paras reitti<span class="task-score icon "></span></a><a  href="3182.html">Junien hinnat<span class="task-score icon "></span></a><a  href="3179.html">Listahyppy<span class="task-score icon "></span></a><a  href="3183.html">Polku ruudukossa<span class="task-score icon "></span></a><a  href="3180.html">Seinäpoisto<span class="task-score icon "></span></a><a  href="3181.html">Veden mittaus<span class="task-score icon "></span></a><hr />

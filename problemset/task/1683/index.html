@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Planets and Kingdoms</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/1683/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Planets and Kingdoms</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1683">
+<div class="md"><p>A game has <span class="math inline">n</span> planets, connected by <span class="math inline">m</span> teleporters. Two planets <span class="math inline">a</span> and <span class="math inline">b</span> belong to the same kingdom exactly when there is a route both from <span class="math inline">a</span> to <span class="math inline">b</span> and from <span class="math inline">b</span> to <span class="math inline">a</span>. Your task is to determine for each planet its kingdom.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has two integers <span class="math inline">n</span> and <span class="math inline">m</span>: the number of planets and teleporters. The planets are numbered <span class="math inline">1,2,\dots,n</span>.</p>
+<p>After this, there are <span class="math inline">m</span> lines describing the teleporters. Each line has two integers <span class="math inline">a</span> and <span class="math inline">b</span>: you can travel from planet <span class="math inline">a</span> to planet <span class="math inline">b</span> through a teleporter.</p>
+<h1 id="output">Output</h1>
+<p>First print an integer <span class="math inline">k</span>: the number of kingdoms. After this, print for each planet a kingdom label between <span class="math inline">1</span> and <span class="math inline">k</span>. You can print any valid solution.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le m \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5 6
+1 2
+2 3
+3 1
+3 4
+4 5
+5 4
+</pre>
+<p>Output:</p>
+<pre>2
+1 1 1 2 2
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Graph Algorithms</h4>...
+<a  href="../1675.html">Road Reparation<span class="task-score icon "></span></a><a  href="../1676.html">Road Construction<span class="task-score icon "></span></a><a  href="../1682.html">Flight Routes Check<span class="task-score icon "></span></a><a class="current" href="../1683.html">Planets and Kingdoms<span class="task-score icon "></span></a><a  href="../1684.html">Giant Pizza<span class="task-score icon "></span></a><a  href="../1686.html">Coin Collector<span class="task-score icon "></span></a><a  href="../1691.html">Mail Delivery<span class="task-score icon "></span></a><a  href="../1692.html">De Bruijn Sequence<span class="task-score icon "></span></a>...
+<hr />

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Listahyppy</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Listahyppy</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3179">
+<div class="md"><p>Annettuna on lista, jossa on <span class="math inline">n</span> positiivista kokonaislukua. Lähdet liikkelle listan alusta ja tavoitteesi on päästä listan loppuun.</p>
+<p>Kun olet alkion <span class="math inline">x</span> kohdalla, saat hypätä <span class="math inline">x</span> askelta vasemmalle tai oikealle. Et saa kuitenkaan tehdä hyppyä, joka veisi listan ulkopuolelle. Sinun tulee päästä listan loppuun niin, että hyppyjen kokonaismatka on mahdollisimman pieni.</p>
+<p>Voit olettaa, että <span class="math inline">n</span> on enintään <span class="math inline">10^5</span>, ja algoritmisi tulee toimia tehokkaasti kaikissa tapauksissa.</p>
+<p>Toteuta tiedostoon <code>listjump.py</code> funktio <code>calculate</code>, joka antaa pienimmän kokonaismatkan (tai <span class="math inline">-1</span>, jos ei ole mahdollista päästä listan loppuun).</p>
+<pre class="resize-horizontal prettyprint lang-auto">def calculate(t):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(calculate([1, 1, 1, 1])) # 3
+    print(calculate([3, 2, 1])) # -1
+    print(calculate([3, 5, 2, 2, 2, 3, 5])) # 10
+    print(calculate([7, 5, 3, 1, 4, 2, 4, 6, 1])) # 32
+</pre>
+<p><em>Selitys</em>: Listassa <span class="math inline">[3,5,2,2,2,3,5]</span> paras ratkaisu on hypätä ensin <span class="math inline">3</span> askelta oikealle, sitten <span class="math inline">2</span> askelta vasemmalle ja lopuksi <span class="math inline">5</span> askelta oikealle. Tässä askelia on yhteensä <span class="math inline">3+2+5=10</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 14</h4><a  href="../3176.html">Bellman–Ford-algoritmi<span class="task-score icon "></span></a><a  href="../3177.html">Dijkstran algoritmi<span class="task-score icon "></span></a><a  href="../3178.html">Paras reitti<span class="task-score icon "></span></a><a  href="../3182.html">Junien hinnat<span class="task-score icon "></span></a><a class="current" href="../3179.html">Listahyppy<span class="task-score icon "></span></a><a  href="../3183.html">Polku ruudukossa<span class="task-score icon "></span></a><a  href="../3180.html">Seinäpoisto<span class="task-score icon "></span></a><a  href="../3181.html">Veden mittaus<span class="task-score icon "></span></a><hr />

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2017 alku</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2016-10-03 00:00:00</span></li>
+        <li><b>End:</b> <span>2016-10-17 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1475442000;
+var contest_end = 1476651600;
+var server_time = 1725027236;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=80", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2017 alku - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = false;
+  var virtualContest = false;
+  var contestDuration = 0;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[688,686,685,691,690]</script>
+<script type="application/json" id="task-chars">{"688":"A","686":"B","685":"C","691":"D","690":"E"}</script>
+<script type="application/json" id="C1-data">{"Binäärihau":[["2016-10-03T00:05:20+0300",100],["2016-10-03T00:10:27+0300",200],["2016-10-03T00:20:41+0300",300],["2016-10-03T00:40:28+0300",400],["2016-10-03T20:59:39+0300",412],["2016-10-03T22:23:52+0300",500]],"ollpu":[["2016-10-03T00:08:35+0300",100],["2016-10-03T00:20:46+0300",200],["2016-10-03T01:46:02+0300",300],["2016-10-03T20:37:07+0300",312],["2016-10-03T20:57:28+0300",412],["2016-10-06T17:10:09+0300",437],["2016-10-06T20:31:08+0300",500]],"Hege":[["2016-10-03T00:28:40+0300",100],["2016-10-03T02:53:52+0300",200],["2016-10-03T03:25:40+0300",222],["2016-10-03T04:19:08+0300",300],["2016-10-03T05:27:19+0300",356]],"On":[["2016-10-03T07:56:35+0300",41],["2016-10-05T13:56:56+0300",141],["2016-10-05T20:34:23+0300",200],["2016-10-12T15:20:19+0300",257],["2016-10-12T21:23:18+0300",300],["2016-10-14T08:39:34+0300",312],["2016-10-14T16:13:51+0300",368],["2016-10-15T20:45:15+0300",412]],"FSMnArmosta":[["2016-10-03T08:33:23+0300",41],["2016-10-03T08:42:13+0300",100],["2016-10-03T08:55:09+0300",110],["2016-10-03T09:18:28+0300",129],["2016-10-03T10:45:16+0300",200],["2016-10-03T13:13:01+0300",256],["2016-10-03T20:37:53+0300",278],["2016-10-04T11:15:36+0300",322],["2016-10-05T13:44:48+0300",357],["2016-10-06T12:40:41+0300",369],["2016-10-09T17:01:09+0300",412]],"Shrike":[["2016-10-03T08:39:05+0300",100],["2016-10-03T10:54:10+0300",156],["2016-10-10T19:28:39+0300",213],["2016-10-10T19:30:48+0300",256],["2016-10-11T08:16:25+0300",356]],"lutrarutra":[["2016-10-03T10:13:45+0300",100],["2016-10-03T19:54:55+0300",200],["2016-10-03T20:41:32+0300",300],["2016-10-16T03:35:07+0300",356]],"Mbitter":[["2016-10-03T10:29:45+0300",41],["2016-10-03T10:40:23+0300",100],["2016-10-04T15:28:55+0300",110]],"MM":[["2016-10-03T10:48:22+0300",41],["2016-10-03T18:57:25+0300",70],["2016-10-03T19:22:35+0300",141],["2016-10-08T22:41:24+0300",197]],"yhyy":[["2016-10-03T12:39:16+0300",12],["2016-10-03T13:15:19+0300",75],["2016-10-03T14:13:31+0300",100],["2016-10-03T15:48:44+0300",200],["2016-10-03T16:37:49+0300",218],["2016-10-03T17:41:56+0300",300],["2016-10-03T18:50:24+0300",400],["2016-10-03T20:44:53+0300",457],["2016-10-03T21:32:34+0300",500]],"mika":[["2016-10-03T14:50:49+0300",10],["2016-10-03T15:29:55+0300",110],["2016-10-03T19:35:00+0300",129],["2016-10-04T21:45:47+0300",151]],"ooh":[["2016-10-03T15:18:48+0300",100],["2016-10-04T12:42:27+0300",129],["2016-10-04T14:17:39+0300",200],["2016-10-04T21:55:40+0300",222],["2016-10-04T22:30:59+0300",257],["2016-10-04T22:34:59+0300",300],["2016-10-05T10:20:56+0300",356]],"OulaK":[["2016-10-03T15:20:14+0300",41],["2016-10-03T18:57:09+0300",141],["2016-10-03T20:07:45+0300",241],["2016-10-03T21:40:00+0300",260],["2016-10-03T21:40:45+0300",297],["2016-10-03T23:14:09+0300",356],["2016-10-05T20:21:28+0300",368],["2016-10-14T19:07:59+0300",412],["2016-10-16T23:34:29+0300",437]],"Senpai":[["2016-10-03T16:08:23+0300",41],["2016-10-03T17:16:06+0300",100],["2016-10-03T19:32:18+0300",129],["2016-10-03T21:48:04+0300",200],["2016-10-04T08:55:27+0300",222],["2016-10-04T09:05:07+0300",300],["2016-10-05T00:00:14+0300",356],["2016-10-14T20:26:53+0300",368]],"MääVaa":[["2016-10-03T16:53:12+0300",18],["2016-10-03T17:10:43+0300",41],["2016-10-03T17:50:31+0300",51]],"comp":[["2016-10-03T16:59:47+0300",100],["2016-10-03T19:19:01+0300",129],["2016-10-03T19:55:26+0300",200],["2016-10-08T00:11:43+0300",257],["2016-10-08T14:05:43+0300",313]],"mangolassi":[["2016-10-03T18:02:55+0300",100],["2016-10-03T18:37:13+0300",129],["2016-10-03T18:41:30+0300",200],["2016-10-03T21:20:09+0300",300],["2016-10-03T21:49:23+0300",400],["2016-10-04T22:56:19+0300",444],["2016-10-04T23:50:23+0300",500]],"Pohjantahti":[["2016-10-03T18:44:02+0300",100],["2016-10-03T19:10:45+0300",200],["2016-10-03T19:50:21+0300",300],["2016-10-03T22:51:40+0300",356],["2016-10-05T17:51:32+0300",368],["2016-10-13T17:06:33+0300",412]],"Naat":[["2016-10-03T19:35:55+0300",41],["2016-10-04T10:35:14+0300",100]],"Diapolo10":[["2016-10-03T20:39:27+0300",59]],"fergusq":[["2016-10-03T20:41:17+0300",100],["2016-10-03T21:20:42+0300",129],["2016-10-03T21:39:21+0300",200],["2016-10-03T21:55:00+0300",256],["2016-10-03T22:17:03+0300",278],["2016-10-04T22:21:20+0300",313],["2016-10-09T14:31:20+0300",356],["2016-10-09T14:44:40+0300",368]],"inkeri":[["2016-10-03T20:48:38+0300",41],["2016-10-03T23:01:15+0300",100],["2016-10-03T23:44:42+0300",129],["2016-10-04T13:25:29+0300",151],["2016-10-07T15:06:23+0300",212],["2016-10-07T15:14:01+0300",222],["2016-10-07T19:00:57+0300",278],["2016-10-08T21:07:56+0300",356],["2016-10-11T13:18:56+0300",400],["2016-10-16T22:31:35+0300",412]],"joksupoksu":[["2016-10-03T20:55:08+0300",41],["2016-10-03T23:00:48+0300",100],["2016-10-03T23:56:13+0300",110],["2016-10-04T00:43:29+0300",129],["2016-10-04T12:53:31+0300",200],["2016-10-04T14:05:05+0300",300],["2016-10-15T12:23:08+0300",356]],"planckcons":[["2016-10-03T22:06:38+0300",29],["2016-10-03T22:16:54+0300",100],["2016-10-04T10:31:50+0300",122],["2016-10-05T15:53:15+0300",163],["2016-10-05T17:58:40+0300",222],["2016-10-05T21:31:50+0300",278],["2016-10-08T15:16:36+0300",313]],"joshimasta":[["2016-10-04T00:38:45+0300",41],["2016-10-04T12:58:36+0300",100],["2016-10-04T13:27:24+0300",200],["2016-10-04T13:49:14+0300",300],["2016-10-05T00:48:18+0300",356],["2016-10-09T00:03:37+0300",400]],"ruotsalaineno":[["2016-10-04T01:45:47+0300",29]],"JeHugawa":[["2016-10-04T11:02:26+0300",41],["2016-10-04T12:38:28+0300",100],["2016-10-07T00:19:42+0300",129]],"YvMa^Na9":[["2016-10-04T12:23:24+0300",100],["2016-10-04T13:05:04+0300",129],["2016-10-04T17:36:47+0300",200],["2016-10-04T17:57:29+0300",300],["2016-10-04T21:16:40+0300",356]],"Pösö":[["2016-10-04T12:53:11+0300",41],["2016-10-04T16:25:18+0300",100],["2016-10-07T16:31:59+0300",110],["2016-10-07T16:46:36+0300",129]],"tulir293":[["2016-10-04T12:55:46+0300",41],["2016-10-04T13:03:52+0300",100],["2016-10-04T13:55:53+0300",200]],"xylix":[["2016-10-04T14:00:08+0300",41],["2016-10-04T14:04:18+0300",100],["2016-10-10T22:29:40+0300",122]],"kh":[["2016-10-04T15:19:42+0300",22],["2016-10-04T16:00:45+0300",57],["2016-10-05T12:48:32+0300",98],["2016-10-05T15:45:32+0300",154],["2016-10-05T19:20:39+0300",183],["2016-10-05T20:04:41+0300",254],["2016-10-07T16:03:18+0300",313],["2016-10-10T14:26:03+0300",356],["2016-10-11T19:44:34+0300",368],["2016-10-11T21:27:57+0300",393],["2016-10-16T14:09:25+0300",424]],"VOL":[["2016-10-04T17:58:42+0300",41]],"sp":[["2016-10-04T22:07:14+0300",41],["2016-10-06T21:48:46+0300",100],["2016-10-09T01:49:22+0300",110]],"Godlik3":[["2016-10-04T22:22:11+0300",100]],"ankka22":[["2016-10-04T23:31:55+0300",10],["2016-10-13T18:51:54+0300",29],["2016-10-13T19:09:47+0300",100],["2016-10-14T16:13:28+0300",156],["2016-10-15T14:38:24+0300",256],["2016-10-15T18:21:55+0300",313],["2016-10-16T13:07:13+0300",357],["2016-10-16T19:01:18+0300",400]],"JesseNiininen":[["2016-10-05T01:49:24+0300",29],["2016-10-05T02:06:47+0300",70],["2016-10-05T02:07:25+0300",127],["2016-10-05T02:13:02+0300",186],["2016-10-05T02:16:53+0300",229],["2016-10-06T00:00:59+0300",285],["2016-10-07T20:02:48+0300",356],["2016-10-12T16:23:40+0300",368],["2016-10-12T17:55:49+0300",393],["2016-10-15T17:29:04+0300",437]],"peltola":[["2016-10-05T10:01:35+0300",41],["2016-10-05T22:49:44+0300",100],["2016-10-06T20:33:49+0300",129],["2016-10-06T20:39:59+0300",200],["2016-10-11T02:03:18+0300",257],["2016-10-11T02:23:30+0300",300],["2016-10-14T12:44:35+0300",356]],"3isagreatnumber":[["2016-10-05T12:40:10+0300",100],["2016-10-05T13:16:25+0300",129],["2016-10-05T18:24:17+0300",185]],"Hupijekku":[["2016-10-05T12:51:32+0300",100],["2016-10-05T21:17:22+0300",129],["2016-10-05T21:25:55+0300",200],["2016-10-06T09:15:44+0300",300],["2016-10-06T13:32:21+0300",356]],"Tumppi98":[["2016-10-05T15:25:13+0300",41]],"tuomask":[["2016-10-05T19:17:48+0300",41],["2016-10-06T19:41:55+0300",100],["2016-10-06T21:32:34+0300",129],["2016-10-06T21:36:27+0300",200],["2016-10-07T18:49:12+0300",256]],"lumieer":[["2016-10-05T21:40:17+0300",41],["2016-10-07T18:11:33+0300",100],["2016-10-09T17:58:07+0300",110],["2016-10-10T17:22:58+0300",200],["2016-10-11T21:03:01+0300",222]],"roni.juntunen":[["2016-10-05T22:37:58+0300",41],["2016-10-07T18:24:04+0300",100],["2016-10-07T21:21:48+0300",129],["2016-10-10T23:03:08+0300",185]],"katsotkos NaN":[["2016-10-06T10:30:03+0300",100],["2016-10-06T19:05:34+0300",129],["2016-10-06T19:23:36+0300",200],["2016-10-07T15:43:51+0300",300],["2016-10-16T11:10:06+0300",356],["2016-10-16T17:17:03+0300",368],["2016-10-16T22:01:21+0300",412]],"kapesu8":[["2016-10-06T12:52:14+0300",100],["2016-10-06T13:35:28+0300",110],["2016-10-06T14:15:51+0300",129],["2016-10-06T14:19:31+0300",200],["2016-10-06T18:03:39+0300",257],["2016-10-06T20:43:08+0300",300],["2016-10-07T17:29:55+0300",356],["2016-10-14T17:25:02+0300",400]],"vuolen":[["2016-10-06T14:53:25+0300",100],["2016-10-06T21:31:12+0300",110],["2016-10-06T21:51:49+0300",129],["2016-10-06T22:16:06+0300",200],["2016-10-06T23:30:13+0300",222],["2016-10-09T23:36:12+0300",278],["2016-10-12T23:51:21+0300",313]],"ISIMO66":[["2016-10-06T19:35:42+0300",100],["2016-10-07T23:47:18+0300",129]],"Alex":[["2016-10-06T22:13:07+0300",18],["2016-10-06T22:19:03+0300",100],["2016-10-08T13:44:33+0300",200],["2016-10-10T21:49:21+0300",257],["2016-10-13T20:13:52+0300",313],["2016-10-13T23:31:56+0300",356]],"cattes":[["2016-10-07T15:29:57+0300",41],["2016-10-07T15:49:29+0300",100],["2016-10-07T18:10:48+0300",200],["2016-10-08T20:47:23+0300",278],["2016-10-08T21:19:44+0300",300],["2016-10-08T23:19:51+0300",356]],"e^(pi*i)=-1":[["2016-10-07T19:17:54+0300",100],["2016-10-07T20:59:50+0300",129],["2016-10-07T21:40:35+0300",200],["2016-10-09T13:21:18+0300",257]],"charmakr":[["2016-10-09T10:08:35+0300",100],["2016-10-09T10:10:00+0300",157],["2016-10-09T10:16:43+0300",200]],"gokuha":[["2016-10-11T18:01:56+0300",19],["2016-10-11T18:07:17+0300",29],["2016-10-11T19:16:02+0300",100],["2016-10-11T22:42:26+0300",200],["2016-10-11T23:21:16+0300",300],["2016-10-15T21:26:24+0300",400]],"while(false)":[["2016-10-12T22:20:08+0300",41],["2016-10-12T22:26:18+0300",100],["2016-10-12T22:43:17+0300",129],["2016-10-12T22:54:55+0300",200],["2016-10-12T23:15:53+0300",257],["2016-10-14T15:08:08+0300",313],["2016-10-14T16:55:43+0300",325],["2016-10-15T16:12:20+0300",368]],"Dojin04":[["2016-10-14T21:53:50+0300",41],["2016-10-14T22:46:51+0300",100],["2016-10-15T20:38:01+0300",129],["2016-10-16T14:46:59+0300",200]],"miksu.r":[["2016-10-15T00:40:55+0300",41],["2016-10-15T00:41:10+0300",70]],"y2k_16":[["2016-10-16T01:49:59+0300",18],["2016-10-16T02:03:47+0300",41],["2016-10-16T02:46:17+0300",51]]}</script>
+<script type="application/json" id="C2-data">{"C++":116,"Python3":42,"Java":41,"Python2":15,"Assembly":4,"Scala":2}</script>
+<script type="application/json" id="C3-data">{"688":[0,0,0,0,0,0,6,1,5,9,6,2,4,3,10,10,4,0,0],"686":[0,0,0,0,0,1,3,2,6,11,3,6,4,3,9,5,0,0,0],"685":[0,0,0,0,0,0,4,12,12,2,1,3,3,2,1,0,0,0,0],"691":[0,0,0,0,0,12,3,6,5,2,5,2,1,0,4,1,0,0,0],"690":[0,0,0,0,0,3,3,3,1,6,4,0,2,2,1,1,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"688":[0,0,0,0,0,0,3,8,6,12,16,9,3,3,0,0,0,0,0,0,0,0,0,0],"686":[0,0,0,0,0,0,4,4,7,10,18,7,1,1,1,0,0,0,0,0,0,0,0,0],"685":[0,0,0,0,0,0,5,3,6,8,8,5,2,3,0,0,0,0,0,0,0,0,0,0],"691":[0,0,0,0,0,0,0,0,1,8,7,15,5,4,0,1,0,0,0,0,0,0,0,0],"690":[0,0,0,0,0,0,0,0,0,2,2,2,6,6,4,1,2,1,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"688":5.017857142857143,"686":5.63265306122449,"685":6.526315789473684,"691":8.166666666666666,"690":10.933333333333334}</script>
+<script type="application/json" id="people-names">[]</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>57</td>
+    <td>1783</td>
+    <td>15885</td>
+    <td>136</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>31.3</td>
+    <td>278.7</td>
+    <td>2.4</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

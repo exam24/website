@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Pakkaus</h1>
+<ul class="nav">
+<li><a href="3080/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Pakkaus</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3080">
+<div class="md"><p>Varastossa on <span class="math inline">n</span> laatikkoa, joilla jokaisella on tietty paino. Montako laatikkoa voit pakata enintään autoon, kun auton lastin maksimipaino on <span class="math inline">x</span>?</p>
+<p>Algoritmin aikavaativuuden tulee olla <span class="math inline">O(n \log n)</span>.</p>
+<p>Toteuta tiedostoon <code>packbox.py</code> funktio <code>solve</code>, joka ilmoittaa, montako laatikkoa voit pakata enintään.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def solve(t, x):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(solve([1, 1, 1, 1], 2)) # 2
+    print(solve([2, 5, 3, 2, 8, 7], 10)) # 3
+    print(solve([2, 3, 4, 5], 1)) # 0
+    print(solve([2, 3, 4, 5], 10**9)) # 4
+    print(solve([10**9, 1, 10**9], 10**6)) # 1
+</pre>
+<p><em>Selitys</em>: Ensimmäisessä esimerkissä voit pakata mitkä tahansa kaksi laatikkoa. Toisessa esimerkissä voit pakata kolme laatikkoa, esimerkiksi listan kolme ensimmäistä laatikkoa, jotka painavat yhteensä <span class="math inline">10</span>. Kolmannessa esimerkissä et voi pakata mitään laatikkoa, koska jokainen painaa enemmän kuin <span class="math inline">1</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 5</h4><a class="current" href="3080.html">Pakkaus<span class="task-score icon "></span></a><a  href="3081.html">Peräkkäiset luvut<span class="task-score icon "></span></a><a  href="3261.html">Järjestämisalgoritmit<span class="task-score icon "></span></a><a  href="3264.html">Binäärihaku<span class="task-score icon "></span></a><a  href="3082.html">Suurin etäisyys<span class="task-score icon "></span></a><a  href="3263.html">Ravintola<span class="task-score icon "></span></a><a  href="3083.html">Puolijärjestäminen<span class="task-score icon "></span></a><a  href="3085.html">Vaihto ja siirto<span class="task-score icon "></span></a><hr />

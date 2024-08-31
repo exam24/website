@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Anagrammit</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Anagrammit</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3121">
+<div class="md"><p>Merkkijonon anagrammi sisältää kaikki merkkijonon merkit jossakin järjestyksessä. Tehtäväsi on muodostaa kaikki annetun merkkijonon anagrammit.</p>
+<p>Voit olettaa, että merkkijono muodostuu merkeistä <code>a</code>–<code>z</code> ja siinä on enintään <span class="math inline">8</span> merkkiä. Algoritmisi tulee toimia tehokkaasti kaikissa näissä tapauksissa.</p>
+<p>Toteuta tiedostoon <code>anagrams.py</code> funktio <code>create</code>, joka palauttaa merkkijonon anagrammit listana aakkosjärjestyksessä.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def create(s):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(create(&quot;abc&quot;)) # ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
+    print(create(&quot;aaaaa&quot;)) # ['aaaaa']
+    print(create(&quot;abab&quot;)) # ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa']
+    print(len(create(&quot;aybabtu&quot;))) # 1260
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 9</h4><a  href="../3122.html">Summan valinta<span class="task-score icon "></span></a><a  href="../3120.html">Osajoukot<span class="task-score icon "></span></a><a  href="../3118.html">Sulkulausekkeet<span class="task-score icon "></span></a><a class="current" href="../3121.html">Anagrammit<span class="task-score icon "></span></a><a  href="../3119.html">Oudot listat<span class="task-score icon "></span></a><a  href="../3116.html">Kolikot nopeasti<span class="task-score icon "></span></a><a  href="../3115.html">Ei vierekkäin<span class="task-score icon "></span></a><a  href="../3117.html">Lisää kolikoita<span class="task-score icon "></span></a><hr />

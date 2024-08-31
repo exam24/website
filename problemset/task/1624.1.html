@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet " type="text/css" href="/cses.css?13" id="styles">
+  <link rel="stylesheet alternate" type="text/css" href="/cses-dark.css?13" id="styles-dark">
+  <meta name="theme-color" content="white" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">false</script>
+  <script src="/ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="/lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="/" class="logo"><img src="/logo.png?1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="/login">Login</a>
+        <span>&mdash;</span>
+                        <a href="/darkmode" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="/problemset/list/">CSES Problem Set</a></h3>
+      <h1>Chessboard and Queens</h1>
+<ul class="nav">
+<li><a href="/problemset/task/1624/" class="current">Task</a></li>
+<li><a href="/problemset/stats/1624/" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Chessboard and Queens</title><link rel="stylesheet" href="/lib/katex/katex.min.css">
+<script defer src="/lib/katex/katex.min.js"></script>
+<script defer src="/lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="/lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1624">
+<div class="md"><p>Your task is to place eight queens on a chessboard so that no two queens are attacking each other. As an additional challenge, each square is either free or reserved, and you can only place queens on the free squares. However, the reserved squares do not prevent queens from attacking each other.</p>
+<p>How many possible ways are there to place the queens?</p>
+<h1 id="input">Input</h1>
+<p>The input has eight lines, and each of them has eight characters. Each square is either free (<code>.</code>) or reserved (<code>*</code>).</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the number of ways you can place the queens.</p>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>........
+........
+..*.....
+........
+........
+.....**.
+...*....
+........
+</pre>
+<p>Output:</p>
+<pre>65
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Introductory Problems</h4>...
+<a  href="/problemset/task/1755">Palindrome Reorder<span class="task-score icon "></span></a><a  href="/problemset/task/2205">Gray Code<span class="task-score icon "></span></a><a  href="/problemset/task/2165">Tower of Hanoi<span class="task-score icon "></span></a><a  href="/problemset/task/1622">Creating Strings<span class="task-score icon "></span></a><a  href="/problemset/task/1623">Apple Division<span class="task-score icon "></span></a><a class="current" href="/problemset/task/1624">Chessboard and Queens<span class="task-score icon "></span></a><a  href="/problemset/task/2431">Digit Queries<span class="task-score icon "></span></a><a  href="/problemset/task/1625">Grid Paths<span class="task-score icon "></span></a><hr />

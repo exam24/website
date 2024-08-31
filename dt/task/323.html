@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Asunnot</h1>
+<ul class="nav">
+<li><a href="323/index.html" class="current">Task</a></li>
+<li><a href="../stats/323/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Asunnot</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="323">
+<div class="md"><p>Sinulle on annettu tiedot asuntojen hakijoista ja vapaana olevista asunnoista, ja tehtäväsi on jakaa asunnot niin, että mahdollisimman moni hakija saa asunnon.</p>
+<p>Jokaisella hakijalla on toive asunnon koosta, ja hakija hyväksyy minkä tahansa asunnon, jonka koko on riittävän lähellä toivetta.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kolme kokonaislukua <span class="math inline">n</span>, <span class="math inline">m</span> ja <span class="math inline">k</span>: hakijoiden määrä, asuntojen määrä ja suurin sallittu poikkeama.</p>
+<p>Seuraavalla rivillä on <span class="math inline">n</span> kokonaislukua <span class="math inline">a_1, a_2, \ldots, a_n</span>: jokaisen hakijan toive asunnon koosta.</p>
+<p>Jos hakijan toive on <span class="math inline">x</span>, hän hyväksyy minkä tahansa asunnon, jonka koko on vähintään <span class="math inline">x-k</span> ja korkeintaan <span class="math inline">x+k</span>.</p>
+<p>Viimeisellä rivillä on <span class="math inline">m</span> kokonaislukua <span class="math inline">b_1, b_2, \ldots, b_m</span>: jokaisen asunnon koko.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Ohjelmasi täytyy tulostaa yksi kokonaisluku: moniko hakija saa asunnon.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le m \le 10^5</span></li>
+<li><span class="math inline">0 \le k \le 10^9</span></li>
+<li><span class="math inline">1 \le a_i \le 10^9</span></li>
+<li><span class="math inline">1 \le b_i \le 10^9</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>4 3 5
+60 45 80 60
+30 60 75
+</pre>
+<p>Tuloste:</p>
+<pre>2
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 3</h4><a  href="322.html">Ravintola<span class="task-score icon "></span></a><a class="current" href="323.html">Asunnot<span class="task-score icon "></span></a><a  href="324.html">Huvipuisto<span class="task-score icon "></span></a><a  href="325.html">Tehdas<span class="task-score icon "></span></a><a  href="609.html">Järjestys<span class="task-score icon "></span></a><a  href="326.html">Ositus<span class="task-score icon "></span></a><hr />

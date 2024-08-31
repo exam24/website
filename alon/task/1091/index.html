@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Algoritmit ongelmanratkaisussa</a></h3>
+      <h1>Concert Tickets</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Concert Tickets</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="alon">
+<input type="hidden" name="task" value="1091">
+<div class="md"><p>There are <span class="math inline">n</span> concert tickets available, each with a certain price. Then, <span class="math inline">m</span> customers arrive, one after another.</p>
+<p>Each customer announces the maximum price they are willing to pay for a ticket, and after this, they will get a ticket with the nearest possible price such that it does not exceed the maximum price.</p>
+<h1 id="input">Input</h1>
+<p>The first input line contains integers <span class="math inline">n</span> and <span class="math inline">m</span>: the number of tickets and the number of customers.</p>
+<p>The next line contains <span class="math inline">n</span> integers <span class="math inline">h_1,h_2,\ldots,h_n</span>: the price of each ticket.</p>
+<p>The last line contains <span class="math inline">m</span> integers <span class="math inline">t_1,t_2,\ldots,t_m</span>: the maximum price for each customer in the order they arrive.</p>
+<h1 id="output">Output</h1>
+<p>Print, for each customer, the price that they will pay for their ticket. After this, the ticket cannot be purchased again.</p>
+<p>If a customer cannot get any ticket, print <span class="math inline">-1</span>.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n, m \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le h_i, t_i \le 10^9</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5 3
+5 3 7 8 5
+4 8 3
+</pre>
+<p>Output:</p>
+<pre>3
+8
+-1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Part 1</h4>...
+<a  href="../1629.html">Movie Festival<span class="task-score icon "></span></a><a  href="../2183.html">Missing Coin Sum<span class="task-score icon "></span></a><a  href="../2162.html">Josephus Problem I<span class="task-score icon "></span></a><a class="current" href="../1091.html">Concert Tickets<span class="task-score icon "></span></a><a  href="../1164.html">Room Allocation<span class="task-score icon "></span></a><a  href="../2428.html">Subarray Distinct Values<span class="task-score icon "></span></a><a  href="../2163.html">Josephus Problem II<span class="task-score icon "></span></a><a  href="../1093.html">Two Sets II<span class="task-score icon "></span></a>...
+<hr />

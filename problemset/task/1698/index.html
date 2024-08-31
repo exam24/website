@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Swap Round Sorting</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/1698/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Swap Round Sorting</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1698">
+<div class="md"><p>You are given an array containing a permutation of numbers <span class="math inline">1,2,\dots,n</span>, and your task is to sort the array using <em>swap rounds</em>. On each swap round, you can choose any number of distinct pairs of elements and swap each pair.</p>
+<p>Your task is to find the minimum number of rounds and show how you can choose the pairs in each round.</p>
+<h1 id="input">Input</h1>
+<p>The first input line has an integer <span class="math inline">n</span>: the size of the array.</p>
+<p>The second line has <span class="math inline">n</span> integers <span class="math inline">x_1,x_2,\dots,x_n</span>: the initial permutation.</p>
+<h1 id="output">Output</h1>
+<p>First print an integer <span class="math inline">k</span>: the minimum number of rounds.</p>
+<p>Then, for each round, print the number of swaps and the indices of each swap. You can print any valid solution.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5
+5 2 1 3 4
+</pre>
+<p>Output:</p>
+<pre>2
+2
+1 3
+4 5
+1
+3 5
+</pre>
+<p>Explanation: The inital array is <span class="math inline">[5,2,1,3,4]</span>. After round <span class="math inline">1</span>, the array becomes <span class="math inline">[1,2,5,4,3]</span>. After round <span class="math inline">2</span>, the array becomes <span class="math inline">[1,2,3,4,5]</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Additional Problems</h4>...
+<a  href="../2132.html">Increasing Array II<span class="task-score icon "></span></a><a  href="../1189.html">Food Division<span class="task-score icon "></span></a><a  href="../1654.html">Bit Problem<span class="task-score icon "></span></a><a class="current" href="../1698.html">Swap Round Sorting<span class="task-score icon "></span></a><a  href="../2430.html">Binary Subsequences<span class="task-score icon "></span></a><a  href="../1700.html">Tree Isomorphism I<span class="task-score icon "></span></a><a  href="../2228.html">Counting Sequences<span class="task-score icon "></span></a><a  href="../1703.html">Critical Cities<span class="task-score icon "></span></a>...
+<hr />

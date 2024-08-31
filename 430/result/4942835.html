@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="/cses.css?13" id="styles">
+  <link rel="stylesheet " type="text/css" href="/cses-dark.css?13" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="/ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="/lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="/" class="logo"><img src="/logo.png?1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="/login">Login</a>
+        <span>&mdash;</span>
+                        <a href="/darkmode" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="/430/list/">Datatähti 2023 alku</a>
+        <a href="/430/messages/"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Sadonkorjuu</h1>
+<ul class="nav">
+<li><a href="/430/task/E/" >Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2022-10-31 00:00:00</span></li>
+        <li><b>End:</b> <span>2022-11-14 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1667167200;
+var contest_end = 1668376800;
+var server_time = 1725027926;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=430", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2023 alku - Results</title><table class="summary-table left-align narrow"><caption>Submission details</caption><tr><td >Task:</td><td ><a href="/430/task/E">Sadonkorjuu</a></td></tr>
+<tr><td >Sender:</td><td >Anniiiz</td></tr>
+<tr><td >Submission time:</td><td >2022-11-07 22:48:35 +0200</td></tr>
+<tr><td >Language:</td><td >C++17</td></tr>
+<tr><td >Status:</td><td ><span id="status">READY</span></td></tr>
+<tr><td >Result:</td><td ><span class="inline-score task-score c100">100</span></td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Feedback</caption><colgroup><col class="small-col"><col><col class="brief-col"></colgroup>
+<thead><tr><th >group</th><th >verdict</th><th >score</th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >33</td></tr>
+<tr><td >#2</td><td class="verdict ac">ACCEPTED</td><td >67</td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Test&nbsp;results</caption><colgroup><col class="small-col"><col><col class="brief-col"><col class="small-col"><col class="details-col"></colgroup>
+<thead><tr><th >test</th><th >verdict</th><th >time</th><th >group</th><th ></th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test1">details</a></td></tr>
+<tr><td >#2</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test2">details</a></td></tr>
+<tr><td >#3</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test3">details</a></td></tr>
+<tr><td >#4</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test4">details</a></td></tr>
+<tr><td >#5</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test5">details</a></td></tr>
+<tr><td >#6</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test6">details</a></td></tr>
+<tr><td >#7</td><td class="verdict ac">ACCEPTED</td><td >0.39 s</td><td >2</td><td ><a class="details-link" href="#test7">details</a></td></tr>
+<tr><td >#8</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test8">details</a></td></tr>
+<tr><td >#9</td><td class="verdict ac">ACCEPTED</td><td >0.41 s</td><td >2</td><td ><a class="details-link" href="#test9">details</a></td></tr>
+<tr><td >#10</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test10">details</a></td></tr>
+<tr><td >#11</td><td class="verdict ac">ACCEPTED</td><td >0.27 s</td><td >2</td><td ><a class="details-link" href="#test11">details</a></td></tr>
+<tr><td >#12</td><td class="verdict ac">ACCEPTED</td><td >0.25 s</td><td >2</td><td ><a class="details-link" href="#test12">details</a></td></tr>
+<tr><td >#13</td><td class="verdict ac">ACCEPTED</td><td >0.31 s</td><td >2</td><td ><a class="details-link" href="#test13">details</a></td></tr>
+<tr><td >#14</td><td class="verdict ac">ACCEPTED</td><td >0.26 s</td><td >2</td><td ><a class="details-link" href="#test14">details</a></td></tr>
+<tr><td >#15</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test15">details</a></td></tr>
+<tr><td >#16</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test16">details</a></td></tr>
+<tr><td >#17</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test17">details</a></td></tr>
+<tr><td >#18</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test18">details</a></td></tr>
+<tr><td >#19</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test19">details</a></td></tr>
+<tr><td >#20</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test20">details</a></td></tr>
+<tr><td >#21</td><td class="verdict ac">ACCEPTED</td><td >0.35 s</td><td >2</td><td ><a class="details-link" href="#test21">details</a></td></tr>
+<tr><td >#22</td><td class="verdict ac">ACCEPTED</td><td >0.24 s</td><td >2</td><td ><a class="details-link" href="#test22">details</a></td></tr>
+<tr><td >#23</td><td class="verdict ac">ACCEPTED</td><td >0.31 s</td><td >2</td><td ><a class="details-link" href="#test23">details</a></td></tr>
+<tr><td >#24</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test24">details</a></td></tr>
+<tr><td >#25</td><td class="verdict ac">ACCEPTED</td><td >0.33 s</td><td >2</td><td ><a class="details-link" href="#test25">details</a></td></tr>
+<tr><td >#26</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test26">details</a></td></tr>
+<tr><td >#27</td><td class="verdict ac">ACCEPTED</td><td >0.81 s</td><td >2</td><td ><a class="details-link" href="#test27">details</a></td></tr>
+<tr><td >#28</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test28">details</a></td></tr>
+<tr><td >#29</td><td class="verdict ac">ACCEPTED</td><td >0.28 s</td><td >2</td><td ><a class="details-link" href="#test29">details</a></td></tr>
+<tr><td >#30</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >1, 2</td><td ><a class="details-link" href="#test30">details</a></td></tr>
+<tr><td >#31</td><td class="verdict ac">ACCEPTED</td><td >0.36 s</td><td >2</td><td ><a class="details-link" href="#test31">details</a></td></tr>
+</table>
+<div class="closeable"><h3 class="caption close-trigger">Code</h3><div><script src="/lib/google-code-prettify/run_prettify.js"></script><pre class="prettyprint linenums  resize-horizontal lang-cpp" style="">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+using namespace std;
+using ll = long long;
+int t[200010];
+vector&lt;pair&lt;ll,ll&gt;&gt; v[200010];
+int z[200010];
+priority_queue&lt;pair&lt;ll,ll&gt;&gt; q;
+
+int main() {
+  ll n, a, b, c;
+  cin &gt;&gt; n;
+  for (int i = 1; i &lt;= n; ++i) {
+    cin &gt;&gt; t[i];
+    if (t[i]) z[i] = 1000000007;
+  }
+  for (int i = 0; i &lt; n-1; ++i) {
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+    v[a].push_back({b,c});
+    v[b].push_back({a,c});
+    if (t[a] &amp;&amp; !t[b]) {
+      q.push({-c, a});
+    }
+    else if (!t[a] &amp;&amp; t[b]) {
+      q.push({-c, b});
+    }
+  }
+  ll s = 0;
+  while (q.size()) {
+    pair&lt;ll,ll&gt; p = q.top();
+    //cout &lt;&lt; p.first &lt;&lt; &quot; &quot; &lt;&lt; p.second &lt;&lt; endl;
+    q.pop();
+    if (-p.first &gt; z[p.second]) continue;
+    z[p.second] = -p.first;
+    for (auto u : v[p.second]) {
+      if (!t[u.first]) continue;
+      q.push({-u.second + p.first, u.first});
+    }
+  }
+  for (int i = 1; i &lt;= n; ++i) {
+    //cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; z[i] &lt;&lt; endl;
+    s += z[i];
+  }
+  cout &lt;&lt; s &lt;&lt; endl;
+}
+
+//kuljeta dequeta mukana
+</pre></div></div><div class="closeable"><h3 class="caption close-trigger">Test details</h3><div><h4 id="test1">Test 1</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1<br>0</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/5d90ef7fc0d040fd56a1e48697cfa99e0dfaf4fd803aefefc3b5053ec1d36aea">view</a> <a class="save" title="Save" href="/save/1/5d90ef7fc0d040fd56a1e48697cfa99e0dfaf4fd803aefefc3b5053ec1d36aea">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>0</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9">view</a> <a class="save" title="Save" href="/save/2/5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>0</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MAo=">view</a> <a class="save" title="Save" href="/save/3/!MAo=">save</a></div></td></tr></table><br><h4 id="test2">Test 2</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>5<br>0&nbsp;0&nbsp;0&nbsp;0&nbsp;0<br>1&nbsp;2&nbsp;1<br>2&nbsp;3&nbsp;2<br>3&nbsp;4&nbsp;3<br>...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/1e56bdf5cfbe8d230783c9482052d70560f1344c7d123c3bb3ce5721e3ecd3eb">view</a> <a class="save" title="Save" href="/save/1/1e56bdf5cfbe8d230783c9482052d70560f1344c7d123c3bb3ce5721e3ecd3eb">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>0</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9">view</a> <a class="save" title="Save" href="/save/2/5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>0</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MAo=">view</a> <a class="save" title="Save" href="/save/3/!MAo=">save</a></div></td></tr></table><br><h4 id="test3">Test 3</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>4<br>1&nbsp;0&nbsp;1&nbsp;1<br>1&nbsp;2&nbsp;10<br>2&nbsp;3&nbsp;20<br>2&nbsp;4&nbsp;30</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/899bac36d28d01e7b0493fc7f78c00e7f784178ede502641e75d191b21dea777">view</a> <a class="save" title="Save" href="/save/1/899bac36d28d01e7b0493fc7f78c00e7f784178ede502641e75d191b21dea777">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>60</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9">view</a> <a class="save" title="Save" href="/save/2/39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>60</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!NjAK">view</a> <a class="save" title="Save" href="/save/3/!NjAK">save</a></div></td></tr></table><br><h4 id="test4">Test 4</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>5<br>0&nbsp;1&nbsp;1&nbsp;1&nbsp;0<br>1&nbsp;2&nbsp;10<br>2&nbsp;3&nbsp;20<br>3&nbsp;4&nbsp;30<br>...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/72232aa4cb0d870c864d5d87350db296ed3d082bb68a7f01a5caa4413153656e">view</a> <a class="save" title="Save" href="/save/1/72232aa4cb0d870c864d5d87350db296ed3d082bb68a7f01a5caa4413153656e">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>80</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/48449a14a4ff7d79bb7a1b6f3d488eba397c36ef25634c111b49baf362511afc">view</a> <a class="save" title="Save" href="/save/2/48449a14a4ff7d79bb7a1b6f3d488eba397c36ef25634c111b49baf362511afc">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>80</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!ODAK">view</a> <a class="save" title="Save" href="/save/3/!ODAK">save</a></div></td></tr></table><br><h4 id="test5">Test 5</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>5<br>0&nbsp;1&nbsp;0&nbsp;1&nbsp;1<br>1&nbsp;2&nbsp;1<br>2&nbsp;3&nbsp;5<br>3&nbsp;4&nbsp;3<br>...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/4400767478587705eb4233f42f4c9145cccfb9b95e70a23b4e628d6eb1db102f">view</a> <a class="save" title="Save" href="/save/1/4400767478587705eb4233f42f4c9145cccfb9b95e70a23b4e628d6eb1db102f">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>6</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683">view</a> <a class="save" title="Save" href="/save/2/e7f6c011776e8db7cd330b54174fd76f7d0216b612387a5ffcfb81e6f0919683">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>6</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!Ngo=">view</a> <a class="save" title="Save" href="/save/3/!Ngo=">save</a></div></td></tr></table><br><h4 id="test6">Test 6</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/9e2f7306fb55336519a0ccc46a28ac89b0459a60ea0cdb1d87ff0be0743f9272">view</a> <a class="save" title="Save" href="/save/1/9e2f7306fb55336519a0ccc46a28ac89b0459a60ea0cdb1d87ff0be0743f9272">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>5506363</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/05e2d8488fcc0dd53f4cdb931ad9664328e5e49b43a89c57a9ae23e4d1892e51">view</a> <a class="save" title="Save" href="/save/2/05e2d8488fcc0dd53f4cdb931ad9664328e5e49b43a89c57a9ae23e4d1892e51">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>5506363</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!NTUwNjM2Mwo=">view</a> <a class="save" title="Save" href="/save/3/!NTUwNjM2Mwo=">save</a></div></td></tr></table><br><h4 id="test7">Test 7</h4><p>Group: 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>200000<br>1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/dac8d91f3b45ac0c02250137c2534eb7dc4a95963eeb10dea175a4a0cc8e3120">view</a> <a class="save" title="Save" href="/save/1/dac8d91f3b45ac0c02250137c2534eb7dc4a95963eeb10dea175a4a0cc8e3120">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>1795118520</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/79c07a71f112d580b451b55eb770f702f04853fbe87d3a91ebe11c44b41cd30d">view</a> <a class="save" title="Save" href="/save/2/79c07a71f112d580b451b55eb770f702f04853fbe87d3a91ebe11c44b41cd30d">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>1795118520</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MTc5NTExODUyMAo=">view</a> <a class="save" title="Save" href="/save/3/!MTc5NTExODUyMAo=">save</a></div></td></tr></table><br><h4 id="test8">Test 8</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>0&nbsp;0&nbsp;1&nbsp;0&nbsp;1&nbsp;1&nbsp;0&nbsp;1&nbsp;0&nbsp;1&nbsp;1&nbsp;0&nbsp;0&nbsp;0&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/02808a3fd4af11ebe90d2107ab1ec8515a1a7b1416489426f5bae7c5fe045f5d">view</a> <a class="save" title="Save" href="/save/1/02808a3fd4af11ebe90d2107ab1ec8515a1a7b1416489426f5bae7c5fe045f5d">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>293576</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/a4cd66843393c5137eb05311dce1ea7f2be2496e6912259f9998ad640e063978">view</a> <a class="save" title="Save" href="/save/2/a4cd66843393c5137eb05311dce1ea7f2be2496e6912259f9998ad640e063978">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>293576</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MjkzNTc2Cg==">view</a> <a class="save" title="Save" href="/save/3/!MjkzNTc2Cg==">save</a></div></td></tr></table><br><h4 id="test9">Test 9</h4><p>Group: 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>200000<br>1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/d15cf99062283c972cde69ff78306f1cd44da1c9637d8fd5fb400339f0aaf82d">view</a> <a class="save" title="Save" href="/save/1/d15cf99062283c972cde69ff78306f1cd44da1c9637d8fd5fb400339f0aaf82d">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>816932444</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/e8f37cfc4a7dbb560d43960af76b9d313e90bcf2a8221102f904bdb7aa2491d3">view</a> <a class="save" title="Save" href="/save/2/e8f37cfc4a7dbb560d43960af76b9d313e90bcf2a8221102f904bdb7aa2491d3">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>816932444</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!ODE2OTMyNDQ0Cg==">view</a> <a class="save" title="Save" href="/save/3/!ODE2OTMyNDQ0Cg==">save</a></div></td></tr></table><br><h4 id="test10">Test 10</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/958f7ec9cd5389e039d96a425f212d2e26e8f73bc992ef131b546cbd46ae8ff4">view</a> <a class="save" title="Save" href="/save/1/958f7ec9cd5389e039d96a425f212d2e26e8f73bc992ef131b546cbd46ae8ff4">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>3089</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/93ec5f036cae289c830e104b443f7bd5ddb4a9348c216e6a6c82b98ba5166789">view</a> <a class="save" title="Save" href="/save/2/93ec5f036cae289c830e104b443f7bd5ddb4a9348c216e6a6c82b98ba5166789">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>3089</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MzA4OQo=">view</a> <a class="save" title="Save" href="/save/3/!MzA4OQo=">save</a></div></td></tr></table><br><h4 id="test11">Test 11</h4><p>Group: 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>200000<br>0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/e82ba3691a4342f362f7ce442bd87e9732143da89b4730ca1ec608881484c0b0">view</a> <a class="save" title="Save" href="/save/1/e82ba3691a4342f362f7ce442bd87e9732143da89b4730ca1ec608881484c0b0">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>40839</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/d15a21eff3823a6f402c5efb960efeafa8d3a75cd42ce10328677c4da3113410">view</a> <a class="save" title="Save" href="/save/2/d15a21eff3823a6f402c5efb960efeafa8d3a75cd42ce10328677c4da3113410">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>40839</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!NDA4MzkK">view</a> <a class="save" title="Save" href="/save/3/!NDA4MzkK">save</a></div></td></tr></table><br><h4 id="test12">Test 12</h4><p>Group: 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>200000<br>1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/b05f7685b523511848d8db14d87f176bbac1266bd62767baadaed7f6acd32557">view</a> <a class="save" title="Save" href="/save/1/b05f7685b523511848d8db14d87f176bbac1266bd62767baadaed7f6acd32557">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>5683983203973</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/a3de96dcc607031a6cb6ddd5a01d4668a79768a8a667fd69aa8d129ac034a702">view</a> <a class="save" title="Save" href="/save/2/a3de96dcc607031a6cb6ddd5a01d4668a79768a8a667fd69aa8d129ac034a702">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>5683983203973</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!NTY4Mzk4MzIwMzk3Mwo=">view</a> <a class="save" title="Save" href="/save/3/!NTY4Mzk4MzIwMzk3Mwo=">save</a></div></td></tr></table><br><h4 id="test13">Test 13</h4><p>Group: 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>200000<br>0&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;0&nbsp;0&nbsp;0&nbsp;1&nbsp;1&nbsp;0&nbsp;1&nbsp;0&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/c104e9939ba11fcff6211ffbc2976b7df341eb4ca7064789d2b88c6b2ea5a7a1">view</a> <a class="save" title="Save" href="/save/1/c104e9939ba11fcff6211ffbc2976b7df341eb4ca7064789d2b88c6b2ea5a7a1">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>58572993</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/66483f6c642486c29fa9f63081dca86065137ed1a1f04d26b048333e12223363">view</a> <a class="save" title="Save" href="/save/2/66483f6c642486c29fa9f63081dca86065137ed1a1f04d26b048333e12223363">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>58572993</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!NTg1NzI5OTMK">view</a> <a class="save" title="Save" href="/save/3/!NTg1NzI5OTMK">save</a></div></td></tr></table><br><h4 id="test14">Test 14</h4><p>Group: 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>200000<br>0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/e1395b20d4f1bc378112215bff65cb54bdc1e2e87929ed77e3534ee9f73ea8ee">view</a> <a class="save" title="Save" href="/save/1/e1395b20d4f1bc378112215bff65cb54bdc1e2e87929ed77e3534ee9f73ea8ee">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>32755</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/d3e18bb4766a79d6c9b3467be88e839e54daa9d151d26a4e94f73f832e97871c">view</a> <a class="save" title="Save" href="/save/2/d3e18bb4766a79d6c9b3467be88e839e54daa9d151d26a4e94f73f832e97871c">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>32755</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MzI3NTUK">view</a> <a class="save" title="Save" href="/save/3/!MzI3NTUK">save</a></div></td></tr></table><br><h4 id="test15">Test 15</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/487e741e461cd9b741fd68a9927edd92ef55b7b8a1182f107f12d4bf2ff1a573">view</a> <a class="save" title="Save" href="/save/1/487e741e461cd9b741fd68a9927edd92ef55b7b8a1182f107f12d4bf2ff1a573">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>126238345</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/2a7f8b7edd4ca7fa9048acf57cb5093c5a549739b9ed332f8d108d6306e673fe">view</a> <a class="save" title="Save" href="/save/2/2a7f8b7edd4ca7fa9048acf57cb5093c5a549739b9ed332f8d108d6306e673fe">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>126238345</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MTI2MjM4MzQ1Cg==">view</a> <a class="save" title="Save" href="/save/3/!MTI2MjM4MzQ1Cg==">save</a></div></td></tr></table><br><h4 id="test16">Test 16</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>0&nbsp;0&nbsp;0&nbsp;1&nbsp;0&nbsp;1&nbsp;1&nbsp;1&nbsp;0&nbsp;0&nbsp;1&nbsp;0&nbsp;1&nbsp;1&nbsp;0&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/ee8d8e91e14de8d66ddad25fd06e5279988d4dc032d6ea674f8faa6ee1da20e0">view</a> <a class="save" title="Save" href="/save/1/ee8d8e91e14de8d66ddad25fd06e5279988d4dc032d6ea674f8faa6ee1da20e0">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>278678</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/b5f0d749526925d8eb7cb49b46c42744e85bcf25d73d7283c9ed17df3fd62af2">view</a> <a class="save" title="Save" href="/save/2/b5f0d749526925d8eb7cb49b46c42744e85bcf25d73d7283c9ed17df3fd62af2">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>278678</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!Mjc4Njc4Cg==">view</a> <a class="save" title="Save" href="/save/3/!Mjc4Njc4Cg==">save</a></div></td></tr></table><br><h4 id="test17">Test 17</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>1&nbsp;0&nbsp;0&nbsp;0&nbsp;1&nbsp;0&nbsp;0&nbsp;0&nbsp;1&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/678cfc533a6dfcf5890700a0ede321ca82df4f11c85008a14a1f6154b8a8876e">view</a> <a class="save" title="Save" href="/save/1/678cfc533a6dfcf5890700a0ede321ca82df4f11c85008a14a1f6154b8a8876e">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>34929</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/2c0592182bd3faac16dac1de63bfb8bbfc4ec4c313f28b1595245f293371fec6">view</a> <a class="save" title="Save" href="/save/2/2c0592182bd3faac16dac1de63bfb8bbfc4ec4c313f28b1595245f293371fec6">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>34929</samp><div class="samp-actions"><a class="view" title="View" href="/view/3/!MzQ5MjkK">view</a> <a class="save" title="Save" href="/save/3/!MzQ5MjkK">save</a></div></td></tr></table><br><h4 id="test18">Test 18</h4><p>Group: 1, 2</p><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;1&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="/view/1/5b354f1c56ca6a3b0ef9411d4e1c20767cac701928c7d34f57f44b678632ae0f">view</a> <a class="save" title="Save" href="/save/1/5b354f1c56ca6a3b0ef9411d4e1c20767cac701928c7d34f57f44b678632ae0f">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>1543963</samp><div class="samp-actions"><a class="view" title="View" href="/view/2/9f78ae0ff95bb8b21ee24bf23546f3fb119a970b624f548feef2e358b50d2812">view</a> <a class="save" title="Save" href="/save/2/9f78ae0ff95bb8b21ee24bf23546f3fb119a970b624f548feef2e358b50d2812">save</a

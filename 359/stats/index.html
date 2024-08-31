@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti Open 2021</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>N/A</span></li>
+        <li><b>End:</b> <span>N/A</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 0;
+var contest_end = 0;
+var server_time = 1725027151;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<title>CSES - Datatähti Open 2021 - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = false;
+  var virtualContest = true;
+  var contestDuration = 14400;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[2444,2445,2446,2447,2448,2449]</script>
+<script type="application/json" id="task-chars">{"2444":"A","2445":"B","2446":"C","2447":"D","2448":"E","2449":"F"}</script>
+<script type="application/json" id="C1-data">{"MKopchev":[[142,100],[785,200],[1388,300],[2471,334],[2748,400],[3517,500]],"nirjhor":[[398,100]],"Ausca":[[405,100],[3800,200],[11137,300],[13799,322]],"meatrow":[[240,35],[335,100],[1005,200],[1623,300],[5221,334],[5369,355],[10132,455]],"StandardTurtle":[[1239,35]],"valerikk":[[153,100]],"apostoldaniel854":[[564,35],[958,100],[3456,122],[5426,222],[6607,322],[8912,422],[10985,500]],"AMnu":[[577,100],[1655,200],[4506,300],[5272,400],[6936,500],[11486,515],[13560,522]],"jjlowercase":[[2132,100]],"stephan":[[243,100],[3766,200],[7766,300],[8594,334],[9312,355],[10462,384]],"sandoval":[[466,100],[2684,200],[3903,300],[5635,336],[12315,391]],"NewResolution":[[430,100],[971,200],[1706,300],[2546,400]],"qpwoeirut":[[239,100],[2008,200],[3982,300],[9393,334],[12196,370],[13101,377]],"Black_hat":[[1296,100],[3745,200]],"zscoder":[[258,100],[743,200],[852,300],[1768,400],[2710,500]],"faustaadp":[[254,100],[1341,200],[2314,234],[4726,300]],"dxz05":[[543,100],[3523,122],[3700,200],[5263,229],[9843,265]],"koosaga":[[124,100],[254,200],[679,300],[1019,400],[4897,500]],"andr1y":[[238,100],[1551,200],[5781,255],[11491,284],[11663,355]],"Norimo2":[[521,100]],"lakshith-403":[[1412,100],[3087,200]],"f1x9d":[[220,100],[670,200],[5983,229],[7742,263],[12702,284]],"TV Pagalba":[[864,100]],"pwild":[[195,100],[1093,200],[2248,300],[3075,400]],"nigus":[[235,35],[289,100],[1744,200],[4249,236],[4312,300],[4912,400],[6349,434],[14390,441]],"oleh1421":[[173,100],[991,200],[7050,255],[8104,355]],"TryMax":[[571,100],[3143,200],[7334,300]],"Victor":[[212,100],[2893,200],[5722,234],[7771,334],[9766,370]],"Sasha008":[[199,35],[274,100]],"ajpiano":[[411,100],[1642,200],[3100,300],[8877,355],[14365,455]],"YouKnowWho":[[218,100],[1541,200],[2603,300],[4148,400]],"mofk":[[303,100],[902,200],[2880,300],[4282,329],[4612,400]],"b23v":[[303,100],[8427,134]],"socho":[[138,35],[237,100],[1393,200],[4606,300],[5222,400],[7060,436],[9672,500],[12822,507]],"rishb369":[[416,35],[445,100],[3711,134],[6729,156]],"eggag32":[[216,100],[1720,122],[2448,200],[13213,300]],"ritul_kr_singh":[[498,100],[2838,200],[5483,300],[8870,334],[9706,355]],"knightron0":[[808,100],[3243,122],[4098,151]],"dynam1c":[[176,100],[2379,200],[11372,300]],"vishesh312":[[516,35],[544,100],[3643,122],[5892,156]],"lookcook":[[325,100],[758,122],[2701,200],[4387,236],[4699,300],[5561,400],[7186,434],[7342,455],[11092,462],[13694,481]],"kostia244":[[724,100],[2349,134],[3768,200],[12287,300],[14274,322]],"hexadecimal":[[461,100],[11179,200]],"_martynas":[[481,100],[2218,122]],"ScarletS":[[1614,100],[2608,200],[8952,300],[12028,336],[12904,370]],"dusty_sky":[[2491,100],[3790,122]],"tutis":[[160,35],[181,100],[929,200],[3073,236],[3125,300],[3577,400],[6771,434],[7137,500],[9169,507],[11559,522]],"MAKMED1337":[[234,35],[314,100],[733,200],[3937,236],[5075,270],[8761,334],[11266,434]],"Sevlll":[[797,100],[2755,200],[2873,235],[2889,300],[3924,322],[3961,400]],"decpero":[[329,35],[448,100],[3853,200]],"pln":[[1532,100],[6512,122],[6913,200],[8616,229]],"aryan12":[[604,100],[1162,122]],"cjoa":[[293,100],[3747,200]],"gilgamesh":[[812,35],[1159,100],[4472,200],[6745,234],[7014,255]],"mahmoudbadawy":[[420,35],[598,100],[2957,122]],"MohamedAhmed04":[[225,35],[429,100]],"Kesatria_Komodo":[[1166,35],[1325,100],[2453,134],[10603,156]],"fishy15":[[395,100],[2536,200],[7983,300],[10488,334]],"nhho":[[320,35],[352,100],[1901,200],[2786,300],[3912,400],[6913,455]],"endagorion":[[240,100],[739,200],[1184,300],[1458,400],[2823,500],[10042,526]],"kasparovian":[[1825,100]],"lolok123":[[880,100],[3590,200],[9027,300]],"vixephor":[[366,100],[2050,200]],"Nagibator228":[[474,100],[1140,200]],"Jarif_Rahman":[[712,100]],"kenechi":[[502,100],[2116,122]],"spirrevip":[[4501,35]],"jenkinsser":[[2025,100],[3576,122],[5573,200],[8335,229]],"cubefreak777":[[346,100],[4143,200],[6193,229]],"doowey":[[223,100],[1913,122],[3156,200],[3634,300],[12349,400]],"voventa":[[152,35],[209,100],[898,200],[1936,229],[6132,263],[6479,284],[9189,355],[13692,455]],"Pyqe":[[391,100],[2134,200],[2762,300],[3465,400],[4166,500]],"etaha":[[584,100],[2014,200]],"taulant":[[573,100],[3065,200],[6199,300],[11193,400],[13012,434]],"smjleo":[[362,100],[2135,122]],"wlz":[[197,35],[638,100],[2810,200],[8058,229],[9208,263]],"ziihrs":[[145,100],[2168,200],[8891,300],[10971,329]],"Bench0310":[[124,100],[2298,200],[2803,300],[3637,400],[10904,500]],"teehandsome":[[1078,100],[3051,200],[6229,229],[9048,263]],"flash_0408":[[529,100],[1765,122],[4471,151],[6789,222],[9302,300]],"pidddgy":[[326,100],[2221,200],[5618,229],[12059,265],[13316,299],[13899,320]],"wabadaba":[[388,100],[1603,200]],"IOI_EJOI_2021":[[1722,35]]}</script>
+<script type="application/json" id="C2-data">{"C++":318,"Python3":9,"Java":1}</script>
+<script type="application/json" id="C3-data">{"2444":[70,4,1,1,1,0,2,3,2,0,0,0,0,0,0,0,0,0,0],"2445":[58,3,1,1,3,0,1,0,0,0,2,1,3,0,0,0,0,0,0],"2446":[3,24,8,0,1,1,4,0,4,3,4,0,0,0,1,0,0,0,0],"2447":[32,17,3,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0],"2448":[0,1,1,0,3,1,4,3,4,4,4,10,8,3,3,0,0,0,0],"2449":[3,3,1,2,1,1,0,0,0,0,1,0,0,2,0,0,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"2444":[0,0,0,0,0,0,2,4,12,19,21,11,9,1,4,0,1,0,0,0,0,0,0,0],"2445":[0,0,0,0,0,0,0,0,1,8,13,21,21,4,2,2,1,0,0,0,0,0,0,0],"2446":[0,0,0,0,0,0,0,0,0,7,10,12,18,3,2,0,1,0,0,0,0,0,0,0],"2447":[0,0,0,0,0,0,0,0,0,4,15,19,12,3,0,1,1,0,0,0,0,0,0,0],"2448":[0,0,0,0,0,0,0,0,1,3,7,22,9,4,2,0,1,0,0,0,0,0,0,0],"2449":[0,0,0,0,0,0,0,0,2,0,0,4,2,5,1,0,0,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"2444":1.7710843373493976,"2445":1.9855072463768115,"2446":4.4375,"2448":3.0714285714285716,"2447":1.8541666666666667,"2449":5}</script>
+<script type="application/json" id="people-names">[]</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>83</td>
+    <td>910</td>
+    <td>23778</td>
+    <td>216</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>11.0</td>
+    <td>286.5</td>
+    <td>2.6</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

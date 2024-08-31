@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Ketju</h1>
+<ul class="nav">
+<li><a href="363/index.html" class="current">Task</a></li>
+<li><a href="../stats/363/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Ketju</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="363">
+<div class="md"><p>Annettuna on <span class="math inline">n</span> merkkijonoa, jotka kuvaavat DNA-ketjun osia. Tehtäväsi on liittää ne kaikki ketjuksi. Rajoituksena on, että kun osat liitetään peräkkäin, niin edellisen osan viimeisen merkin tulee olla sama kuin seuraavan osan ensimmäinen merkki.</p>
+<p>Monellako tavalla voit muodostaa ketjun? Kaksi tapaa ovat erilaiset, jos valitset jossakin vaiheessa eri kohdassa olevan merkkijonon seuraavaksi.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kokonaisluku <span class="math inline">n</span>: osien määrä.</p>
+<p>Sitten syötteessä on <span class="math inline">n</span> riviä, joista jokainen kuvaa yhden osan. Osa muodostuu merkeistä A, C, G ja T, ja siinä on korkeintaan 10 merkkiä.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Ohjelmasi tulee tulostaa yksi kokonaisluku: monellako tavalla ketjun voi muodostaa.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 20</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>5
+ACGA
+ACGA
+ACAC
+CCCC
+CTAC
+</pre>
+<p>Tuloste:</p>
+<pre>4
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 10</h4><a  href="358.html">Bittimuoto<span class="task-score icon "></span></a><a  href="360.html">Kyselyt<span class="task-score icon "></span></a><a  href="361.html">Ykkösbitit<span class="task-score icon "></span></a><a  href="362.html">Hissit<span class="task-score icon "></span></a><a class="current" href="363.html">Ketju<span class="task-score icon "></span></a><a  href="209.html">Bittijuttu<span class="task-score icon "></span></a><a  href="727.html">Alitaulukko<span class="task-score icon "></span></a><hr />

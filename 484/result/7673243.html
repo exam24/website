@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2024 alku</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Säähavainnot</h1>
+<ul class="nav">
+<li><a href="../task/F/index.html" >Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2023-10-30 00:00:00</span></li>
+        <li><b>End:</b> <span>2023-11-13 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1698616800;
+var contest_end = 1699826400;
+var server_time = 1725027640;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=484", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2024 alku - Results</title><table class="summary-table left-align narrow"><caption>Submission details</caption><tr><td >Task:</td><td ><a href="../task/F.html">Säähavainnot</a></td></tr>
+<tr><td >Sender:</td><td >Vludo</td></tr>
+<tr><td >Submission time:</td><td >2023-11-12 22:26:54 +0200</td></tr>
+<tr><td >Language:</td><td >C++11</td></tr>
+<tr><td >Status:</td><td ><span id="status">READY</span></td></tr>
+<tr><td >Result:</td><td ><span class="inline-score task-score c69">69</span></td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Feedback</caption><colgroup><col class="small-col"><col><col class="brief-col"></colgroup>
+<thead><tr><th >group</th><th >verdict</th><th >score</th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >68.5</td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Test&nbsp;results</caption><colgroup><col class="small-col"><col><col class="brief-col"><col class="brief-col"><col class="details-col"></colgroup>
+<thead><tr><th >test</th><th >verdict</th><th >time</th><th >score</th><th ></th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.88</td><td ><a class="details-link" href="7673243.html#test1">details</a></td></tr>
+<tr><td >#2</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.75</td><td ><a class="details-link" href="7673243.html#test2">details</a></td></tr>
+<tr><td >#3</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.75</td><td ><a class="details-link" href="7673243.html#test3">details</a></td></tr>
+<tr><td >#4</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.63</td><td ><a class="details-link" href="7673243.html#test4">details</a></td></tr>
+<tr><td >#5</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.63</td><td ><a class="details-link" href="7673243.html#test5">details</a></td></tr>
+<tr><td >#6</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.5</td><td ><a class="details-link" href="7673243.html#test6">details</a></td></tr>
+<tr><td >#7</td><td class="verdict ac">ACCEPTED</td><td >0.02 s</td><td >8</td><td ><a class="details-link" href="7673243.html#test7">details</a></td></tr>
+<tr><td >#8</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.38</td><td ><a class="details-link" href="7673243.html#test8">details</a></td></tr>
+</table>
+<div class="closeable"><h3 class="caption close-trigger">Code</h3><div><script src="../../lib/google-code-prettify/run_prettify.js"></script><pre class="prettyprint linenums  resize-horizontal lang-cpp" style="">/*
+    C++ code author: Vludo
+    Created: 2023-11-08 07:54:29
+*/
+#include &lt;bits/stdc++.h&gt;
+ 
+#define forn(i, n) for(int i=0; i&lt;n; i++)
+#define FOR(i, j, n) for(int i=j; i&lt;n; i++)
+#define pb push_back
+#define F first
+#define S second
+#define ever ;;
+ 
+typedef long long ll;
+ 
+const int inf = 1.01e9;
+const int mod = 1e9 + 7;
+ 
+using namespace std;
+ 
+// ---- main part ---- //
+ 
+static inline unsigned long long rdtsc() { unsigned long long d; asm volatile (&quot;rdtsc&quot; : &quot;=A&quot; (d) ); return d; }
+ 
+ 
+int main () {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+	srand(rdtsc());
+	
+	int n;
+	cin &gt;&gt; n;
+	
+	forn(i, n) {
+		float arr[36];
+		
+		forn(j, 24) {
+			cin &gt;&gt; arr[j];
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 30) {
+			forn(gg, 12) cout &lt;&lt; arr[23] + (arr[gg] - arr[0]) &lt;&lt; &quot; &quot;;
+			forn(gg, 0) cout &lt;&lt; &quot;? &quot;;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 25) {
+			forn(gg, 12) cout &lt;&lt; arr[23] + (arr[gg] - arr[0]) &lt;&lt; &quot; &quot;;
+			forn(gg, 0) cout &lt;&lt; &quot;? &quot;;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 20) {
+			forn(gg, 6) cout &lt;&lt; arr[23] + (arr[gg]-arr[0]) &lt;&lt; &quot; &quot;;
+			forn(gg, 6) cout &lt;&lt; &quot;? &quot;;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 15) {
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			forn(gg, 8) cout &lt;&lt; &quot;? &quot;;
+			cout &lt;&lt; &quot;?&quot; &lt;&lt; endl;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 7) {
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			forn(gg, 6) cout &lt;&lt; &quot;? &quot;;
+			cout &lt;&lt; &quot;?&quot; &lt;&lt; endl;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 5) {
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.4 &lt;&lt; &quot; &quot;;
+			forn(gg, 5) cout &lt;&lt; &quot;? &quot;;
+			cout &lt;&lt; &quot;?&quot; &lt;&lt; endl;
+			continue;
+		}
+		
+		if (arr[23] &lt;= 1.8 &amp;&amp; arr[23] &gt;= -1.8) {
+			cout &lt;&lt; arr[23] - 0.07 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.4 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.4 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.07 &lt;&lt; endl;
+			continue;
+		}
+		
+		if (arr[23] &gt; 1.8 &amp;&amp; arr[23] &lt; 5) {
+			cout &lt;&lt; arr[23] - 0 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.5 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.5 &lt;&lt; &quot; &quot;;
+			forn(gg, 3) cout &lt;&lt; &quot;? &quot;;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &gt; 3) {
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.85 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] - 0.85 &lt;&lt; &quot; &quot;;
+			forn(gg, 5) cout &lt;&lt; &quot;? &quot;;
+			continue;
+		}
+		
+		if (*max_element(arr, arr+24) - *min_element(arr, arr+24) &lt; 1.5) {
+			cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[1] - arr[0]) - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[2] - arr[0]) - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[3] - arr[0]) - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[4] - arr[0]) - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[5] - arr[0]) - 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[6] - arr[0]) + 0. &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[7] - arr[0]) + 0. &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[8] - arr[0]) + 0. &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[9] - arr[0]) + 0. &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[10] - arr[0]) + 0.1 &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; arr[23] + (arr[11] - arr[0]) + 0.1 &lt;&lt; &quot; &quot;;
+			continue;
+		}
+		
+		cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] + 0.1 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] - 0.2 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] - 0.3 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] - 0.85 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] - 0.85 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] - 0.85 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; arr[23] - 0.85 &lt;&lt; &quot; &quot;;
+		cout &lt;&lt; &quot;?&quot; &lt;&lt; endl;
+		cout &lt;&lt; &quot;?&quot; &lt;&lt; endl;
+		cout &lt;&lt; &quot;?&quot; &lt;&lt; endl;
+	}
+	
+	return 0;
+}</pre></div></div><div class="closeable"><h3 class="caption close-trigger">Test details</h3><div><h4 id="test1">Test 1</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>-0.4&nbsp;-0.1&nbsp;-0.2&nbsp;-0.3&nbsp;-0.4&nbsp;-0.5&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/c9ab9d5fcea0672fe6a3e124c787c7a60575b76ac9132c6414c0a678fd4c4b71">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/c9ab9d5fcea0672fe6a3e124c787c7a60575b76ac9132c6414c0a678fd4c4b71">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>0.4&nbsp;0.4&nbsp;0.5&nbsp;0.8&nbsp;0.9&nbsp;1.1&nbsp;1.3&nbsp;1....</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/df52e9fb879499cde8cad34f0b1744d237ea384a8594c463adf45a25366d61a3">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/df52e9fb879499cde8cad34f0b1744d237ea384a8594c463adf45a25366d61a3">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>0.13&nbsp;0.1&nbsp;0.1&nbsp;2.98023e-09&nbsp;-0.1&nbsp;...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test2">Test 2</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>2.9&nbsp;2.9&nbsp;2.9&nbsp;2.1&nbsp;2.6&nbsp;2&nbsp;2&nbsp;2.2&nbsp;2....</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/4d0cf4f69d718f50c9c933573a531fe838977c3e65322136e17e4fbf047482c5">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/4d0cf4f69d718f50c9c933573a531fe838977c3e65322136e17e4fbf047482c5">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>2.3&nbsp;1.6&nbsp;1.5&nbsp;1.1&nbsp;1&nbsp;0.7&nbsp;0.6&nbsp;0.8&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/7831b713c39cac4a639f27a4109cbe05c8b7b7fafc0dbb7677b08a051178a705">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/7831b713c39cac4a639f27a4109cbe05c8b7b7fafc0dbb7677b08a051178a705">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>2.6&nbsp;2.6&nbsp;2.6&nbsp;2.4&nbsp;2.4&nbsp;2.3&nbsp;2.3&nbsp;2....</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test3">Test 3</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>6.6&nbsp;6&nbsp;6.4&nbsp;6&nbsp;4.6&nbsp;4.6&nbsp;4.2&nbsp;4.3&nbsp;4....</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/ebcdeb2979992f03d609200f6cb44595b635f3bef938192103de5b5ecc81ea3a">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/ebcdeb2979992f03d609200f6cb44595b635f3bef938192103de5b5ecc81ea3a">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>10&nbsp;10.9&nbsp;10.3&nbsp;10.1&nbsp;9.1&nbsp;7.3&nbsp;5.7&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/4a5fd3725ab063bfea7fe83c463d01c9b2e2a9d82ba8bd1adb196d1ad73be2cd">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/4a5fd3725ab063bfea7fe83c463d01c9b2e2a9d82ba8bd1adb196d1ad73be2cd">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>10.2&nbsp;10.2&nbsp;10.2&nbsp;9.9&nbsp;9.8&nbsp;?&nbsp;?&nbsp;?&nbsp;?...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test4">Test 4</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>19.4&nbsp;20.2&nbsp;19.1&nbsp;18.9&nbsp;18.3&nbsp;17.3&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/9cff11f963db74195bac4682978d622e8163218a05b8b9fb735fe2b23d490187">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/9cff11f963db74195bac4682978d622e8163218a05b8b9fb735fe2b23d490187">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>18&nbsp;18.2&nbsp;17&nbsp;17.5&nbsp;17.2&nbsp;16.2&nbsp;12&nbsp;8...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/9c5a89b3607ea271af36560e5666b973de8dc20db73f2e59d23a532627c64ba9">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/9c5a89b3607ea271af36560e5666b973de8dc20db73f2e59d23a532627c64ba9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>17.3&nbsp;17.3&nbsp;17.3&nbsp;17&nbsp;16.9&nbsp;?&nbsp;?&nbsp;?&nbsp;?...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test5">Test 5</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>-5.7&nbsp;-5.8&nbsp;-5.8&nbsp;-5.9&nbsp;-7.1&nbsp;-6.9&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/40edae7726ec41054bea17bd8d0123eea22dd2e345b4da4b2868aa500d20b635">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/40edae7726ec41054bea17bd8d0123eea22dd2e345b4da4b2868aa500d20b635">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>-4.2&nbsp;-4.1&nbsp;-4&nbsp;-3.8&nbsp;-3.5&nbsp;-3.2&nbsp;-3...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/94bc3e5a2e2c033305cd0a60efd9cc1aee0e9fbd24c7887c8ba034460c21e2bf">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/94bc3e5a2e2c033305cd0a60efd9cc1aee0e9fbd24c7887c8ba034460c21e2bf">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>-4.4&nbsp;-4.4&nbsp;-4.4&nbsp;-4.7&nbsp;-4.8&nbsp;-5.35...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test6">Test 6</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>14.8&nbsp;14.8&nbsp;15.4&nbsp;12.9&nbsp;11.8&nbsp;9.7&nbsp;9...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/50992f9aba4fb4994629241d409ec8cf4c820db6c9c29612f0d947bff70a9263">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/50992f9aba4fb4994629241d409ec8cf4c820db6c9c29612f0d947bff70a9263">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>11.8&nbsp;11&nbsp;11.6&nbsp;10.8&nbsp;10.4&nbsp;10.4&nbsp;10...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/1b040b3efa48c1c86ee5529afacee2a253cbd08b10f812a6dc22a089a13f2136">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/1b040b3efa48c1c86ee5529afacee2a253cbd08b10f812a6dc22a089a13f2136">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>12.7&nbsp;12.7&nbsp;12.7&nbsp;12.4&nbsp;12.3&nbsp;?&nbsp;?&nbsp;?...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test7">Test 7</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>0.7&nbsp;1&nbsp;2&nbsp;1.4&nbsp;0.6&nbsp;-0.4&nbsp;-0.9&nbsp;-0.7...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/eadab930d53882e63ebf43e8439ad3d8850a10ade4ba341406af45dd41521609">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/eadab930d53882e63ebf43e8439ad3d8850a10ade4ba341406af45dd41521609">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>-1.3&nbsp;-0.5&nbsp;-0.6&nbsp;-1&nbsp;-3.2&nbsp;-7.2&nbsp;-6...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/af4a52aa896d6000a19cc533a2d0fcf14f23417550533bcea89c61172bd51ff9">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/af4a52aa896d6000a19cc533a2d0fcf14f23417550533bcea89c61172bd51ff9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>-1.87&nbsp;-1.9&nbsp;-1.9&nbsp;-2&nbsp;-2.1&nbsp;-2.2&nbsp;-...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test8">Test 8</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>15.1&nbsp;15.3&nbsp;14.9&nbsp;14.4&nbsp;14.4&nbsp;13.7&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/3650ed4421044a824f63533a889d70f4b13424d989b1edead36f20ce11a67363">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/3650ed4421044a824f63533a889d70f4b13424d989b1edead36f20ce11a67363">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>15.6&nbsp;15.9&nbsp;16&nbsp;15.2&nbsp;14.6&nbsp;14.4&nbsp;13...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/3f7f8f32685f585616c14eb58ae8cd714bdd07db19611ff9bdc9599e13bfc892">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/3f7f8f32685f585616c14eb58ae8cd714bdd07db19611ff9bdc9599e13bfc892">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>15.1&nbsp;15.1&nbsp;15.1&nbsp;14.8&nbsp;14.7&nbsp;14.15...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br></div></div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="../task/A.html"><span><b>A</b> Lumimyrsky</span><span class="task-score ">-</span></a><a  href="../task/B.html"><span><b>B</b> Monistus</span><span class="task-score ">-</span></a><a  href="../task/C.html"><span><b>C</b> Laskettelukeskus</span><span class="task-score ">-</span></a><a  href="../task/D.html"><span><b>D</b> Uolevin kalansaalis</span><span class="task-score ">-</span></a><a  href="../task/E.html"><span><b>E</b> Käännöt</span><span class="task-score ">-</span></a><a class="current" href="../task/F.html"><span><b>F</b> Säähavainnot</span><span class="task-score ">-</span></a><hr />
+<h4>Submissions (Vludo)</h4>
+
+<a class=" " href="https://cses.fi/484/result/7673283/">2023-11-12 22:32:51 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673281/">2023-11-12 22:31:54 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673264/">2023-11-12 22:29:20 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7673257/">2023-11-12 22:28:55 <span class="task-score c66">66</span></a><a class=" " href="https://cses.fi/484/result/7673249/">2023-11-12 22:28:02 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7673245/">2023-11-12 22:27:08 <span class="task-score c68">68</span></a><a class="current " href="https://cses.fi/484/result/7673243/">2023-11-12 22:26:54 <span class="task-score c69">69</span></a><a class=" " href="https://cses.fi/484/result/7673237/">2023-11-12 22:26:40 <span class="task-score c69">69</span></a><a class=" " href="https://cses.fi/484/result/7673223/">2023-11-12 22:25:30 <span class="task-score c69">69</span></a><a class=" " href="https://cses.fi/484/result/7673213/">2023-11-12 22:24:38 <span class="task-score c69">69</span></a><a class=" " href="https://cses.fi/484/result/7673207/">2023-11-12 22:23:54 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673198/">2023-11-12 22:23:02 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673192/">2023-11-12 22:22:14 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673188/">2023-11-12 22:21:30 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673185/">2023-11-12 22:20:50 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673175/">2023-11-12 22:19:05 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673171/">2023-11-12 22:18:48 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673169/">2023-11-12 22:18:20 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673168/">2023-11-12 22:17:46 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7673161/">2023-11-12 22:16:54 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7673159/">2023-11-12 22:16:30 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673156/">2023-11-12 22:16:01 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673152/">2023-11-12 22:15:22 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673147/">2023-11-12 22:14:50 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673141/">2023-11-12 22:13:48 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673129/">2023-11-12 22:11:47 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673124/">2023-11-12 22:11:17 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673120/">2023-11-12 22:10:55 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673115/">2023-11-12 22:10:38 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673114/">2023-11-12 22:10:19 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673110/">2023-11-12 22:09:45 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673107/">2023-11-12 22:09:32 <span class="task-score icon compile-err"></span></a><a class=" " href="https://cses.fi/484/result/7673099/">2023-11-12 22:08:32 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7673096/">2023-11-12 22:08:16 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7673089/">2023-11-12 22:07:23 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673083/">2023-11-12 22:06:59 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673080/">2023-11-12 22:06:03 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673078/">2023-11-12 22:05:44 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673073/">2023-11-12 22:04:37 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673068/">2023-11-12 22:02:57 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673061/">2023-11-12 22:02:07 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673059/">2023-11-12 22:01:49 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7673054/">2023-11-12 22:00:50 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7673051/">2023-11-12 22:00:32 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7673047/">2023-11-12 21:59:52 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7673044/">2023-11-12 21:59:26 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7673042/">2023-11-12 21:59:05 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7673039/">2023-11-12 21:58:48 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7671094/">2023-11-12 19:12:50 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671089/">2023-11-12 19:12:19 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671086/">2023-11-12 19:12:00 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671083/">2023-11-12 19:11:41 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671081/">2023-11-12 19:11:23 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671075/">2023-11-12 19:10:37 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671065/">2023-11-12 19:10:04 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671060/">2023-11-12 19:09:28 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671057/">2023-11-12 19:09:02 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7671052/">2023-11-12 19:08:45 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671022/">2023-11-12 19:06:07 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671013/">2023-11-12 19:05:39 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671005/">2023-11-12 19:04:51 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7671000/">2023-11-12 19:04:23 <span class="task-score c37">37</span></a><a class=" " href="https://cses.fi/484/result/7670994/">2023-11-12 19:03:26 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670992/">2023-11-12 19:03:00 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670989/">2023-11-12 19:02:32 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670784/">2023-11-12 18:35:46 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670777/">2023-11-12 18:34:40 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670771/">2023-11-12 18:34:12 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670766/">2023-11-12 18:33:10 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670764/">2023-11-12 18:32:39 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670759/">2023-11-12 18:31:30 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670757/">2023-11-12 18:31:16 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670754/">2023-11-12 18:30:56 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670743/">2023-11-12 18:29:30 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670739/">2023-11-12 18:29:04 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670734/">2023-11-12 18:28:31 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670731/">2023-11-12 18:28:17 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670727/">2023-11-12 18:28:01 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670721/">2023-11-12 18:27:34 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670716/">2023-11-12 18:27:17 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670714/">2023-11-12 18:26:59 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670711/">2023-11-12 18:26:35 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670707/">2023-11-12 18:26:11 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670701/">2023-11-12 18:25:37 <span class="task-score c68">68</span></a><a class=" " href="https://cses.fi/484/result/7670695/">2023-11-12 18:25:12 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670688/">2023-11-12 18:24:53 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670683/">2023-11-12 18:24:01 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7670679/">2023-11-12 18:23:04 <span class="task-score c66">66</span></a><a class=" " href="https://cses.fi/484/result/7670662/">2023-11-12 18:21:19 <span class="task-score c66">66</span></a><a class=" " href="https://cses.fi/484/result/7670633/">2023-11-12 18:18:27 <span class="task-score c66">66</span></a><a class=" " href="https://cses.fi/484/result/7670628/">2023-11-12 18:18:06 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7670621/">2023-11-12 18:17:00 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7670608/">2023-11-12 18:15:52 <span class="task-score c64">64</span></a><a class=" " href="https://cses.fi/484/result/7670598/">2023-11-12 18:15:08 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670593/">2023-11-12 18:14:26 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670590/">2023-11-12 18:14:08 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7670587/">2023-11-12 18:13:41 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670586/">2023-11-12 18:13:27 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7670581/">2023-11-12 18:13:11 <span class="task-score c58">58</span></a><a class=" " href="https://cses.fi/484/result/7670576/">2023-11-12 18:12:46 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7670552/">2023-11-12 18:10:03 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7670546/">2023-11-12 18:09:26 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7670539/">2023-11-12 18:08:43 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7670537/">2023-11-12 18:08:26 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670532/">2023-11-12 18:08:06 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670520/">2023-11-12 18:07:31 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7670514/">2023-11-12 18:06:38 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7670509/">2023-11-12 18:06:20 <span class="task-score icon compile-err"></span></a><a class=" " href="https://cses.fi/484/result/7670502/">2023-11-12 18:05:47 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670497/">2023-11-12 18:04:58 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7670492/">2023-11-12 18:04:26 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7667241/">2023-11-12 11:51:52 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7667239/">2023-11-12 11:51:18 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7667236/">2023-11-12 11:50:56 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667232/">2023-11-12 11:50:15 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667230/">2023-11-12 11:49:51 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667222/">2023-11-12 11:49:28 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7667218/">2023-11-12 11:49:03 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7667212/">2023-11-12 11:48:13 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667203/">2023-11-12 11:47:05 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667198/">2023-11-12 11:46:35 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667196/">2023-11-12 11:46:10 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667192/">2023-11-12 11:45:44 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667188/">2023-11-12 11:45:22 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667182/">2023-11-12 11:45:02 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667175/">2023-11-12 11:44:35 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7667162/">2023-11-12 11:43:08 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7667156/">2023-11-12 11:42:36 <span class="task-score c50">50</span></a><a class=" " href="https://cses.fi/484/result/7664295/">2023-11-12 00:34:29 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664293/">2023-11-12 00:34:07 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664291/">2023-11-12 00:33:45 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664284/">2023-11-12 00:32:10 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664281/">2023-11-12 00:31:41 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664279/">2023-11-12 00:31:17 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664278/">2023-11-12 00:30:53 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7664273/">2023-11-12 00:30:29 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664269/">2023-11-12 00:30:04 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664266/">2023-11-12 00:29:44 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664258/">2023-11-12 00:27:14 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664256/">2023-11-12 00:26:49 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664251/">2023-11-12 00:26:26 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664249/">2023-11-12 00:26:03 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664247/">2023-11-12 00:25:41 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664244/">2023-11-12 00:25:15 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664243/">2023-11-12 00:24:41 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664241/">2023-11-12 00:24:21 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664239/">2023-11-12 00:24:02 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664237/">2023-11-12 00:23:47 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664230/">2023-11-12 00:22:58 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7664225/">2023-11-12 00:22:32 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7664224/">2023-11-12 00:21:29 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7664221/">2023-11-12 00:20:57 <span class="task-score icon compile-err"></span></a><a class=" " href="https://cses.fi/484/result/7664217/">2023-11-12 00:20:08 <span class="task-score icon compile-err"></span></a><a class=" " href="https://cses.fi/484/result/7664212/">2023-11-12 00:18:29 <span class="task-score c28">28</span></a><a class=" " href="https://cses.fi/484/result/7664204/">2023-11-12 00:16:42 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7664202/">2023-11-12 00:16:06 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7664192/">2023-11-12 00:14:25 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7664175/">2023-11-12 00:10:02 <span class="task-score c28">28</span></a><a class=" " href="https://cses.fi/484/result/7664171/">2023-11-12 00:09:22 <span class="task-score c57">57</span></a><a class=" " href="https://cses.fi/484/result/7664158/">2023-11-12 00:06:30 <span class="task-score c57">57</span></a><a class=" " href="https://cses.fi/484/result/7664156/">2023-11-12 00:06:12 <span class="task-score c58">58</span></a><a class=" " href="https://cses.fi/484/result/7664153/">2023-11-12 00:05:55 <span class="task-score c59">59</span></a><a class=" " href="https://cses.fi/484/result/7664150/">2023-11-12 00:05:17 <span class="task-score c27">27</span></a><a class=" " href="https://cses.fi/484/result/7664113/">2023-11-11 23:58:42 <span class="task-score c46">46</span></a><a class=" " href="https://cses.fi/484/result/7664108/">2023-11-11 23:57:37 <span class="task-score c52">52</span></a><a class=" " href="https://cses.fi/484/result/7664104/">2023-11-11 23:57:16 <span class="task-score c44">44</span></a><a class=" " href="https://cses.fi/484/result/7664101/">2023-11-11 23:56:30 <span class="task-score c33">33</span></a><a class=" " href="https://cses.fi/484/result/7664093/">2023-11-11 23:55:15 <span class="task-score c48">48</span></a><a class=" " href="https://cses.fi/484/result/7664091/">2023-11-11 23:54:54 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7664088/">2023-11-11 23:54:20 <span class="task-score c33">33</span></a><a class=" " href="https://cses.fi/484/result/7664079/">2023-11-11 23:53:03 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7664076/">2023-11-11 23:52:44 <span class="task-score c55">55</span></a><a class=" " href="https://cses.fi/484/result/7664071/">2023-11-11 23:52:22 <span class="task-score c57">57</span></a><a class=" " href="https://cses.fi/484/result/7664060/">2023-11-11 23:50:32 <span class="task-score c22">22</span></a><a class=" " href="https://cses.fi/484/result/7641643/">2023-11-09 18:13:00 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641640/">2023-11-09 18:12:42 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641637/">2023-11-09 18:12:10 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7641597/">2023-11-09 18:06:31 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641587/">2023-11-09 18:05:34 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641581/">2023-11-09 18:05:09 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641571/">2023-11-09 18:04:24 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7641569/">2023-11-09 18:04:05 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641566/">2023-11-09 18:03:45 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7641553/">2023-11-09 18:02:14 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7641546/">2023-11-09 18:01:32 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7636837/">2023-11-09 10:12:03 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7636831/">2023-11-09 10:11:32 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7633672/">2023-11-08 22:41:42 <span class="task-score c52">52</span></a><a class=" " href="https://cses.fi/484/result/7633671/">2023-11-08 22:41:12 <span class="task-score c52">52</span></a><a class=" " href="https://cses.fi/484/result/7633670/">2023-11-08 22:40:50 <span class="task-score c52">52</span></a><a class=" " href="https://cses.fi/484/result/7633665/">2023-11-08 22:40:18 <span class="task-score c20">20</span></a><a class=" " href="https://cses.fi/484/result/7633661/">2023-11-08 22:39:42 <span class="task-score c20">20</span></a><a class=" " href="https://cses.fi/484/result/7633658/">2023-11-08 22:39:09 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633654/">2023-11-08 22:38:43 <span class="task-score c58">58</span></a><a class=" " href="https://cses.fi/484/result/7633651/">2023-11-08 22:38:05 <span class="task-score c55">55</span></a><a class=" " href="https://cses.fi/484/result/7633648/">2023-11-08 22:37:31 <span class="task-score c55">55</span></a><a class=" " href="https://cses.fi/484/result/7633647/">2023-11-08 22:37:09 <span class="task-score c54">54</span></a><a class=" " href="https://cses.fi/484/result/7633642/">2023-11-08 22:36:25 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7633636/">2023-11-08 22:35:47 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7633614/">2023-11-08 22:32:14 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7633611/">2023-11-08 22:31:49 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7633599/">2023-11-08 22:30:52 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7633596/">2023-11-08 22:30:26 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7633588/">2023-11-08 22:30:05 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7633585/">2023-11-08 22:29:41 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7633580/">2023-11-08 22:29:15 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7633579/">2023-11-08 22:28:55 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7633577/">2023-11-08 22:28:23 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7633569/">2023-11-08 22:27:14 <span class="task-score c62">62</span></a><a class=" " href="https://cses.fi/484/result/7633564/">2023-11-08 22:26:35 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633551/">2023-11-08 22:24:23 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633547/">2023-11-08 22:23:53 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633543/">2023-11-08 22:23:33 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633538/">2023-11-08 22:23:13 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633533/">2023-11-08 22:22:48 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633518/">2023-11-08 22:21:19 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633513/">2023-11-08 22:20:55 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633499/">2023-11-08 22:19:51 <span class="task-score c52">52</span></a><a class=" " href="https://cses.fi/484/result/7633496/">2023-11-08 22:19:30 <span class="task-score c50">50</span></a><a class=" " href="https://cses.fi/484/result/7633494/">2023-11-08 22:19:11 <span class="task-score c50">50</span></a><a class=" " href="https://cses.fi/484/result/7633466/">2023-11-08 22:16:56 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633458/">2023-11-08 22:16:29 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633454/">2023-11-08 22:16:04 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633448/">2023-11-08 22:15:39 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633430/">2023-11-08 22:14:37 <span class="task-score c61">61</span></a><a class=" " href="https://cses.fi/484/result/7633424/">2023-11-08 22:14:01 <span class="task-score c58">58</span></a><a class=" " href="https://cses.fi/484/result/7633419/">2023-11-08 22:13:26 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633416/">2023-11-08 22:12:37 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633414/">2023-11-08 22:12:10 <span class="task-score c59">59</span></a><a class=" " href="https://cses.fi/484/result/7633407/">2023-11-08 22:10:41 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633402/">2023-11-08 22:10:16 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633395/">2023-11-08 22:08:49 <span class="task-score c55">55</span></a><a class=" " href="https://cses.fi/484/result/7633392/">2023-11-08 22:08:34 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633390/">2023-11-08 22:08:17 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633384/">2023-11-08 22:06:54 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633381/">2023-11-08 22:06:29 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633373/">2023-11-08 22:05:46 <span class="task-score c58">58</span></a><a class=" " href="https://cses.fi/484/result/7633366/">2023-11-08 22:05:00 <span class="task-score c57">57</span></a><a class=" " href="https://cses.fi/484/result/7633362/">2023-11-08 22:04:37 <span class="task-score c55">55</span></a><a class=" " href="https://cses.fi/484/result/7633358/">2023-11-08 22:04:04 <span class="task-score c56">56</span></a><a class=" " href="https://cses.fi/484/result/7633350/">2023-11-08 22:02:50 <span class="task-score c60">60</span></a><a class=" " href="https://cses.fi/484/result/7633339/">2023-11-08 22:02:05 <span class="task-score c51">51</span></a><a class=" " href="https://cses.fi/484/result/7633335/">2023-11-08 22:01:48 <span class="task-score c51">51</span></a><a class=" " href="https://cses.fi/484/result/7633331/">2023-11-08 22:01:21 <span class="task-score c51">51</span></a><a class=" " href="https://cses.fi/484/result/7633329/">2023-11-08 22:00:55 <span class="task-score c51">51</span></a><a class=" " href="https://cses.fi/484/result/7633318/">2023-11-08 21:59:28 <span class="task-score c49">49</span></a><a class=" " href="https://cses.fi/484/result/7633312/">2023-11-08 21:58:34 <span class="task-score c47">47</span></a><a class=" " href="https://cses.fi/484/result/7633307/">2023-11-08 21:57:58 <span class="task-score c47">47</span></a><a class=" " href="https://cses.fi/484/result/7633288/">2023-11-08 21:54:25 <span class="task-score c46">46</span></a><a class=" " href="https://cses.fi/484/result/7633275/">2023-11-08 21:53:10 <span class="task-score c44">44</span></a><a class=" " href="https://cses.fi/484/result/7633267/">2023-11-08 21:52:21 <span class="task-score c44">44</span></a><a class=" " href="https://cses.fi/484/result/7633229/">2023-11-08 21:46:18 <span class="task-score c44">44</span></a><a class=" " href="https://cses.fi/484/result/7633222/">2023-11-08 21:45:49 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7633218/">2023-11-08 21:45:13 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7633091/">2023-11-08 21:29:58 <span class="task-score c38">38</span></a><a class=" " href="https://cses.fi/484/result/7633084/">2023-11-08 21:29:05 <span class="task-score c37">37</span></a><a class=" " href="https://cses.fi/484/result/7633064/">2023-11-08 21:27:12 <span class="task-score c37">37</span></a><a class=" " href="https://cses.fi/484/result/7633059/">2023-11-08 21:26:54 <span class="task-score c32">32</span></a><a class=" " href="https://cses.fi/484/result/7633048/">2023-11-08 21:25:31 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7632997/">2023-11-08 21:18:51 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632993/">2023-11-08 21:18:05 <span class="task-score c28">28</span></a><a class=" " href="https://cses.fi/484/result/7632979/">2023-11-08 21:16:33 <span class="task-score c29">29</span></a><a class=" " href="https://cses.fi/484/result/7632974/">2023-11-08 21:15:45 <span class="task-score c29">29</span></a><a class=" " href="https://cses.fi/484/result/7632969/">2023-11-08 21:14:38 <span class="task-score c28">28</span></a><a class=" " href="https://cses.fi/484/result/7632963/">2023-11-08 21:13:53 <span class="task-score c29">29</span></a><a class=" " href="https://cses.fi/484/result/7632955/">2023-11-08 21:12:03 <span class="task-score c29">29</span></a><a class=" " href="https://cses.fi/484/result/7632930/">2023-11-08 21:07:59 <span class="task-score c28">28</span></a><a class=" " href="https://cses.fi/484/result/7632928/">2023-11-08 21:07:43 <span class="task-score c28">28</span></a><a class=" " href="https://cses.fi/484/result/7632922/">2023-11-08 21:07:17 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632917/">2023-11-08 21:06:33 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632820/">2023-11-08 20:51:28 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632815/">2023-11-08 20:50:59 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632768/">2023-11-08 20:43:55 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632723/">2023-11-08 20:39:39 <span class="task-score c2">2</span></a><a class=" " href="https://cses.fi/484/result/7632707/">2023-11-08 20:37:32 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632702/">2023-11-08 20:37:06 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7632701/">2023-11-08 20:36:30 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632697/">2023-11-08 20:35:53 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632639/">2023-11-08 20:25:51 <span class="task-score c37">37</span></a><a class=" " href="https://cses.fi/484/result/7632636/">2023-11-08 20:25:19 <span class="task-score c23">23</span></a><a class=" " href="https://cses.fi/484/result/7632590/">2023-11-08 20:19:37 <span class="task-score c43">43</span></a><a class=" " href="https://cses.fi/484/result/7632587/">2023-11-08 20:19:08 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7632573/">2023-11-08 20:17:52 <span class="task-score c32">32</span></a><a class=" " href="https://cses.fi/484/result/7632567/">2023-11-08 20:17:21 <span class="task-score c32">32</span></a><a class=" " href="https://cses.fi/484/result/7632544/">2023-11-08 20:14:27 <span class="task-score c18">18</span></a><a class=" " href="https://cses.fi/484/result/7632535/">2023-11-08 20:13:14 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7632504/">2023-11-08 20:09:43 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7632489/">2023-11-08 20:08:24 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7632472/">2023-11-08 20:06:34 <span class="task-score c0">0</span></a></div>
+</div>
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h1>Signal Processing</h1>
+<ul class="nav">
+<li><a href="2113/index.html" class="current">Task</a></li>
+<li><a href="../stats/2113/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Signal Processing</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2113">
+<div class="md"><p>You are given two integer sequences: a signal and a mask. Your task is to process the signal by moving the mask through the signal from left to right. At each mask position calculate the sum of products of aligned signal and mask values in the part where the signal and the mask overlap.</p>
+<h1 id="input">Input</h1>
+<p>The first input line consists of two integers <span class="math inline">n</span> and <span class="math inline">m</span>: the length of the signal and the length of the mask.</p>
+<p>The next line consists of <span class="math inline">n</span> integers <span class="math inline">a_1,a_2,\ldots,a_n</span> defining the signal.</p>
+<p>The last line consists of <span class="math inline">m</span> integers <span class="math inline">b_1,b_2,\ldots,b_m</span> defining the mask. </p>
+<h1 id="output">Output</h1>
+<p>Print <span class="math inline">n+m-1</span> integers: the sum of products of aligned values at each mask position from left to right.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n,m \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le a_i,b_i \le 100</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>5 3
+1 3 2 1 4
+1 2 3
+</pre>
+<p>Output:</p>
+<pre>3 11 13 10 16 9 4
+</pre>
+<p>Explanation: For example, at the second mask position the sum of aligned products is <span class="math inline">2 \cdot 1 + 3 \cdot 3 = 11</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Advanced Techniques</h4>...
+<a  href="2088.html">Knuth Division<span class="task-score icon "></span></a><a  href="2111.html">Apples and Bananas<span class="task-score icon "></span></a><a  href="2112.html">One Bit Positions<span class="task-score icon "></span></a><a class="current" href="2113.html">Signal Processing<span class="task-score icon "></span></a><a  href="2101.html">New Roads Queries<span class="task-score icon "></span></a><a  href="2133.html">Dynamic Connectivity<span class="task-score icon "></span></a><a  href="2121.html">Parcel Delivery<span class="task-score icon "></span></a><a  href="2129.html">Task Assignment<span class="task-score icon "></span></a>...
+<hr />

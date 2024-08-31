@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Alitaulukko</h1>
+<ul class="nav">
+<li><a href="725/index.html" class="current">Task</a></li>
+<li><a href="../stats/725/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Alitaulukko</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="725">
+<div class="md"><p>Annettuna on taulukko, jossa on <span class="math inline">n</span> kokonaislukua. Lisäksi annettuna on väli <span class="math inline">[a,b]</span>.</p>
+<p>Tehtäväsi on etsiä taulukosta alitaulukko, jonka pituus on vähintään <span class="math inline">a</span>, korkeintaan <span class="math inline">b</span> ja sen lukujen summan tulee olla mahdollisimman suuri.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kolme kokonaislukua <span class="math inline">n</span>, <span class="math inline">a</span> ja <span class="math inline">b</span>.</p>
+<p>Seuraavalla rivillä on <span class="math inline">n</span> kokonaislukua <span class="math inline">x_1,x_2,\ldots,x_n</span>: taulukon sisältö.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosta suurin mahdollinen alitaulukon summa.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le a \le b \le n</span></li>
+<li><span class="math inline">-10^9 \le x_i \le 10^9</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>8 2 4
+-1 3 -2 8 -1 -1 -1 7
+</pre>
+<p>Tuloste:</p>
+<pre>9
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 8</h4><a  href="723.html">Soittolista<span class="task-score icon "></span></a><a  href="724.html">Kolmen summa<span class="task-score icon "></span></a><a class="current" href="725.html">Alitaulukko<span class="task-score icon "></span></a><a  href="350.html">Suuremmat<span class="task-score icon "></span></a><a  href="351.html">Lauta-aita<span class="task-score icon "></span></a><hr />

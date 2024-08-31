@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Kaksi listaa</h1>
+<ul class="nav">
+<li><a href="3045/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Kaksi listaa</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3045">
+<div class="md"><p>Sinulle annetaan kaksi listaa <span class="math inline">A</span> ja <span class="math inline">B</span>, jotka molemmat sisältävät luvut <span class="math inline">1 \dots n</span> jossain järjestyksessä.</p>
+<p>Tehtäväsi on laskea, moniko luvuista <span class="math inline">1 \dots n</span> esiintyy aiemmin listalla <span class="math inline">A</span> kuin listalla <span class="math inline">B</span>. Tässä tehtävässä <span class="math inline">n</span> voi olla suuri ja sinun täytyy keksiä tehokas algoritmi. Algoritmin aikavaativuuden tulee olla <span class="math inline">O(n)</span>.</p>
+<p>Toteuta tiedostoon <code>twolists.py</code> funktio <code>count</code>, joka palauttaa halutun tuloksen.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def count(a, b):
+    # TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(count([2,3,4,1], [1,2,3,4])) # 3
+    print(count([1,2,3,4], [1,2,3,4])) # 0
+    print(count([4,7,3,1,6,2,5], [5,6,1,2,4,3,7])) # 3
+    print(count([5,4,9,1,8,3,2,6,7], [6,2,8,4,9,1,5,7,3])) # 5
+</pre>
+<p><em>Selitys</em>: Ensimmäisessä testissä luvut 2, 3 ja 4 esiintyvät listalla <span class="math inline">A</span> aiemmin kuin listalla <span class="math inline">B</span>.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 2</h4><a  href="3042.html">Listan tehokkuus I<span class="task-score icon "></span></a><a  href="3043.html">Listan tehokkuus II<span class="task-score icon "></span></a><a  href="3047.html">Listan kasvatus<span class="task-score icon "></span></a><a  href="3044.html">Eri summat<span class="task-score icon "></span></a><a  href="3048.html">Piirileikki<span class="task-score icon "></span></a><a class="current" href="3045.html">Kaksi listaa<span class="task-score icon "></span></a><a  href="3046.html">Sisäkkäinen lista<span class="task-score icon "></span></a><a  href="3050.html">Taas inversiot<span class="task-score icon "></span></a><hr />

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Kääntölista</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Kääntölista</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3143">
+<div class="md"><p>Toteuta luokka <code>FlipList</code>, jossa on seuraavat metodit:</p>
+<ul>
+<li><code>push_first(x)</code>: lisää luku <code>x</code> listan alkuun</li>
+<li><code>push_last(x)</code>: lisää luku <code>x</code> listan loppuun</li>
+<li><code>pop_first()</code>: palauta ja poista alkio listan alusta</li>
+<li><code>pop_last()</code>: palauta ja poista alkio listan lopusta</li>
+<li><code>flip()</code>: käännä listan sisältö</li>
+</ul>
+<p>Jokaisen metodin tulee toimia ajassa <span class="math inline">O(1)</span>.</p>
+<p>Toteuta tiedostoon <code>fliplist.py</code> luokka <code>FlipList</code> seuraavan mallin mukaisesti.</p>
+<pre class="resize-horizontal prettyprint lang-auto">class FlipList:
+    def push_first(self, x):
+        # TODO
+
+    def push_last(self, x):
+        # TODO
+
+    def pop_first(self):
+        # TODO
+
+    def pop_last(self):
+        # TODO
+
+    def flip(self):
+        # TODO
+
+if __name__ == &quot;__main__&quot;:
+    f = FlipList()
+    f.push_last(1)
+    f.push_last(2)
+    f.push_last(3)
+    print(f.pop_first()) # 1
+    f.flip()
+    print(f.pop_first()) # 3
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 11</h4><a  href="../3145.html">Muuttuva lista<span class="task-score icon "></span></a><a  href="../3148.html">Pakan tehokkuus<span class="task-score icon "></span></a><a  href="../3142.html">Listan pienin<span class="task-score icon "></span></a><a  href="../2539.html">Pienimmät alkiot<span class="task-score icon "></span></a><a class="current" href="../3143.html">Kääntölista<span class="task-score icon "></span></a><a  href="../3146.html">Mediaani<span class="task-score icon "></span></a><a  href="../3144.html">Koko kierros<span class="task-score icon "></span></a><a  href="../3147.html">Pienet summat<span class="task-score icon "></span></a><hr />

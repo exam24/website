@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Polut</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Polut</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3188">
+<div class="md"><p>Tehtäväsi on muodostaa syklitön suunnattu verkko, jossa on <span class="math inline">100</span> solmua ja tasan <span class="math inline">x</span> erilaista polkua solmusta <span class="math inline">1</span> solmuun <span class="math inline">100</span>. Verkossa saa olla korkeintaan <span class="math inline">1000</span> kaarta ja jokaisen kaaren tulee olla erilainen.</p>
+<p>Esimerkiksi kun <span class="math inline">x=5</span>, yksi mahdollinen ratkaisu muodostuu kaarista
+<span class="math display">(1,3),(1,5),(2,100),(3,2),(3,100),(5,2),(5,3).</span>
+Tässä tapauksessa polut ovat seuraavat:</p>
+<ul>
+<li><span class="math inline">1 \rightarrow 3 \rightarrow 100</span></li>
+<li><span class="math inline">1 \rightarrow 3 \rightarrow 2 \rightarrow 100</span></li>
+<li><span class="math inline">1 \rightarrow 5 \rightarrow 2 \rightarrow 100</span></li>
+<li><span class="math inline">1 \rightarrow 5 \rightarrow 3 \rightarrow 100</span></li>
+<li><span class="math inline">1 \rightarrow 5 \rightarrow 3 \rightarrow 2 \rightarrow 100</span></li>
+</ul>
+<p>Voit olettaa, että <span class="math inline">x</span> on kokonaisluku välillä <span class="math inline">1 \dots 10^9</span>. Voit muodostaa minkä tahansa verkon, joka täyttää yllä olevat vaatimukset.</p>
+<p>Toteuta tiedostoon <code>paths.py</code> funktio <code>create</code>, joka palauttaa verkon rakenteen listana kaaria tupleina.</p>
+<pre class="resize-horizontal prettyprint lang-auto">def create(x):
+    #TODO
+
+if __name__ == &quot;__main__&quot;:
+    print(create(2)) # esim. [(1,2), (1,100), (2,100)]
+    print(create(5))
+    print(create(10))
+    print(create(123456789))
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Viikko 13</h4><a  href="../2920.html">Topologinen järjestys<span class="task-score icon "></span></a><a  href="../2921.html">Vahva yhtenäisyys<span class="task-score icon "></span></a><a  href="../3184.html">Kurssisuunnitelma<span class="task-score icon "></span></a><a  href="../3189.html">Polkujen määrä<span class="task-score icon "></span></a><a  href="../3186.html">Lentokentät<span class="task-score icon "></span></a><a  href="../3185.html">Kaikki polut<span class="task-score icon "></span></a><a  href="../3187.html">Verkkopeli<span class="task-score icon "></span></a><a class="current" href="../3188.html">Polut<span class="task-score icon "></span></a><hr />

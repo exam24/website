@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Tasks and Deadlines</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/1630/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Tasks and Deadlines</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="1630">
+<div class="md"><p>You have to process <span class="math inline">n</span> tasks. Each task has a duration and a deadline, and you will process the tasks in some order one after another. Your reward for a task is <span class="math inline">d-f</span> where <span class="math inline">d</span> is its deadline and <span class="math inline">f</span> is your finishing time. (The starting time is <span class="math inline">0</span>, and you have to process all tasks even if a task would yield negative reward.)</p>
+<p>What is your maximum reward if you act optimally?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has an integer <span class="math inline">n</span>: the number of tasks.</p>
+<p>After this, there are <span class="math inline">n</span> lines that describe the tasks. Each line has two integers <span class="math inline">a</span> and <span class="math inline">d</span>: the duration and deadline of the task.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the maximum reward.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le a,d \le 10^6</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>3
+6 10
+8 15
+5 12
+</pre>
+<p>Output:</p>
+<pre>2
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Sorting and Searching</h4>...
+<a  href="../2169.html">Nested Ranges Count<span class="task-score icon "></span></a><a  href="../1164.html">Room Allocation<span class="task-score icon "></span></a><a  href="../1620.html">Factory Machines<span class="task-score icon "></span></a><a class="current" href="../1630.html">Tasks and Deadlines<span class="task-score icon "></span></a><a  href="../1631.html">Reading Books<span class="task-score icon "></span></a><a  href="../1641.html">Sum of Three Values<span class="task-score icon "></span></a><a  href="../1642.html">Sum of Four Values<span class="task-score icon "></span></a><a  href="../1645.html">Nearest Smaller Values<span class="task-score icon "></span></a>...
+<hr />

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>NOI 2019 Open</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="index.html" class="current">Scoreboard</a></li>
+<li><a href="../stats/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>N/A</span></li>
+        <li><b>End:</b> <span>N/A</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 0;
+var contest_end = 0;
+var server_time = 1725027184;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<title>CSES - NOI 2019 Open - Scoreboard</title></div></div></div>
+<div class="scoreboard-wrapper">
+<table class="scoreboard ioi">
+  <colgroup>
+    <col class="rank" />
+    <col class="name" />
+    <col class="score" />
+    <col class="task" span=3 />
+  </colgroup>
+<thead><tr><th >#</th><th >name</th><th >score</th><th ><a href="https://cses.fi/241/task/A/" title="Distance Code">A</a></th><th ><a href="https://cses.fi/241/task/B/" title="Thieves and Prisons">B</a></th><th ><a href="https://cses.fi/241/task/C/" title="Graph Ordering">C</a></th></tr>
+</thead><tr><td >1</td><td ><a href="https://cses.fi/241/scores/2856">Jatana</a> <img src="../../flags/ru.png"></td><td class="task-score c69">208</td><td class="task-score c100"><a href="https://cses.fi/241/result/143232">100</a></td><td class="task-score c8"><a href="https://cses.fi/241/result/143253">8</a></td><td class="task-score c100"><a href="https://cses.fi/241/result/143228">100</a></td></tr>
+<tr><td >2</td><td ><a href="https://cses.fi/241/scores/3381">AngusRitossa</a> <img src="../../flags/au.png"></td><td class="task-score c69">207</td><td class="task-score c100"><a href="https://cses.fi/241/result/143282">100</a></td><td class="task-score c100"><a href="https://cses.fi/241/result/143300">100</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/143302">7</a></td></tr>
+<tr><td >3</td><td ><a href="https://cses.fi/241/scores/985">egor.lifar</a> <img src="../../flags/ru.png"></td><td class="task-score c69">207</td><td class="task-score c100"><a href="https://cses.fi/241/result/143255">100</a></td><td class="task-score c100"><a href="https://cses.fi/241/result/143229">100</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/143265">7</a></td></tr>
+<tr><td >4</td><td ><a href="https://cses.fi/241/scores/3371">tmk</a> <img src="../../flags/pl.png"></td><td class="task-score c69">207</td><td class="task-score c100"><a href="https://cses.fi/241/result/143335">100</a></td><td class="task-score c100"><a href="https://cses.fi/241/result/143362">100</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/143406">7</a></td></tr>
+<tr><td >5</td><td ><a href="https://cses.fi/241/scores/2224">pwild</a> <img src="../../flags/de.png"></td><td class="task-score c38">115</td><td class="task-score c100"><a href="https://cses.fi/241/result/143240">100</a></td><td class="task-score c8"><a href="https://cses.fi/241/result/143264">8</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/143237">7</a></td></tr>
+<tr><td >6</td><td ><a href="https://cses.fi/241/scores/3387">pustaczek</a> <img src="../../flags/pl.png"></td><td class="task-score c36">108</td><td class="task-score c100"><a href="https://cses.fi/241/result/143367">100</a></td><td class="task-score c8"><a href="https://cses.fi/241/result/143415">8</a></td><td class="task-score ">-</td></tr>
+<tr><td >7</td><td ><a href="https://cses.fi/241/scores/1734">jakob_nogler</a> <img src="../../flags/it.png"></td><td class="task-score c35">107</td><td class="task-score c100"><a href="https://cses.fi/241/result/143227">100</a></td><td class="task-score c0"><a href="https://cses.fi/241/result/143239">0</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/143214">7</a></td></tr>
+<tr><td >8</td><td ><a href="https://cses.fi/241/scores/2757">return_my_2007</a> <img src="../../flags/ru.png"></td><td class="task-score c33">100</td><td class="task-score c100"><a href="https://cses.fi/241/result/143409">100</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="https://cses.fi/241/result/143460">0</a></td></tr>
+<tr><td >9</td><td ><a href="https://cses.fi/241/scores/3378">DSG213</a> <img src="../../flags/pl.png"></td><td class="task-score c33">100</td><td class="task-score c100"><a href="https://cses.fi/241/result/143167">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >10</td><td ><a href="https://cses.fi/241/scores/509">koosaga</a></td><td class="task-score c33">100</td><td class="task-score c100"><a href="https://cses.fi/241/result/143293">100</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="https://cses.fi/241/result/143299">0</a></td></tr>
+<tr><td >11</td><td ><a href="https://cses.fi/241/scores/3368">5n4</a> <img src="../../flags/pl.png"></td><td class="task-score c33">100</td><td class="task-score c100"><a href="https://cses.fi/241/result/142955">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >12</td><td ><a href="https://cses.fi/241/scores/1586">eriksuenderhauf</a> <img src="../../flags/de.png"></td><td class="task-score c9">28</td><td class="task-score ">-</td><td class="task-score c21"><a href="https://cses.fi/241/result/142623">21</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/142585">7</a></td></tr>
+<tr><td >13</td><td ><a href="https://cses.fi/241/scores/3379">Lorenzo</a> <img src="../../flags/de.png"></td><td class="task-score c9">28</td><td class="task-score c21"><a href="https://cses.fi/241/result/143361">21</a></td><td class="task-score ">-</td><td class="task-score c7"><a href="https://cses.fi/241/result/143403">7</a></td></tr>
+<tr><td >14</td><td ><a href="https://cses.fi/241/scores/1685">toonewbie</a> <img src="../../flags/az.png"></td><td class="task-score c7">21</td><td class="task-score c21"><a href="https://cses.fi/241/result/143217">21</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >15</td><td ><a href="https://cses.fi/241/scores/2944">rkocharyan</a></td><td class="task-score c5">15</td><td class="task-score c0"><a href="https://cses.fi/241/result/143402">0</a></td><td class="task-score c8"><a href="https://cses.fi/241/result/143396">8</a></td><td class="task-score c7"><a href="https://cses.fi/241/result/143354">7</a></td></tr>
+<tr><td >16</td><td ><a href="https://cses.fi/241/scores/3">peelo</a> <img src="../../flags/fi.png"></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >17</td><td ><a href="https://cses.fi/241/scores/574">zscoder</a></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >18</td><td ><a href="https://cses.fi/241/scores/876">Bruteforceman</a></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >19</td><td ><a href="https://cses.fi/241/scores/1625">chaxy_2000</a> <img src="../../flags/ir.png"></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >20</td><td ><a href="https://cses.fi/241/scores/1932">traxex</a></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >21</td><td ><a href="https://cses.fi/241/scores/3054">jdnkjasska</a></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >22</td><td ><a href="https://cses.fi/241/scores/3354">justagirl</a> <img src="../../flags/mc.png"></td><td class="task-score c0">0</td><td class="task-score c0"><a href="https://cses.fi/241/result/142406">0</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="https://cses.fi/241/result/142419">0</a></td></tr>
+<tr><td >23</td><td ><a href="https://cses.fi/241/scores/3356">knutalos</a> <img src="../../flags/no.png"></td><td class="task-score c0">0</td><td class="task-score c0"><a href="https://cses.fi/241/result/142587">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >24</td><td ><a href="https://cses.fi/241/scores/3375">erimm</a></td><td class="task-score c0">0</td><td class="task-score c0"><a href="https://cses.fi/241/result/143168">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >25</td><td ><a href="https://cses.fi/241/scores/3376">Nootnoot</a></td><td class="task-score c0">0</td><td class="task-score c0"><a href="https://cses.fi/241/result/143210">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >26</td><td ><a href="https://cses.fi/241/scores/3383">yonkoaman</a> <img src="../../flags/in.png"></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >27</td><td ><a href="https://cses.fi/241/scores/3384">wakaka</a></td><td class="task-score c0">0</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >28</td><td ><a href="https://cses.fi/241/scores/3386">mm97</a> <img src="../../flags/de.png"></td><td class="task-score c0">0</td><td class="task-score c0"><a href="https://cses.fi/241/result/143341">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+</table>

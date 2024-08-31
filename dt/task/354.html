@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Ääriarvot</h1>
+<ul class="nav">
+<li><a href="354/index.html" class="current">Task</a></li>
+<li><a href="../stats/354/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Ääriarvot</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="354">
+<div class="md"><p>Tien varrella on <span class="math inline">n</span> taloa. Tehtäväsi on pitää kirjaa talojen asukkaista ja toteuttaa kyselyt, joissa talon asukkaiden määrä muuttuu ja halutaan selvittää tietyn välin pienin ja suurin asukkaiden määrä.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kaksi kokonaislukua <span class="math inline">n</span> ja <span class="math inline">q</span>: talojen määrä ja kyselyiden määrä. Talot on numeroitu kokonaisluvuin <span class="math inline">1,2,\ldots,n</span>.</p>
+<p>Seuraavalla rivillä on <span class="math inline">n</span> kokonaislukua <span class="math inline">t_1,t_2,\ldots,t_n</span>: kunkin talon asukkaiden määrä.</p>
+<p>Sitten syötteessä on <span class="math inline">q</span> riviä, joista jokainen kuvaa yhden kyselyn. Jokainen rivi on yksi seuraavista:</p>
+<ul>
+<li><code>!</code> <span class="math inline">k</span> <span class="math inline">x</span>: talon <span class="math inline">k</span> asukkaiden määräksi tulee <span class="math inline">x</span></li>
+<li><code>?</code> <span class="math inline">a</span> <span class="math inline">b</span>: etsi pienin ja suurin asukkaiden määrä välin <span class="math inline">a \ldots b</span> talossa</li>
+</ul>
+<h1 id="tuloste">Tuloste</h1>
+<p>Ohjelmasi tulee tulostaa vastaus jokaiseen <code>?</code>-kyselyyn.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n, q \le 10^5</span></li>
+<li><span class="math inline">1 \le t_i \le 10^9</span></li>
+<li><span class="math inline">1 \le k \le n</span> </li>
+<li><span class="math inline">1 \le x \le 10^9</span></li>
+<li><span class="math inline">1 \le a \le b \le n</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>8 3
+3 2 7 1 3 6 6 2
+? 3 5
+! 4 5
+? 3 5
+</pre>
+<p>Tuloste:</p>
+<pre>1 7
+3 7
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 9</h4><a  href="359.html">Kyselyt<span class="task-score icon "></span></a><a  href="349.html">Metsä<span class="task-score icon "></span></a><a  href="353.html">Summat<span class="task-score icon "></span></a><a class="current" href="354.html">Ääriarvot<span class="task-score icon "></span></a><a  href="355.html">Muutokset<span class="task-score icon "></span></a><a  href="356.html">Hotellit<span class="task-score icon "></span></a><a  href="357.html">Palkat<span class="task-score icon "></span></a><hr />

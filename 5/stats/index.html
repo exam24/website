@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar norm-width">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2015 loppu</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../scores/index.html" >Scoreboard</a></li>
+<li><a href="index.html" class="current">Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2015-01-29 12:15:00</span></li>
+        <li><b>End:</b> <span>2015-01-29 17:15:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1422526500;
+var contest_end = 1422544500;
+var server_time = 1725027252;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<title>CSES - Datatähti 2015 loppu - Statistics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script>
+var C = [null];
+
+function hashNick(nick) {
+  var hash = 120;
+  for (var i = 0; i < nick.length; i++) {
+    hash = (hash*59 + nick.charCodeAt(i)) % 360;
+  }
+  return hash * 59 % 360;
+}
+
+var langProps = {
+  Assembly: ["Assembly", "#96dddd"],
+  "C++": ["C++", "#ff0000"],
+  Haskell: ["Haskell", "#5e5086"],
+  Java: ["Java", "#fff600"],
+  "Node.js": ["Node.js", "#0075c4"],
+  Pascal: ["Pascal", "#ff7c30"],
+  Python2: ["Python 2", "#00af00"],
+  Python3: ["Python 3", "#005f00"],
+  Scala: ["Scala", "#e853c2"],
+  Ruby: ["Ruby", "#c42323"],
+  text: ["Text", "#a0a0a0"],
+}
+
+function prepareChart(index) {
+  var canvas = document.getElementById("C"+index);
+  var rawData = JSON.parse(document.getElementById("C"+index+"-data").innerHTML);
+  return {canvas: canvas, rawData: rawData};
+}
+
+function displayCharts() {
+  var taskChars = JSON.parse(document.getElementById("task-chars").innerHTML);
+  var taskOrder = JSON.parse(document.getElementById("task-order").innerHTML);
+  var peopleNames = JSON.parse(document.getElementById("people-names").innerHTML);
+  var darkmode = true;
+  var showNames = false;
+  var virtualContest = false;
+  var contestDuration = 0;
+  
+  if (darkmode) {
+    Chart.defaults.global.defaultFontColor = "white";
+    var lcol = "rgba(255,255,255,0.2)";
+    var axes = "rgba(255,255,255,0.5)";
+    Chart.defaults.global.defaultColor = lcol;
+    Chart.defaults.scale.gridLines.color = lcol;
+    Chart.defaults.scale.gridLines.zeroLineColor = axes;
+    Chart.defaults.radar.scale.angleLines = {color: axes};
+    Chart.defaults.radar.scale.ticks = {showLabelBackdrop: false};
+  }
+  document.addEventListener("theme-changed", function () { location.reload(); });
+  
+  // Chart 1 (points over time)
+  var C1 = prepareChart(1);
+  C1.data = [];
+  for (var nick in C1.rawData) {
+    var displayName = nick in peopleNames ? peopleNames[nick] : nick;
+    var nickHash = hashNick(displayName);
+    var setData = [];
+    for (var i in C1.rawData[nick]) {
+      var change = C1.rawData[nick][i];
+      if (virtualContest) {
+        setData.push({x: change[0], y: change[1]});
+      } else {
+        setData.push({x: new Date(change[0]), y: change[1]});
+      }
+    }
+    var dataset = {
+      label: displayName,
+      borderColor: "hsla("+nickHash+",80%,60%,0.6)",
+      backgroundColor: "hsla("+nickHash+",80%,60%,1)",
+      fill: false,
+      borderWidth: 2,
+      pointRadius: 2,
+      hitRadius: 20,
+      lineTension: 0,
+      data: setData,
+    };
+    C1.data.push(dataset);
+  }
+  C.push(new Chart(C1.canvas, {
+    type: 'line',
+    data: {
+      datasets: C1.data
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [virtualContest ? {
+          position: 'bottom',
+          type: 'linear',
+          ticks: {
+            min: 0,
+            max: contestDuration,
+            stepSize: 30*60,
+            callback: function(tick, index, ticks) {
+              var hr = Math.floor(tick/60/60);
+              var min = Math.floor((tick-hr*60*60)/60);
+              if (min == 0) {
+                return "" + hr + " h";
+              } else {
+                return "" + hr + " h " + min + " m";
+              }
+            }
+          },
+        } : {
+          type: 'time',
+          position: 'bottom',
+          time: {
+            min: new Date(contest_start*1000),
+            max: new Date(contest_end*1000),
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            suggestedMax: 101,
+          },
+        }],
+      },
+      legend: {
+        display: C1.data.length <= 25,
+      },
+      tooltips: {
+        mode: "nearest",
+        intersect: true,
+        position: "nearest"
+      },
+      hover: {
+        mode: "dataset",
+        intersect: true
+      },
+    },
+  }));
+  // Chart 2
+  var C2 = prepareChart(2);
+  C2.data = {datasets: [], labels: []};
+  C2.data.datasets.push({
+    data: [],
+    backgroundColor: [],
+  });
+  
+  for (var lang in C2.rawData) {
+    C2.data.datasets[0].data.push(C2.rawData[lang]);
+    var props = langProps[lang];
+    if (!props) props = [lang, "#444444"];
+    C2.data.datasets[0].backgroundColor.push(props[1]);
+    C2.data.labels.push(props[0]);
+  }
+  C.push(new Chart(C2.canvas, {
+    type: 'pie',
+    data: C2.data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+    },
+  }));
+  
+  // Chart 3 & 4 shared
+  var makeC3C4dataset = function(task, data) {
+    var hash = ((taskChars[task].charCodeAt(0)-65)*42)%256;
+    var sat = darkmode ? ",60%" : ",99%";
+    return {
+      label: taskChars[task],
+      borderColor: "hsla("+hash+sat+",60%,1)",
+      backgroundColor: "hsla("+hash+sat+",60%,0.3)",
+      pointBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointBackgroundColor: darkmode ? "#333" : "white",
+      pointHoverBorderColor: "hsla("+hash+sat+",60%,1)",
+      pointHoverBackgroundColor: "hsla("+hash+sat+",90%,1)",
+      data: data,
+      borderWidth: 4,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      fill: "-1",
+      fillOpacity: 0.3,
+      hitRadius: 8
+    };
+  }
+  
+  // Chart 3
+  var C3 = prepareChart(3);
+  C3.datasets = [];
+  for (var task of taskOrder) {
+    if (!C3.rawData[task]) continue;
+    var data = [];
+    for (var j in C3.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.4, parseInt(j))), y: C3.rawData[task][j]});
+    }
+    C3.datasets.push(makeC3C4dataset(task, data));
+  }
+  C3.datasets[0].fill = "start";
+  C.push(new Chart(C3.canvas, {
+    type: 'line',
+    data: {datasets: C3.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 60,
+            maxRotation: 60,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return Math.round(tick)+" ms";
+              else return Math.round(tick/100)/10+" s";
+            },
+            min: 10,
+            max: 5000,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 4
+  var C4 = prepareChart(4);
+  C4.datasets = [];
+  for (var task of taskOrder) {
+    if (!C4.rawData[task]) continue;
+    var data = [];
+    for (var j in C4.rawData[task]) {
+      data.push({x: Math.round(10*Math.pow(1.5, parseInt(j))), y: C4.rawData[task][j]});
+    }
+    C4.datasets.push(makeC3C4dataset(task, data));
+  }
+  C4.datasets[0].fill = "start";
+  C.push(new Chart(C4.canvas, {
+    type: 'line',
+    data: {datasets: C4.datasets},
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        xAxes: [{
+          type: 'logarithmic',
+          position: "bottom",
+          ticks: {
+            minRotation: 90,
+            maxRotation: 90,
+            callback: function(tick, index, ticks) {
+              var fdigit = parseInt(String(tick)[0]);
+              if (fdigit >= 5 && fdigit%2 == 1) return "";
+              if (tick < 1000) return ""+Math.round(tick);
+              else return ""+Math.round(tick/1000)+"k";
+            },
+            min: 10,
+            max: 131072,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          type: 'linear',
+          ticks: {
+            min: 0,
+            suggestedMax: 1,
+          }
+        }]
+      },
+      plugins: {
+        filler: {
+          propagate: true
+        }
+      },
+      tooltips: {
+        mode: "x"
+      },
+    }
+  }));
+  
+  // Chart 5
+  var C5 = prepareChart(5);
+  C5.data = [];
+  C5.labels = [];
+  for (var task of taskOrder) {
+    if (C5.rawData[task] === undefined) {
+      C5.data.push(NaN);
+    } else {
+      C5.data.push(C5.rawData[task]);
+    }
+    C5.labels.push(taskChars[task]);
+  }
+  C.push(new Chart(C5.canvas, {
+    type: 'radar',
+    data: {
+      datasets: [{
+        data: C5.data,
+        borderColor: "rgba(12, 242, 142, 1)",
+        backgroundColor: "rgba(12, 242, 142, 0.2)",
+        pointBackgroundColor: "rgba(5, 132, 100, 1)",
+        pointBorderColor: "rgba(255, 255, 255, 1)",
+        fill: true,
+        borderWidth: 4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        hitRadius: 20,
+      }],
+      labels: C5.labels
+    },
+    options: {
+      legend: {display: false},
+      scale: {
+        pointLabels: {
+          fontStyle: "bold",
+        },
+        ticks: {beginAtZero: true},
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            return Math.round(tooltipItem.yLabel * 100)/100;
+          },
+        },
+      },
+    }
+  }));
+}
+</script>
+
+<script type="application/json" id="task-order">[39,42,45,44,40,38]</script>
+<script type="application/json" id="task-chars">{"39":"A","42":"B","45":"C","44":"D","40":"E","38":"F"}</script>
+<script type="application/json" id="C1-data">{"eXeP":[["2015-01-29T12:20:06+0200",100],["2015-01-29T12:35:08+0200",159],["2015-01-29T12:56:04+0200",209],["2015-01-29T13:28:19+0200",254],["2015-01-29T13:48:55+0200",309],["2015-01-29T14:50:34+0200",338]],"Laakeri":[["2015-01-29T12:22:26+0200",100],["2015-01-29T12:55:40+0200",117],["2015-01-29T13:15:39+0200",200],["2015-01-29T13:46:21+0200",250],["2015-01-29T14:05:19+0200",295],["2015-01-29T14:06:45+0200",350],["2015-01-29T15:23:01+0200",450],["2015-01-29T15:32:35+0200",479],["2015-01-29T16:24:51+0200",529],["2015-01-29T16:52:32+0200",600]],"Perdex":[["2015-01-29T12:23:16+0200",100],["2015-01-29T12:48:12+0200",117],["2015-01-29T13:04:51+0200",159],["2015-01-29T13:10:46+0200",209],["2015-01-29T14:13:21+0200",238],["2015-01-29T14:31:58+0200",283],["2015-01-29T15:31:48+0200",338],["2015-01-29T15:50:27+0200",350],["2015-01-29T16:23:54+0200",421]],"Hansuzu":[["2015-01-29T12:23:35+0200",100],["2015-01-29T13:42:37+0200",200],["2015-01-29T14:09:37+0200",245],["2015-01-29T14:18:58+0200",300],["2015-01-29T15:01:39+0200",400],["2015-01-29T15:32:53+0200",450],["2015-01-29T16:17:54+0200",500],["2015-01-29T16:26:52+0200",512]],"Kuha":[["2015-01-29T12:23:50+0200",100],["2015-01-29T12:38:33+0200",112],["2015-01-29T12:39:49+0200",145],["2015-01-29T13:20:05+0200",162],["2015-01-29T13:27:45+0200",178],["2015-01-29T13:42:24+0200",212],["2015-01-29T14:44:07+0200",224],["2015-01-29T15:46:34+0200",236]],"juhoh":[["2015-01-29T12:26:09+0200",16],["2015-01-29T12:37:24+0200",116],["2015-01-29T13:50:31+0200",145],["2015-01-29T15:33:58+0200",162],["2015-01-29T16:01:34+0200",229]],"zxc":[["2015-01-29T12:28:30+0200",100],["2015-01-29T12:39:45+0200",145],["2015-01-29T12:41:00+0200",200],["2015-01-29T12:50:15+0200",300],["2015-01-29T14:21:55+0200",350],["2015-01-29T15:36:03+0200",450]],"Nameci2718_":[["2015-01-29T12:28:50+0200",100],["2015-01-29T12:43:49+0200",145],["2015-01-29T13:01:01+0200",200],["2015-01-29T13:20:34+0200",217],["2015-01-29T14:20:35+0200",233],["2015-01-29T14:39:03+0200",262],["2015-01-29T15:17:11+0200",304],["2015-01-29T16:35:49+0200",345]],"SampoH":[["2015-01-29T12:32:23+0200",47],["2015-01-29T12:33:18+0200",100],["2015-01-29T12:58:37+0200",117],["2015-01-29T13:05:37+0200",133],["2015-01-29T13:14:46+0200",167],["2015-01-29T15:08:00+0200",212],["2015-01-29T16:10:27+0200",267],["2015-01-29T16:54:11+0200",296]],"Ollie":[["2015-01-29T12:33:10+0200",17],["2015-01-29T13:44:23+0200",34],["2015-01-29T13:55:06+0200",84],["2015-01-29T14:59:33+0200",113],["2015-01-29T16:08:16+0200",125]],"MusserO":[["2015-01-29T12:35:57+0200",100],["2015-01-29T15:18:21+0200",112],["2015-01-29T15:58:51+0200",145],["2015-01-29T17:11:17+0200",161]],"laituli":[["2015-01-29T12:38:17+0200",100],["2015-01-29T14:03:41+0200",117],["2015-01-29T16:47:56+0200",129],["2015-01-29T17:10:39+0200",179]],"Scintillo":[["2015-01-29T12:39:28+0200",59],["2015-01-29T13:11:20+0200",104],["2015-01-29T13:12:45+0200",159],["2015-01-29T13:28:35+0200",259],["2015-01-29T13:34:02+0200",309],["2015-01-29T14:27:55+0200",338],["2015-01-29T14:51:13+0200",350],["2015-01-29T15:52:12+0200",400],["2015-01-29T16:42:49+0200",441]],"PT":[["2015-01-29T12:40:19+0200",100],["2015-01-29T12:57:53+0200",159],["2015-01-29T13:34:22+0200",204],["2015-01-29T13:53:55+0200",259],["2015-01-29T14:12:08+0200",309],["2015-01-29T14:39:19+0200",359],["2015-01-29T15:19:48+0200",388],["2015-01-29T16:06:03+0200",429],["2015-01-29T16:29:23+0200",441]],"attelaut":[["2015-01-29T12:43:04+0200",17],["2015-01-29T12:53:15+0200",33],["2015-01-29T13:57:59+0200",62],["2015-01-29T14:08:10+0200",79],["2015-01-29T14:50:15+0200",124],["2015-01-29T15:16:54+0200",179],["2015-01-29T16:01:58+0200",262],["2015-01-29T16:55:21+0200",296]],"Pietu1998":[["2015-01-29T12:49:47+0200",45],["2015-01-29T15:38:29+0200",57],["2015-01-29T16:04:15+0200",73],["2015-01-29T16:54:36+0200",126]],"Dentosal":[["2015-01-29T13:11:30+0200",16],["2015-01-29T14:26:30+0200",116],["2015-01-29T15:31:56+0200",133],["2015-01-29T16:44:41+0200",145],["2015-01-29T16:59:09+0200",179]],"Petzku":[["2015-01-29T13:14:25+0200",50],["2015-01-29T13:16:30+0200",150],["2015-01-29T14:50:49+0200",209],["2015-01-29T15:59:25+0200",221],["2015-01-29T16:52:04+0200",250]],"juusohe":[["2015-01-29T13:22:47+0200",45],["2015-01-29T14:18:31+0200",62],["2015-01-29T15:08:57+0200",78],["2015-01-29T15:57:46+0200",90],["2015-01-29T16:50:15+0200",102]],"fergusq":[["2015-01-29T13:25:24+0200",16],["2015-01-29T13:39:18+0200",33],["2015-01-29T14:10:24+0200",45],["2015-01-29T15:13:49+0200",62],["2015-01-29T16:08:57+0200",107]],"spira":[["2015-01-29T14:26:56+0200",45],["2015-01-29T15:53:00+0200",57],["2015-01-29T16:46:32+0200",73]],"tomivah":[["2015-01-29T14:31:27+0200",45],["2015-01-29T15:37:25+0200",61],["2015-01-29T16:14:31+0200",95],["2015-01-29T16:51:58+0200",124]],"Etsubu":[["2015-01-29T16:08:51+0200",29],["2015-01-29T17:09:32+0200",76]]}</script>
+<script type="application/json" id="C2-data">{"C++":90,"Java":27}</script>
+<script type="application/json" id="C3-data">{"39":[0,0,0,0,0,0,1,13,1,2,2,3,0,0,0,0,0,0,0],"42":[0,0,0,0,0,0,6,12,0,1,0,0,1,2,0,0,0,0,0],"45":[0,0,0,0,0,0,5,1,0,3,2,3,1,1,2,1,0,0,0],"44":[0,0,0,0,0,0,5,2,1,0,2,0,1,1,1,4,1,3,2],"40":[0,0,0,0,0,0,4,0,1,0,0,1,4,2,4,3,1,2,0],"38":[0,0,0,0,0,1,0,2,0,1,1,2,1,0,1,0,0,0,0]}</script>
+<script type="application/json" id="C4-data">{"39":[0,0,0,0,0,0,0,0,3,6,8,2,0,0,2,1,0,0,0,0,0,0,0,0],"42":[0,0,0,0,0,0,0,0,4,8,6,1,1,0,2,0,0,0,0,0,0,0,0,0],"45":[0,0,0,0,0,0,0,0,0,0,5,9,3,1,0,1,0,0,0,0,0,0,0,0],"44":[0,0,0,0,0,0,0,0,5,9,4,3,1,0,1,0,0,0,0,0,0,0,0,0],"40":[0,0,0,0,0,0,0,0,1,7,7,5,0,0,0,2,0,0,0,0,0,0,0,0],"38":[0,0,0,0,0,0,1,0,0,5,1,1,0,0,0,1,0,0,0,0,0,0,0,0]}</script>
+<script type="application/json" id="C5-data">{"39":2.9,"45":3.7222222222222223,"44":2.1818181818181817,"42":4.7,"40":1.7272727272727273,"38":2.5714285714285716}</script>
+<script type="application/json" id="people-names">[]</script>
+<h3>Summary</h3>
+<table class="summary-table wide center-align">
+  <tr>
+    <th>Participants</th>
+    <th>Submissions</th>
+    <th>Points</th>
+    <th>Full solutions</th>
+  </tr>
+  <tr>
+    <td>23</td>
+    <td>445</td>
+    <td>6107</td>
+    <td>41</td>
+  </tr>
+  <tr>
+        <th>avg.</th>
+    <td>19.3</td>
+    <td>265.5</td>
+    <td>1.8</td>
+  </tr>
+</table>
+<p>
+  You can hide data sets by clicking on their labels.
+</p>
+<h3>Total points over time</h3>
+<canvas width="700" height="500" id="C1" class="stat-canvas"></canvas>
+<h3>Languages used</h3>
+(in scoreboard submissions)
+<canvas width="700" height="350" id="C2" class="stat-canvas"></canvas>
+<h3>Code running time distribution</h3>
+(in scoreboard submissions)
+<br> x = code runtime, y = amount of submissions
+<canvas width="700" height="400" id="C3" class="stat-canvas"></canvas>
+<h3>Code length distribution</h3>
+(in scoreboard submissions)
+<br> x = code length in characters, y = amount of submissions
+<canvas width="700" height="400" id="C4" class="stat-canvas"></canvas>
+<h3>Average amount of tries until maximum points</h3>
+<canvas width="700" height="350" id="C5" class="stat-canvas"></canvas>
+<script>displayCharts();</script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h1>Parcel Delivery</h1>
+<ul class="nav">
+<li><a href="2121/index.html" class="current">Task</a></li>
+<li><a href="../stats/2121/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Parcel Delivery</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2121">
+<div class="md"><p>There are <span class="math inline">n</span> cities and <span class="math inline">m</span> routes through which parcels can be carried from one city to another city. For each route, you know the maximum number of parcels and the cost of a single parcel.</p>
+<p>You want to send <span class="math inline">k</span> parcels from Syrjälä to Lehmälä. What is the cheapest way to do that?</p>
+<h1 id="input">Input</h1>
+<p>The first input line has three integers <span class="math inline">n</span>, <span class="math inline">m</span> and <span class="math inline">k</span>: the number of cities, routes and parcels. The cities are numbered <span class="math inline">1,2,\dots,n</span>. City <span class="math inline">1</span> is Syrjälä and city <span class="math inline">n</span> is Lehmälä.</p>
+<p>After this, there are <span class="math inline">m</span> lines that describe the routes. Each line has four integers <span class="math inline">a</span>, <span class="math inline">b</span>, <span class="math inline">r</span> and <span class="math inline">c</span>: there is a route from city <span class="math inline">a</span> to city <span class="math inline">b</span>, at most <span class="math inline">r</span> parcels can be carried through the route, and the cost of each parcel is <span class="math inline">c</span>.</p>
+<h1 id="output">Output</h1>
+<p>Print one integer: the minimum total cost or <span class="math inline">-1</span> if there are no solutions.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">2 \le n \le 500</span></li>
+<li><span class="math inline">1 \le m \le 1000</span></li>
+<li><span class="math inline">1 \le k \le 100</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+<li><span class="math inline">1 \le r,c \le 1000</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>4 5 3
+1 2 5 100
+1 3 10 50
+1 4 7 500
+2 4 8 350
+3 4 2 100
+</pre>
+<p>Output:</p>
+<pre>750
+</pre>
+<p>Explanation: One parcel is delivered through route <span class="math inline">1 \rightarrow 2 \rightarrow 4</span> (cost <span class="math inline">1 \cdot 450=450</span>) and two parcels are delivered through route <span class="math inline">1 \rightarrow 3 \rightarrow 4</span> (cost <span class="math inline">2 \cdot 150=300</span>).</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Advanced Techniques</h4>...
+<a  href="2111.html">Apples and Bananas<span class="task-score icon "></span></a><a  href="2112.html">One Bit Positions<span class="task-score icon "></span></a><a  href="2113.html">Signal Processing<span class="task-score icon "></span></a><a  href="2101.html">New Roads Queries<span class="task-score icon "></span></a><a  href="2133.html">Dynamic Connectivity<span class="task-score icon "></span></a><a class="current" href="2121.html">Parcel Delivery<span class="task-score icon "></span></a><a  href="2129.html">Task Assignment<span class="task-score icon "></span></a><a  href="2130.html">Distinct Routes II<span class="task-score icon "></span></a><hr />

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2024 alku</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Säähavainnot</h1>
+<ul class="nav">
+<li><a href="../task/F/index.html" >Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2023-10-30 00:00:00</span></li>
+        <li><b>End:</b> <span>2023-11-13 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1698616800;
+var contest_end = 1699826400;
+var server_time = 1725027625;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=484", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2024 alku - Results</title><table class="summary-table left-align narrow"><caption>Submission details</caption><tr><td >Task:</td><td ><a href="../task/F.html">Säähavainnot</a></td></tr>
+<tr><td >Sender:</td><td >Niilo</td></tr>
+<tr><td >Submission time:</td><td >2023-11-12 22:39:19 +0200</td></tr>
+<tr><td >Language:</td><td >C++17</td></tr>
+<tr><td >Status:</td><td ><span id="status">READY</span></td></tr>
+<tr><td >Result:</td><td ><span class="inline-score task-score c72">72</span></td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Feedback</caption><colgroup><col class="small-col"><col><col class="brief-col"></colgroup>
+<thead><tr><th >group</th><th >verdict</th><th >score</th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >71.5</td></tr>
+</table>
+<table class="narrow closeable">
+<caption class="close-trigger">Test&nbsp;results</caption><colgroup><col class="small-col"><col><col class="brief-col"><col class="brief-col"><col class="details-col"></colgroup>
+<thead><tr><th >test</th><th >verdict</th><th >time</th><th >score</th><th ></th></tr>
+</thead><tr><td >#1</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >9.25</td><td ><a class="details-link" href="7673326.html#test1">details</a></td></tr>
+<tr><td >#2</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >9.25</td><td ><a class="details-link" href="7673326.html#test2">details</a></td></tr>
+<tr><td >#3</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >9.13</td><td ><a class="details-link" href="7673326.html#test3">details</a></td></tr>
+<tr><td >#4</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >9</td><td ><a class="details-link" href="7673326.html#test4">details</a></td></tr>
+<tr><td >#5</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >9</td><td ><a class="details-link" href="7673326.html#test5">details</a></td></tr>
+<tr><td >#6</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >9.13</td><td ><a class="details-link" href="7673326.html#test6">details</a></td></tr>
+<tr><td >#7</td><td class="verdict ac">ACCEPTED</td><td >0.02 s</td><td >8.25</td><td ><a class="details-link" href="7673326.html#test7">details</a></td></tr>
+<tr><td >#8</td><td class="verdict ac">ACCEPTED</td><td >0.01 s</td><td >8.5</td><td ><a class="details-link" href="7673326.html#test8">details</a></td></tr>
+</table>
+<div class="closeable"><h3 class="caption close-trigger">Code</h3><div><script src="../../lib/google-code-prettify/run_prettify.js"></script><pre class="prettyprint linenums  resize-horizontal lang-cpp" style="">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+
+float lim[12] = {20.0, 19.0, 17.9, 17.7, 8.3, 6.8, 6.2, 5.7, 4.9, 4.4, 4.4, 4.4};
+
+// just some linear regression matrices...
+const float mg1[12][24] = {
+  {-0.03103,0.02364,-0.00433,0.03019,0.04572,-0.02409,-0.04673,0.03106,0.04437,-0.06663,0.02789,0.03819,-0.08189,0.07713,-0.0095,-0.00727,-0.02199,0.03609,-0.03728,-0.01495,-0.0326,0.02894,0.00623,0.991},      
+  {-0.0341,-0.00289,0.01899,0.04806,0.06858,-0.02996,-0.0496,0.02275,0.06548,-0.10277,0.02703,0.1242,-0.12333,0.0696,0.00168,-0.05248,-0.00978,0.07515,-0.09721,0.03707,-0.0442,0.03904,-0.00865,0.96242},        
+  {-0.07916,0.00287,-0.00032,0.10301,0.08634,-0.00941,-0.03142,-0.04753,0.12525,-0.08893,0.04921,0.0408,-0.09817,0.12989,-0.04538,0.0031,-0.1144,0.10835,-0.07295,0.09368,-0.07239,0.05261,-0.04862,0.91794},     
+  {-0.09927,0.01949,-0.02425,0.08677,0.16941,-0.05436,-0.03331,-0.01529,0.13024,-0.0833,0.03899,0.03866,-0.09836,0.14189,-0.04747,0.047,-0.19674,0.11686,-0.00531,0.10137,-0.09175,0.07723,-0.10018,0.8814},      
+  {-0.09795,-0.0005,-0.0304,0.03623,0.24453,-0.05067,-0.00479,-0.03048,0.11227,-0.08995,0.0661,0.0288,-0.05554,0.12911,-0.07068,0.05498,-0.20548,0.14447,0.01199,0.12045,-0.10353,0.0677,-0.10696,0.82415},       
+  {-0.11119,-0.00441,-0.01372,-0.02696,0.26338,-0.00255,-0.03661,0.00511,0.12734,-0.15506,0.11532,0.00657,-0.01462,0.0955,-0.05328,0.08793,-0.20392,0.15617,0.04333,0.08904,-0.12768,0.07476,-0.10237,0.7768},    
+  {-0.09943,-0.00914,-0.01516,-0.08969,0.30734,-0.0262,0.00756,-0.02497,0.12224,-0.15711,0.15667,-0.01303,-0.01476,0.12017,-0.06111,0.13947,-0.16585,0.11505,0.04316,0.07161,-0.09728,0.00473,-0.06611,0.73507},  
+  {-0.08544,0.01642,-0.03035,-0.08894,0.29052,-0.05003,-0.01933,0.0082,0.10877,-0.12462,0.14369,0.024,-0.07059,0.17099,-0.06777,0.13897,-0.12858,0.04841,0.13598,0.04428,-0.12083,-0.01894,-0.06193,0.71463},     
+  {-0.10212,0.02823,-0.02887,-0.04028,0.20971,-0.01814,-0.02876,0.00528,0.09902,-0.10689,0.1734,-0.01186,-0.07476,0.21761,-0.09162,0.17529,-0.13245,0.03229,0.15085,0.00209,-0.10685,-0.01645,-0.06474,0.70241},  
+  {-0.06516,-0.01442,-0.0047,-0.0382,0.19201,-0.02612,-0.04491,0.04522,0.05569,-0.0899,0.18625,0.00806,-0.10519,0.24362,-0.09572,0.18956,-0.15525,0.05418,0.15246,-0.01027,-0.12873,0.01032,-0.08516,0.69357},    
+  {-0.04658,-0.04595,0.04816,-0.06405,0.16319,-0.01445,-0.03665,0.04012,0.07644,-0.16992,0.21272,0.03481,-0.11023,0.21725,-0.03016,0.16455,-0.12332,0.02148,0.19873,-0.03229,-0.1409,0.03581,-0.11983,0.68564},   
+  {-0.01262,-0.06266,0.0255,-0.04801,0.14489,-0.00581,-0.0494,0.05524,0.07042,-0.17097,0.1945,0.0852,-0.16358,0.20555,0.03841,0.11877,-0.05433,-0.05516,0.26053,-0.02783,-0.15737,0.02916,-0.11366,0.65513},      
+};
+const float mb1[12][24] = {
+  {0.00114,0.00706,-0.01083,0.04874,-0.05648,0.04961,-0.04996,0.0606,-0.03241,0.00407,-0.00439,0.00065,-0.01921,0.02197,-0.02764,0.025,-0.00393,-0.00345,-0.00406,-0.01154,-0.02977,-0.05259,0.06214,1.01862},    
+  {-0.02795,0.0131,0.02903,0.06706,-0.09166,0.06322,-0.06536,0.06658,-0.0027,-0.02877,0.01646,0.00502,-0.054,0.01806,-0.03293,0.04432,0.01483,-0.05655,0.06206,-0.03437,-0.05297,-0.04139,0.00345,1.07654},       
+  {-0.03813,-0.01698,0.02612,0.10793,-0.08876,0.0881,-0.08226,0.0813,-0.04046,0.0004,0.0012,0.01434,-0.03816,-0.03455,-0.01919,0.05706,-0.00711,-0.02611,0.05144,-0.02223,0.01731,-0.10485,-0.04244,1.10011},     
+  {-0.02282,-0.0571,-0.00313,0.12519,-0.04515,0.07723,-0.05684,0.09276,-0.08389,0.01758,-0.03138,0.08286,-0.09049,-0.03811,-0.01465,0.05016,-0.00574,-0.0227,0.10792,-0.02029,0.02014,-0.10917,-0.08602,1.09159}, 
+  {-0.01533,-0.08286,0.00222,0.06773,-0.07324,0.16433,-0.00776,0.09159,-0.1351,0.0189,-0.01706,0.07031,-0.07292,-0.05471,0.00479,0.02508,-0.01429,0.00367,0.18702,-0.00066,-0.04484,-0.08027,-0.12677,1.06198},   
+  {0.00259,-0.08742,0.01137,0.00416,-0.15802,0.22133,0.09438,0.0633,-0.15032,0.01348,0.01159,0.02975,-0.02946,-0.08929,-0.01807,0.04196,0.03166,0.08633,0.16134,-0.01505,-0.03585,-0.09515,-0.08581,0.95147},     
+  {-0.02744,-0.05975,0.05157,-0.0514,-0.22129,0.17957,0.19814,0.07733,-0.1821,0.05703,0.00856,0.00921,-0.01917,-0.1118,-0.03787,0.09541,0.11602,0.07032,0.12804,-0.0379,-0.01222,-0.07314,-0.07164,0.8563},       
+  {-0.03527,-0.01134,0.05775,-0.06878,-0.25931,0.15243,0.12743,0.13206,-0.17604,0.08533,0.00077,0.0038,0.00637,-0.11396,-0.03429,0.16584,0.15556,-0.01069,0.10162,-0.01533,-0.027,-0.02538,-0.07759,0.78619},     
+  {-0.06552,0.01643,0.07497,-0.06518,-0.27039,0.14747,0.06858,0.05625,-0.08467,0.09929,-0.00995,0.01472,0.0152,-0.0893,0.01454,0.17054,0.15645,-0.0792,0.11373,-0.01547,-0.02717,-0.00857,-0.04893,0.71135},      
+  {-0.05554,-0.00301,0.10916,-0.09149,-0.27407,0.18067,0.00914,0.01377,-0.03231,0.09294,-0.00476,0.04307,-0.00982,-0.06117,0.02291,0.21761,0.10865,-0.08907,0.13081,-0.02507,-0.02961,0.00614,-0.0398,0.65607},   
+  {-0.05479,0.01692,0.1043,-0.10027,-0.25556,0.14079,0.00383,-0.0003,0.00855,0.037,0.02687,0.06228,-0.02519,-0.03277,0.02514,0.22929,0.08519,-0.09039,0.14383,-0.02101,-0.02961,-0.02614,-0.00151,0.61653},       
+  {-0.04682,0.02686,0.0869,-0.08167,-0.26329,0.11445,0.00364,0.00371,0.00462,0.03192,0.04255,0.0697,-0.01544,-0.02697,0.0105,0.2654,0.04124,-0.0451,0.11282,-0.02711,0.0129,-0.07231,0.00868,0.59795},
+};
+const float mg2[12] = {0.04664,0.03363,-0.00652,-0.05538,-0.10264,-0.14896,-0.18094,-0.23624,-0.28454,-0.32457,-0.37545,-0.42555};
+const float mb2[12] = {0.09237,0.01069,-0.12658,-0.33309,-0.54303,-0.6707,-0.81348,-1.05438,-1.24652,-1.38813,-1.5428,-1.6463};
+
+float ar[24];
+int n;
+
+int main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  
+  cin &gt;&gt; n;
+  for (int i=0; i &lt; n; i++) {
+    for (int j=0; j &lt; 24; j++) cin &gt;&gt; ar[j];
+
+    float x1 = ar[0], x2 = ar[0];
+    for (int j=1; j &lt; 24; j++) {
+      x1 = min(x1, ar[j]);
+      x2 = max(x2, ar[j]);
+    }
+    float dif = abs(x1 - x2);
+
+    int depth = 1;
+    for (; depth &lt;= 12; depth++) {
+      if (dif &gt; lim[depth-1]) break;
+    }
+
+    for (int j=0; j &lt; 12; j++) {
+      if (j &gt;= depth) {
+        cout &lt;&lt; &quot;? &quot;;
+        continue;
+      }
+      float q = dif &gt; 6.0 ? mb2[j] : mg2[j];
+      for (int k=0; k &lt; 24; k++) {
+        q += (dif &gt; 6.0 ? mb1[j][k] : mg1[j][k]) * ar[k];
+      }
+      cout &lt;&lt; q &lt;&lt; ' ';
+    }
+  }
+}
+</pre></div></div><div class="closeable"><h3 class="caption close-trigger">Test details</h3><div><h4 id="test1">Test 1</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>-0.4&nbsp;-0.1&nbsp;-0.2&nbsp;-0.3&nbsp;-0.4&nbsp;-0.5&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/c9ab9d5fcea0672fe6a3e124c787c7a60575b76ac9132c6414c0a678fd4c4b71">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/c9ab9d5fcea0672fe6a3e124c787c7a60575b76ac9132c6414c0a678fd4c4b71">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>0.4&nbsp;0.4&nbsp;0.5&nbsp;0.8&nbsp;0.9&nbsp;1.1&nbsp;1.3&nbsp;1....</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/df52e9fb879499cde8cad34f0b1744d237ea384a8594c463adf45a25366d61a3">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/df52e9fb879499cde8cad34f0b1744d237ea384a8594c463adf45a25366d61a3">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>0.266545&nbsp;0.230409&nbsp;0.133068&nbsp;0.0...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test2">Test 2</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>2.9&nbsp;2.9&nbsp;2.9&nbsp;2.1&nbsp;2.6&nbsp;2&nbsp;2&nbsp;2.2&nbsp;2....</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/4d0cf4f69d718f50c9c933573a531fe838977c3e65322136e17e4fbf047482c5">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/4d0cf4f69d718f50c9c933573a531fe838977c3e65322136e17e4fbf047482c5">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>2.3&nbsp;1.6&nbsp;1.5&nbsp;1.1&nbsp;1&nbsp;0.7&nbsp;0.6&nbsp;0.8&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/7831b713c39cac4a639f27a4109cbe05c8b7b7fafc0dbb7677b08a051178a705">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/7831b713c39cac4a639f27a4109cbe05c8b7b7fafc0dbb7677b08a051178a705">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>2.70112&nbsp;2.69442&nbsp;2.58106&nbsp;2.5204...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test3">Test 3</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>6.6&nbsp;6&nbsp;6.4&nbsp;6&nbsp;4.6&nbsp;4.6&nbsp;4.2&nbsp;4.3&nbsp;4....</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/ebcdeb2979992f03d609200f6cb44595b635f3bef938192103de5b5ecc81ea3a">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/ebcdeb2979992f03d609200f6cb44595b635f3bef938192103de5b5ecc81ea3a">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>10&nbsp;10.9&nbsp;10.3&nbsp;10.1&nbsp;9.1&nbsp;7.3&nbsp;5.7&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/4a5fd3725ab063bfea7fe83c463d01c9b2e2a9d82ba8bd1adb196d1ad73be2cd">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/4a5fd3725ab063bfea7fe83c463d01c9b2e2a9d82ba8bd1adb196d1ad73be2cd">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>10.3447&nbsp;10.3744&nbsp;10.0669&nbsp;9.5143...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test4">Test 4</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>19.4&nbsp;20.2&nbsp;19.1&nbsp;18.9&nbsp;18.3&nbsp;17.3&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/9cff11f963db74195bac4682978d622e8163218a05b8b9fb735fe2b23d490187">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/9cff11f963db74195bac4682978d622e8163218a05b8b9fb735fe2b23d490187">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>18&nbsp;18.2&nbsp;17&nbsp;17.5&nbsp;17.2&nbsp;16.2&nbsp;12&nbsp;8...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/9c5a89b3607ea271af36560e5666b973de8dc20db73f2e59d23a532627c64ba9">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/9c5a89b3607ea271af36560e5666b973de8dc20db73f2e59d23a532627c64ba9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>17.3735&nbsp;17.329&nbsp;17.0508&nbsp;16.5854...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test5">Test 5</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>-5.7&nbsp;-5.8&nbsp;-5.8&nbsp;-5.9&nbsp;-7.1&nbsp;-6.9&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/40edae7726ec41054bea17bd8d0123eea22dd2e345b4da4b2868aa500d20b635">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/40edae7726ec41054bea17bd8d0123eea22dd2e345b4da4b2868aa500d20b635">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>-4.2&nbsp;-4.1&nbsp;-4&nbsp;-3.8&nbsp;-3.5&nbsp;-3.2&nbsp;-3...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/94bc3e5a2e2c033305cd0a60efd9cc1aee0e9fbd24c7887c8ba034460c21e2bf">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/94bc3e5a2e2c033305cd0a60efd9cc1aee0e9fbd24c7887c8ba034460c21e2bf">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>-4.50783&nbsp;-4.65275&nbsp;-4.96549&nbsp;-5....</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test6">Test 6</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>14.8&nbsp;14.8&nbsp;15.4&nbsp;12.9&nbsp;11.8&nbsp;9.7&nbsp;9...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/50992f9aba4fb4994629241d409ec8cf4c820db6c9c29612f0d947bff70a9263">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/50992f9aba4fb4994629241d409ec8cf4c820db6c9c29612f0d947bff70a9263">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>11.8&nbsp;11&nbsp;11.6&nbsp;10.8&nbsp;10.4&nbsp;10.4&nbsp;10...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/1b040b3efa48c1c86ee5529afacee2a253cbd08b10f812a6dc22a089a13f2136">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/1b040b3efa48c1c86ee5529afacee2a253cbd08b10f812a6dc22a089a13f2136">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>12.8237&nbsp;12.8022&nbsp;12.4833&nbsp;11.944...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test7">Test 7</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>0.7&nbsp;1&nbsp;2&nbsp;1.4&nbsp;0.6&nbsp;-0.4&nbsp;-0.9&nbsp;-0.7...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/eadab930d53882e63ebf43e8439ad3d8850a10ade4ba341406af45dd41521609">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/eadab930d53882e63ebf43e8439ad3d8850a10ade4ba341406af45dd41521609">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>-1.3&nbsp;-0.5&nbsp;-0.6&nbsp;-1&nbsp;-3.2&nbsp;-7.2&nbsp;-6...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/af4a52aa896d6000a19cc533a2d0fcf14f23417550533bcea89c61172bd51ff9">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/af4a52aa896d6000a19cc533a2d0fcf14f23417550533bcea89c61172bd51ff9">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>-1.61671&nbsp;-1.55232&nbsp;-1.55409&nbsp;-1....</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br><h4 id="test8">Test 8</h4><p>Verdict: <span class="inline-score verdict ac">ACCEPTED</span></p><table class="narrow"><tr><th>input</th></tr><tr><td><samp>1000<br>15.1&nbsp;15.3&nbsp;14.9&nbsp;14.4&nbsp;14.4&nbsp;13.7&nbsp;...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/1/3650ed4421044a824f63533a889d70f4b13424d989b1edead36f20ce11a67363">view</a> <a class="save" title="Save" href="https://cses.fi/save/1/3650ed4421044a824f63533a889d70f4b13424d989b1edead36f20ce11a67363">save</a></div></td></tr></table><br><table class="narrow"><tr><th>correct output</th></tr><tr><td><samp>15.6&nbsp;15.9&nbsp;16&nbsp;15.2&nbsp;14.6&nbsp;14.4&nbsp;13...</samp><div class="samp-actions"><a class="view" title="View" href="https://cses.fi/view/2/3f7f8f32685f585616c14eb58ae8cd714bdd07db19611ff9bdc9599e13bfc892">view</a> <a class="save" title="Save" href="https://cses.fi/save/2/3f7f8f32685f585616c14eb58ae8cd714bdd07db19611ff9bdc9599e13bfc892">save</a></div></td></tr></table><br><table class="narrow"><tr><th>user output</th></tr><tr><td><samp>15.2492&nbsp;15.2926&nbsp;15.0747&nbsp;14.807...</samp><div class="samp-actions"><span>Truncated</span></div></td></tr></table><br></div></div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="../task/A.html"><span><b>A</b> Lumimyrsky</span><span class="task-score ">-</span></a><a  href="../task/B.html"><span><b>B</b> Monistus</span><span class="task-score ">-</span></a><a  href="../task/C.html"><span><b>C</b> Laskettelukeskus</span><span class="task-score ">-</span></a><a  href="../task/D.html"><span><b>D</b> Uolevin kalansaalis</span><span class="task-score ">-</span></a><a  href="../task/E.html"><span><b>E</b> Käännöt</span><span class="task-score ">-</span></a><a class="current" href="../task/F.html"><span><b>F</b> Säähavainnot</span><span class="task-score ">-</span></a><hr />
+<h4>Submissions (Niilo)</h4>
+
+<a class="current " href="https://cses.fi/484/result/7673326/">2023-11-12 22:39:19 <span class="task-score c72">72</span></a><a class=" " href="https://cses.fi/484/result/7673240/">2023-11-12 22:26:45 <span class="task-score c72">72</span></a><a class=" " href="https://cses.fi/484/result/7673200/">2023-11-12 22:23:09 <span class="task-score c70">70</span></a><a class=" " href="https://cses.fi/484/result/7672354/">2023-11-12 20:58:08 <span class="task-score c71">71</span></a><a class=" " href="https://cses.fi/484/result/7666693/">2023-11-12 10:35:37 <span class="task-score c71">71</span></a><a class=" " href="https://cses.fi/484/result/7663219/">2023-11-11 21:38:55 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7660635/">2023-11-11 17:16:59 <span class="task-score c67">67</span></a><a class=" " href="https://cses.fi/484/result/7660629/">2023-11-11 17:16:37 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7565004/">2023-11-01 13:10:15 <span class="task-score c66">66</span></a><a class=" " href="https://cses.fi/484/result/7564778/">2023-11-01 12:48:51 <span class="task-score c66">66</span></a><a class=" " href="https://cses.fi/484/result/7564771/">2023-11-01 12:48:29 <span class="task-score c0">0</span></a><a class=" " href="https://cses.fi/484/result/7560116/">2023-10-31 22:26:30 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7559649/">2023-10-31 21:13:20 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7559083/">2023-10-31 20:15:18 <span class="task-score c65">65</span></a><a class=" " href="https://cses.fi/484/result/7559078/">2023-10-31 20:15:01 <span class="task-score c4">4</span></a><a class=" " href="https://cses.fi/484/result/7559074/">2023-10-31 20:14:34 <span class="task-score c4">4</span></a><a class=" " href="https://cses.fi/484/result/7558896/">2023-10-31 19:54:06 <span class="task-score c63">63</span></a><a class=" " href="https://cses.fi/484/result/7555896/">2023-10-31 15:06:01 <span class="task-score c55">55</span></a><a class=" " href="https://cses.fi/484/result/7555863/">2023-10-31 15:03:55 <span class="task-score c0">0</span></a></div>
+</div>
+

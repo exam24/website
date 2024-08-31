@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../../list/index.html">Datatähti 2016 alku</a>
+        <a href="https://cses.fi/42/messages/"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Ohjeet</h1>
+<ul class="nav">
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2015-09-28 00:00:00</span></li>
+        <li><b>End:</b> <span>2015-10-12 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1443387600;
+var contest_end = 1444597200;
+var server_time = 1725027248;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<title>CSES - Datatähti 2016 alku - Ohjeet</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="216">
+<div class="md"><h1 id="tehtavat">Tehtävät</h1>
+<p>Jokaisessa tehtävässä on tarkoituksena laatia ohjelma, joka lukee syötteen, ratkaisee ongelman tehokkaasti ja tulostaa vastauksen.</p>
+<p>Tehtävän yhteydessä on ilmoitettu, paljonko aikaa ja muistia ohjelma saa käyttää yhden syötteen käsittelyyn.</p>
+<p>Kun lähetät koodin palvelimelle, sitä testataan joukolla testitapauksia. Saat pisteitä koodin toimivuuden ja tehokkuuden perusteella.</p>
+<p>Voit lähettää samaan tehtävään useita koodeja. Kokonaispisteisiin vaikuttaa koodi, joka tuottaa korkeimman pistemäärän.</p>
+<p>Sallitut ohjelmointikielet ovat C++, Java, Python (versiot 2 ja 3) sekä Haskell. Lisäksi yleensä C-koodin voi kääntää C++:na.</p>
+<h1 id="esimerkkitehtava">Esimerkkitehtävä</h1>
+<p>Tarkastellaan esimerkkinä seuraavaa tehtävää:</p>
+<p>Tehtäväsi on laskea kahden kokonaisluvun summa. Syötteen ainoalla rivillä on kaksi kokonaislukua <span class="math inline">a</span> ja <span class="math inline">b</span>. Ohjelmasi tulee tulostaa lukujen summa <span class="math inline">a+b</span>.</p>
+<p>Esimerkkisyöte:</p>
+<pre>4 7
+</pre>
+<p>Esimerkkituloste:</p>
+<pre>11
+</pre>
+<p>Tehtävän voi ratkaista seuraavilla koodeilla:</p>
+<h1 id="c">C++:</h1><pre class="resize-horizontal prettyprint lang-auto">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int a, b;
+    cin &gt;&gt; a &gt;&gt; b;
+    cout &lt;&lt; a+b &lt;&lt; &quot;\n&quot;;
+}
+</pre><h1 id="java">Java:</h1><pre class="resize-horizontal prettyprint lang-auto">import java.util.*;
+
+public class Summa {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int a = input.nextInt();
+        int b = input.nextInt();
+        System.out.println(a+b);
+    }
+}
+</pre>
+<p>Huom: älä käytä package-komentoa Java-koodissa.</p>
+<h1 id="python2">Python 2:</h1><pre class="resize-horizontal prettyprint lang-auto">a, b = [int(x) for x in raw_input().split(&quot; &quot;)]
+print a+b
+</pre><h1 id="python3">Python 3:</h1><pre class="resize-horizontal prettyprint lang-auto">a, b = [int(x) for x in input().split(&quot; &quot;)]
+print(a+b)
+</pre><h1 id="arvostelu">Arvostelu</h1>
+<p>Kun lähetät koodin arvosteltavaksi, jokaisen syötteen tulos on yksi seuraavista:</p>
+<p><em>ACCEPTED</em>: Ohjelma tulosti oikean vastauksen.</p>
+<p><em>WRONG ANSWER</em>: Ohjelma tulosti väärän vastauksen.</p>
+<p><em>TIME LIMIT EXCEEDED</em>: Ohjelman suoritus kesti liian kauan.</p>
+<p><em>OUTPUT LIMIT EXCEEDED</em>: Ohjelma tuotti liikaa tulostetta.</p>
+<p><em>RUNTIME ERROR</em>: Tämä tulee esimerkiksi, jos muisti loppuu kesken tai koodi heittää käsittelemättömän poikkeuksen.</p>
+<p>Saat pisteet alitehtävän testeistä, jos ohjelma tuottaa oikean vastauksen jokaiselle alitehtävään kuuluvalle syötteelle.</p>
+<h1 id="teknistatietoa">Teknistä tietoa</h1><h1 id="c">C++</h1>
+<p>Kääntäjä: g++ 4.9.1<br />
+Kääntäjäliput: -std=c++0x -O2 -Wall.</p>
+<h1 id="java">Java</h1>
+<p>OpenJDK 1.8.0_40 (eli Java 8)</p>
+<h1 id="python">Python</h1>
+<p>Python 2.7.8 ja Python 3.4.2</p>
+<h1 id="haskell">Haskell</h1>
+<p>GHC 7.6.3</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="../../task/A.html"><span><b>A</b> Osajono</span><span class="task-score ">-</span></a><a  href="../../task/B.html"><span><b>B</b> Kirjat</span><span class="task-score ">-</span></a><a  href="../../task/C.html"><span><b>C</b> Tontti</span><span class="task-score ">-</span></a><a  href="https://cses.fi/42/task/D"><span><b>D</b> Lennot</span><span class="task-score ">-</span></a><a  href="../../task/E.html"><span><b>E</b> Bittipeli</span><span class="task-score ">-</span></a><hr />

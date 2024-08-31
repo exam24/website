@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2015 loppu</a>
+        <a href="https://cses.fi/5/messages/"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Lukujono</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/5/task/D/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2015-01-29 12:15:00</span></li>
+        <li><b>End:</b> <span>2015-01-29 17:15:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1422526500;
+var contest_end = 1422544500;
+var server_time = 1725027255;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<title>CSES - Datatähti 2015 loppu - Lukujono</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 4.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="44">
+<div class="md"><p>Aikaraja: 4 s</p>
+<p>Fibonaccin lukujono <span class="math inline">(F_n)</span> on erittäin tunnettu lukujono, ja se määritellään seuraavasti:</p>
+<ul>
+<li><span class="math inline">F_0 = 0</span></li>
+<li><span class="math inline">F_1 = 1</span></li>
+<li><span class="math inline">F_n = F_{n - 1} + F_{n - 2}</span>, jos <span class="math inline">n \geq 2</span>.</li>
+</ul>
+<p>Paljon vähemmälle huomiolle on jäänyt Uolevinaccin lukujono <span class="math inline">(U_n)</span>, joka määritellään seuraavasti:</p>
+<ul>
+<li><span class="math inline">U_0 = 0</span></li>
+<li><span class="math inline">U_1 = 1</span></li>
+<li><span class="math inline">U_n = U_{\lfloor n/2\rfloor} + U_{\lfloor n/3\rfloor} + U_{\lfloor n/4\rfloor} + U_{\lfloor n/5\rfloor} + \ldots + U_{\lfloor n/n\rfloor}</span>, jos <span class="math inline">n \geq 2</span>.</li>
+</ul>
+<p>Merkintä <span class="math inline">\lfloor x \rfloor</span> tarkoittaa lukua <span class="math inline">x</span> pyöristettynä alaspäin kokonaisluvuksi.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteenä annetaan yksi kokonaisluku <span class="math inline">n</span>.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosteen tulee olla luku <span class="math inline">U_n</span>.</p>
+<p>Voit olettaa, että <span class="math inline">U_n</span> on enintään <span class="math inline">10^{18}</span>.</p>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>10
+</pre>
+<p>Tuloste:</p>
+<pre>13
+</pre>
+<p>Selitys: <span class="math inline">U_{10} = U_5 + U_3 + U_2 + U_2 + U_1 + U_1 + U_1 + U_1 + U_1</span>.</p>
+<h1 id="osatehtava116pistetta">Osatehtävä 1 (16 pistettä)</h1>
+<ul>
+<li><span class="math inline">1 \leq n \leq 10^3</span></li>
+</ul>
+<h1 id="osatehtava234pistetta">Osatehtävä 2 (34 pistettä)</h1>
+<ul>
+<li><span class="math inline">1 \leq n \leq 10^5</span></li>
+</ul>
+<h1 id="osatehtava350pistetta">Osatehtävä 3 (50 pistettä)</h1>
+<ul>
+<li><span class="math inline">1 \leq n \leq 10^8</span></li>
+</ul>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="A.html"><span><b>A</b> Omenat</span><span class="task-score ">-</span></a><a  href="B.html"><span><b>B</b> Urkupillit</span><span class="task-score ">-</span></a><a  href="C.html"><span><b>C</b> Ruudukko</span><span class="task-score ">-</span></a><a class="current" href="D.html"><span><b>D</b> Lukujono</span><span class="task-score ">-</span></a><a  href="E.html"><span><b>E</b> Pörssihai</span><span class="task-score ">-</span></a><a  href="F.html"><span><b>F</b> Kartta</span><span class="task-score ">-</span></a><hr />

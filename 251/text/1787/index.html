@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../../darkmode.html" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../../list/index.html">HIIT Open 2019</a>
+        <a href="../../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Instructions</h1>
+<ul class="nav">
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2019-05-25 11:00:00</span></li>
+        <li><b>End:</b> <span>2019-05-25 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1558771200;
+var contest_end = 1558789200;
+var server_time = 1725027178;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=251", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2019 - Instructions</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="1787">
+<div class="md"><h1 id="submission">Submission</h1>
+<p>You must submit the source code of your program. After the submission, your code will be compiled and tested on the server. Your code will be accepted, if it solves each test within given time and memory limits.</p>
+<p>The score for your team is the number of accepted tasks. In addition, there is a time penalty that is the sum of submission times for accepted tasks in minutes. If two teams have solved the same number of tasks, the team whose time penalty is lower is considered better. For each wrong submission, you get 20 minutes extra penalty time for the task (if you eventually can solve it).</p>
+<h1 id="languages">Languages</h1>
+<p>You can use C++, Haskell, Java, Python, Scala and Rust in the contest.</p>
+<p>Information about language versions etc. is available <a href="../../../howto.1.html">here</a>.</p>
+<h1 id="documentation">Documentation</h1>
+<p>You may use the following documentation during the contest:</p>
+<ul>
+<li><a href="http://www.cplusplus.com/reference/">C++ Reference (1)</a></li>
+<li><a href="http://en.cppreference.com/w/">C++ Reference (2)</a></li>
+<li><a href="https://downloads.haskell.org/~ghc/8.0.2/docs/html/libraries/index.html">Haskell Documentation</a></li>
+<li><a href="https://docs.oracle.com/en/java/javase/11/">Java Documentation</a></li>
+<li><a href="https://docs.python.org/release/2.7.15/">Python 2 Documentation</a></li>
+<li><a href="https://docs.python.org/release/3.6.7/">Python 3 Documentation</a></li>
+<li><a href="https://doc.rust-lang.org/1.31.1/std/index.html">Rust Documentation</a></li>
+<li><a href="https://www.scala-lang.org/api/2.11.12/">Scala Documentation</a></li>
+</ul>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="../../task/A.html"><span><b>A</b> Alien Invasion II</span><span class="task-score icon"></span></a><a  href="../../task/B.html"><span><b>B</b> Bit Strings</span><span class="task-score icon"></span></a><a  href="../../task/C.html"><span><b>C</b> Coloring Grids</span><span class="task-score icon"></span></a><a  href="../../task/D.html"><span><b>D</b> Differences</span><span class="task-score icon"></span></a><a  href="../../task/E.html"><span><b>E</b> Epic Subset</span><span class="task-score icon"></span></a><a  href="../../task/F.html"><span><b>F</b> Final Array</span><span class="task-score icon"></span></a><a  href="../../task/G.html"><span><b>G</b> Grid Paths</span><span class="task-score icon"></span></a><a  href="../../task/H.html"><span><b>H</b> HIIT Speedrun</span><span class="task-score icon"></span></a><a  href="../../task/I.html"><span><b>I</b> Insert Whitespace</span><span class="task-score icon"></span></a><a  href="../../task/J.html"><span><b>J</b> Just Solve It</span><span class="task-score icon"></span></a><a  href="../../task/K.html"><span><b>K</b> Keeping Distance</span><span class="task-score icon"></span></a><a  href="../../task/L.html"><span><b>L</b> L-Trominos</span><span class="task-score icon"></span></a><a  href="../../task/M.html"><span><b>M</b> Many Cycles</span><span class="task-score icon"></span></a><hr />

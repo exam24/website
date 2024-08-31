@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">Datatähti 2019 alku</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Sanalista</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/214/task/E/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2018-10-01 00:00:00</span></li>
+        <li><b>End:</b> <span>2018-10-15 00:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1538341200;
+var contest_end = 1539550800;
+var server_time = 1725027201;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=214", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2019 alku - Sanalista</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> N/A</li>
+<li><b>Memory limit:</b> N/A</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="1482">
+<div class="md"><p>Tehtäväsi on rakentaa <em>säännöllinen lauseke</em>, joka pyrkii tunnistamaan, onko annettu suomen kielen sana kirjoitettu oikein vai väärin päin. Lauseke testataan aineistolla, jonka voit ladata omalle koneellesi tutkittavaksi.</p>
+<h1 id="aineisto">Aineisto</h1>
+<p>Tehtävän aineistona on kaksi sanalistaa:</p>
+<ul>
+<li><a href="https://cses.fi/file/7cda592b3a787888dec2fbe1e52e8900661c0e2c346c4deca881f9e614094a1e">Lista A</a>: suomen kielen sanoja kirjoitettuna oikein päin</li>
+<li><a href="https://cses.fi/file/e53bf37e06be36afe83560786b03332a70d29ad0cad42abceb2a60ce0873f672">Lista B</a>: samat sanat kirjoitettuna väärin päin</li>
+</ul>
+<p>Kummankin listan jokaisella rivillä on yksi sana. Listassa A on esimerkiksi sana <code>ohjelmointi</code> ja listassa B vastaavasti <code>itniomlejho</code>. Huomaa, että listoissa on päällekkäisyyksiä: esimerkiksi molemmissa listoissa on sanat <code>aatto</code> ja <code>ottaa</code>.</p>
+<p>Listat on tallennettu UTF-8-muodossa, millä on vaikutusta ääkkösten ja muiden erikoismerkkien käsittelyssä.</p>
+<p>Aineisto perustuu Kotimaisten kielten keskuksen <a href="http://kaino.kotus.fi/sanat/nykysuomi/">nykysuomen sanalistaan</a>, joka on julkaistu EUPL-lisenssillä. Listaa on muokattu tähän tehtävään sopivaksi mm. poistamalla sanat, joissa on tiettyjä erikoismerkkejä. </p>
+<h1 id="tehtava">Tehtävä</h1>
+<p>Laadi säännöllinen lauseke <span class="math inline">S</span>, joka täsmää mahdollisimman moneen listan A sanaan ja mahdollisimman harvaan listan B sanaan.</p>
+<p>Molemmissa listoissa on <span class="math inline">n = 93855</span> sanaa. Olkoot <span class="math inline">a</span> niiden listan A sanojen määrä, joihin <span class="math inline">S</span> täsmää, ja <span class="math inline">b</span> niiden listan B sanojen määrä, joihin <span class="math inline">S</span> täsmää. Tällöin osumatarkkuus on <span class="math display">r = \frac{a + n - b}{2n}.</span> Tavoitteesi on päästä mahdollisimman korkeaan osumatarkkuuteen.</p>
+<p>Esimerkkejä:</p>
+<ul>
+<li>Säännöllinen lauseke <code>.*rv.*</code> täsmää <span class="math inline">a = 1453</span> sanaan listassa A ja <span class="math inline">b = 2</span> sanaan listassa B, joten osumatarkkuus on <span class="math inline">r \approx 0.508</span>.</li>
+<li>Säännöllinen lauseke <code>xyzzy</code> ei täsmää mihinkään sanaan listoissa A ja B, ja osumatarkkuus on <span class="math inline">r = 0.5</span>.</li>
+<li>Säännöllinen lauseke <code>.*</code> täsmää kaikkiin sanoihin listoissa A ja B, ja osumatarkkuus on <span class="math inline">r = 0.5</span>.</li>
+</ul>
+<h1 id="pisteytys">Pisteytys</h1>
+<p>Jos laatimasi lauseke on kelvollinen (ks. alla täsmälliset säännöt), saat pisteitä osumatarkkuudesta <span class="math inline">r</span> riippuen kaavalla <span class="math display">\min \bigl( 100, \max \bigl(0, \lfloor 250 \cdot (r - 0.55) \rfloor \bigr) \bigr).</span> Esimerkiksi osumatarkkuus <span class="math inline">0.55</span> antaa <span class="math inline">0</span> pistettä, osumatarkkuus <span class="math inline">0.75</span> antaa <span class="math inline">50</span> pistettä ja osumatarkkuus <span class="math inline">0.95</span> antaa <span class="math inline">100</span> pistettä, mikä on tehtävän maksimipistemäärä.</p>
+<h1 id="saannollisetlausekkeet">Säännölliset lausekkeet</h1>
+<p>Säännöllinen lauseke on merkkijono, joka täsmää yhteen tai useampaan merkkijonoon. Tässä tehtävässä voit käyttää lausekkeessa kaikkia aineistossa esiintyviä merkkejä, vaihtoehtoa (<code>|</code>), toistoa (<code>*</code>), sulkuja sekä yleismerkkiä (<code>.</code>).</p>
+<p>Vaihtoehdon avulla voit antaa useamman kelpaavan merkkijonon. Esimerkiksi lauseke <code>apina|banaani|cembalo</code> täsmää merkkijonoihin <code>apina</code>, <code>banaani</code> ja <code>cembalo</code>.</p>
+<p>Toisto tarkoittaa, että sitä edeltävä lausekkeen osa voi toistua miten tahansa monta kertaa. Esimerkiksi lauseke <code>(aa)*</code> vaatii, että merkkijonon jokainen merkki on <code>a</code> ja sen pituus on parillinen (myös tyhjä merkkijono on sallittu).</p>
+<p>Yleismerkki <code>.</code> täsmää mihin tahansa yksittäiseen merkkiin. Esimerkiksi lauseke <code>.*abc.*</code> täsmää mihin tahansa merkkijonoon, jossa on jossain kohtaa merkkijono <code>abc</code>, koska alussa ja lopussa voi olla mitä tahansa.</p>
+<p>Esimerkki mutkikkaammasta lausekkeesta on <code>api(la|na)|.*s</code>. Tämä lauseke täsmää sanoihin <code>apila</code>, <code>apina</code> sekä mihin tahansa sanaan, jossa viimeinen kirjain on <code>s</code>, kuten sanoihin <code>ilmoitus</code> ja <code>ratas</code>.</p>
+<h1 id="palautusohje">Palautusohje</h1>
+<p>Palauta UTF-8-muotoinen tekstitiedosto, jossa on laatimasi säännöllinen lauseke. Lausekkeen pituus saa olla enintään <strong>500 merkkiä</strong>.</p>
+<p>Voit käyttää halutessasi lausekkeessa välilyöntejä ja rivinvaihtoja. Tarkastaja jättää nämä huomiotta, eikä niitä lasketa lausekkeen pituuteen.</p>
+<p>Esimerkiksi <code>.*rv.*</code> on kelvollinen ratkaisu, jonka pituus on 6 merkkiä. Tämän lausekkeen osumatarkkuus on <span class="math inline">0.508</span>, joten sillä ei saa vielä tehtävästä pisteitä.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="A.html"><span><b>A</b> Kolikot</span><span class="task-score ">-</span></a><a  href="B.html"><span><b>B</b> Leimasin</span><span class="task-score ">-</span></a><a  href="C.html"><span><b>C</b> Taulukko</span><span class="task-score ">-</span></a><a  href="D.html"><span><b>D</b> Ruudukko</span><span class="task-score ">-</span></a><a class="current" href="E.html"><span><b>E</b> Sanalista</span><span class="task-score ">-</span></a><hr />

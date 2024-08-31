@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h3>
+        <a href="../list/index.html">HIIT Open 2019</a>
+        <a href="../messages/index.html"><span id="messages"></span><i class="far fa-envelope"></i></a>
+      </h3>
+      <h1>Coloring Grids</h1>
+<ul class="nav">
+<li><a href="https://cses.fi/251/task/C/" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2019-05-25 11:00:00</span></li>
+        <li><b>End:</b> <span>2019-05-25 16:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1558771200;
+var contest_end = 1558789200;
+var server_time = 1725027179;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=251", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - HIIT Open 2019 - Coloring Grids</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="">
+<input type="hidden" name="task" value="1786">
+<div class="md"><p>You are given a grid with <span class="math inline">n \times m</span> cells. Two grid cells are neighbors if they share a border.</p>
+<p>The grid cells have to be labeled with numbers 1, 2, 3 and 4. There is only one rule: neighbors must have different labels. So you cannot have e.g. a cell with label 1 if there is another cell with label 1 above it, below it, or on its left or right side.</p>
+<p>In the input, some of the grid cells are already labeled. All labeled cells already follow the rule that neighbors have different labels.</p>
+<p>However, some input cells may be <em>empty</em>. The empty cells form a connected region in the following sense: you can pick any two empty cells <span class="math inline">x</span> and <span class="math inline">y</span>, and you can walk from <span class="math inline">x</span> to <span class="math inline">y</span> so that you step from one empty cell to a neighboring empty cell.</p>
+<p>Now your task is to find a way to label <em>all</em> cells with labels 1, 2, 3, and 4 so that as many cells as possible can keep their original labels.</p>
+<h1 id="input">Input</h1>
+<p>The first input line contains two positive integers <span class="math inline">n</span> and <span class="math inline">m</span>.</p>
+<p>Then there are <span class="math inline">n</span> lines, each of which contains <span class="math inline">m</span> characters. Each character denotes the input label of one cell: either it is 0 (empty), or one of the values 1, 2, 3, and 4 to indicate a cell that is already labeled.</p>
+<h1 id="output">Output</h1>
+<p>Print the final grid where every cell is labeled. You can print any valid solution.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \cdot m \le 10^5</span></li>
+</ul>
+<h1 id="example1">Example 1</h1>
+<p>Input:</p>
+<pre>3 4
+1234
+2000
+1234
+</pre>
+<p>Output:</p>
+<pre>1234
+2342
+1234
+</pre>
+<p>Explanation: All 9 non-empty cells were able to keep their original labels.</p>
+<h1 id="example2">Example 2</h1>
+<p>Input:</p>
+<pre>3 3
+123
+401
+132
+</pre>
+<p>Output:</p>
+<pre>123
+414
+132
+</pre>
+<p>Explanation: There is no way to label the grid so that 8 cells have their original labels, but there is a way to label the grid so that 7 cells have their original labels.</p>
+</div>    </div>
+    <div class="nav sidebar">
+<h4>Tasks</h4><a  href="A.html"><span><b>A</b> Alien Invasion II</span><span class="task-score icon"></span></a><a  href="B.html"><span><b>B</b> Bit Strings</span><span class="task-score icon"></span></a><a class="current" href="C.html"><span><b>C</b> Coloring Grids</span><span class="task-score icon"></span></a><a  href="D.html"><span><b>D</b> Differences</span><span class="task-score icon"></span></a><a  href="E.html"><span><b>E</b> Epic Subset</span><span class="task-score icon"></span></a><a  href="F.html"><span><b>F</b> Final Array</span><span class="task-score icon"></span></a><a  href="G.html"><span><b>G</b> Grid Paths</span><span class="task-score icon"></span></a><a  href="H.html"><span><b>H</b> HIIT Speedrun</span><span class="task-score icon"></span></a><a  href="I.html"><span><b>I</b> Insert Whitespace</span><span class="task-score icon"></span></a><a  href="J.html"><span><b>J</b> Just Solve It</span><span class="task-score icon"></span></a><a  href="K.html"><span><b>K</b> Keeping Distance</span><span class="task-score icon"></span></a><a  href="L.html"><span><b>L</b> L-Trominos</span><span class="task-score icon"></span></a><a  href="M.html"><span><b>M</b> Many Cycles</span><span class="task-score icon"></span></a><hr />

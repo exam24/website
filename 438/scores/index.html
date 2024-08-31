@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+  <div class="navigation">
+    <div class="title-block">
+      <h1>Datatähti 2023 loppu</h1>
+<ul class="nav">
+<li><a href="../list/index.html" >Tasks</a></li>
+<li><a href="../messages/index.html" >Messages<span id="messages"></span></a></li>
+<li><a href="index.html" class="current">Scoreboard</a></li>
+<li><a href="../stats/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar">
+      <ul class="contest-time">
+        <li><b>Start:</b> <span>2023-01-21 13:00:00</span></li>
+        <li><b>End:</b> <span>2023-01-21 17:00:00</span></li>
+        <li><b id="info_caption"></b> <span id="info_text"></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="content">
+
+<script>
+var contest_start = 1674298800;
+var contest_end = 1674313200;
+var server_time = 1725027129;
+var script_start = parseInt(new Date().getTime()/1000);
+var waiting = false;
+var allzero = false;
+var virtual = 0;
+
+function format(x) {
+    if (x < 10) return "0"+x;
+    else return x;
+}
+
+function time_left(x) {
+    if (x < 0) x = 0;
+    return parseInt(x/3600) + ":" + format(parseInt(x/60)%60) + ":" + format(x%60);
+}
+
+function update_info() {
+    var info_caption = document.getElementById("info_caption");
+    var info_text = document.getElementById("info_text");
+    var current_time = parseInt(new Date().getTime()/1000);
+    var contest_time = server_time+current_time-script_start;
+    if (contest_time >= contest_start && waiting) {
+        waiting = false;
+        allzero = true;
+        setTimeout(function(){ document.location.reload(true); }, 1000);
+    }
+    info_caption.innerText = "";
+    if (virtual) {
+        info_text.innerText = "Contest not started yet";
+        return;
+    }
+    if (allzero) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = "0:00:00";
+        return;
+    }
+    if (contest_time < contest_start) {
+        info_caption.innerText = "Starting in:";
+        info_text.innerText = time_left(contest_start-contest_time);
+    } else if (contest_time < contest_end) {
+        info_caption.innerText = "Time left:";
+        info_text.innerText = time_left(contest_end-contest_time);
+    } else {
+        info_text.innerText = "Contest has ended";
+    }
+}
+update_info();
+setInterval("update_info()",200);
+</script>
+<script>
+function check_messages() {
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+        if (x.readyState == 4 && x.status == 200) {
+            var count = parseInt(x.responseText);
+            var text = "";
+            if (count > 0) text = count.toString();
+            var element = document.getElementById("messages");
+            element.innerHTML = text;
+            element.title = text + " new message" + (count > 1 ? "s" : "");
+        }
+    }
+    x.open("GET", "/contest/messages_get.php?id=438", true);
+    x.send();
+}
+
+check_messages();
+window.setInterval(check_messages, 60000);
+</script>
+<title>CSES - Datatähti 2023 loppu - Scoreboard</title></div></div></div>
+<div class="scoreboard-wrapper">
+<table class="scoreboard ioi">
+  <colgroup>
+    <col class="rank" />
+    <col class="name" />
+    <col class="score" />
+    <col class="task" span=6 />
+  </colgroup>
+<thead><tr><th >#</th><th >name</th><th >score</th><th ><a href="../task/A/index.html" title="Kulut">A</a></th><th ><a href="../task/B/index.html" title="Pinta-ala">B</a></th><th ><a href="../task/C/index.html" title="Merkkijonot">C</a></th><th ><a href="../task/D/index.html" title="Ruudukko">D</a></th><th ><a href="../task/E/index.html" title="Unirytmi">E</a></th><th ><a href="../task/F/index.html" title="Palikat">F</a></th></tr>
+</thead><tr><td >1</td><td ><a href="137432.html">vgtcross</a></td><td class="task-score c68">413</td><td class="task-score c100"><a href="../result/5327203.html">100</a></td><td class="task-score c100"><a href="../result/5327354.html">100</a></td><td class="task-score c100"><a href="../result/5327559.html">100</a></td><td class="task-score c100"><a href="../result/5328120.html">100</a></td><td class="task-score c13"><a href="../result/5328237.html">13</a></td><td class="task-score c0"><a href="../result/5328391.html">0</a></td></tr>
+<tr><td >2</td><td ><a href="9319.html">Mahtimursu</a></td><td class="task-score c68">413</td><td class="task-score c100"><a href="../result/5327143.html">100</a></td><td class="task-score c100"><a href="../result/5327222.html">100</a></td><td class="task-score c100"><a href="../result/5327424.html">100</a></td><td class="task-score c100"><a href="../result/5328042.html">100</a></td><td class="task-score c13"><a href="../result/5328248.html">13</a></td><td class="task-score c0"><a href="../result/5328101.html">0</a></td></tr>
+<tr><td >3</td><td ><a href="82885.html">okkokko</a></td><td class="task-score c66">399</td><td class="task-score c100"><a href="../result/5327263.html">100</a></td><td class="task-score c100"><a href="../result/5327474.html">100</a></td><td class="task-score ">-</td><td class="task-score c100"><a href="../result/5328068.html">100</a></td><td class="task-score ">-</td><td class="task-score c99"><a href="../result/5328483.html">99</a></td></tr>
+<tr><td >4</td><td ><a href="28532.html">Anniiiz</a></td><td class="task-score c58">349</td><td class="task-score c100"><a href="../result/5327215.html">100</a></td><td class="task-score c100"><a href="../result/5327271.html">100</a></td><td class="task-score c100"><a href="../result/5327458.html">100</a></td><td class="task-score c36"><a href="../result/5327641.html">36</a></td><td class="task-score c13"><a href="../result/5327819.html">13</a></td><td class="task-score c0"><a href="../result/5328132.html">0</a></td></tr>
+<tr><td >5</td><td ><a href="82689.html">Turtleb01</a></td><td class="task-score c52">312</td><td class="task-score c100"><a href="../result/5327359.html">100</a></td><td class="task-score c100"><a href="../result/5327431.html">100</a></td><td class="task-score c15"><a href="../result/5327569.html">15</a></td><td class="task-score c36"><a href="../result/5327888.html">36</a></td><td class="task-score ">-</td><td class="task-score c61"><a href="../result/5328277.html">61</a></td></tr>
+<tr><td >6</td><td ><a href="137310.html">UpHereNorth</a></td><td class="task-score c51">311</td><td class="task-score c100"><a href="../result/5327192.html">100</a></td><td class="task-score c100"><a href="../result/5327649.html">100</a></td><td class="task-score c100"><a href="../result/5327681.html">100</a></td><td class="task-score c11"><a href="../result/5328480.html">11</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="../result/5328259.html">0</a></td></tr>
+<tr><td >7</td><td ><a href="137494.html">DualRed</a></td><td class="task-score c51">311</td><td class="task-score c100"><a href="../result/5327256.html">100</a></td><td class="task-score c100"><a href="../result/5327368.html">100</a></td><td class="task-score c100"><a href="../result/5328444.html">100</a></td><td class="task-score c11"><a href="../result/5328494.html">11</a></td><td class="task-score ">-</td><td class="task-score c0"><a href="../result/5327834.html">0</a></td></tr>
+<tr><td >8</td><td ><a href="25480.html">jmarttinen</a></td><td class="task-score c50">300</td><td class="task-score c100"><a href="../result/5327278.html">100</a></td><td class="task-score c100"><a href="../result/5327514.html">100</a></td><td class="task-score ">-</td><td class="task-score c100"><a href="../result/5328477.html">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >9</td><td ><a href="138401.html">Kemm1706</a></td><td class="task-score c41">251</td><td class="task-score c100"><a href="../result/5327239.html">100</a></td><td class="task-score c100"><a href="../result/5327372.html">100</a></td><td class="task-score c15"><a href="../result/5327710.html">15</a></td><td class="task-score c36"><a href="../result/5328050.html">36</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >10</td><td ><a href="78394.html">andreibe</a></td><td class="task-score c41">251</td><td class="task-score c100"><a href="../result/5327173.html">100</a></td><td class="task-score c100"><a href="../result/5327942.html">100</a></td><td class="task-score c15"><a href="../result/5328375.html">15</a></td><td class="task-score c36"><a href="../result/5328309.html">36</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >11</td><td ><a href="90645.html">Yamaxanadu</a></td><td class="task-score c39">236</td><td class="task-score c100"><a href="../result/5327200.html">100</a></td><td class="task-score c100"><a href="../result/5327513.html">100</a></td><td class="task-score ">-</td><td class="task-score c36"><a href="../result/5328074.html">36</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >12</td><td ><a href="137410.html">a256</a></td><td class="task-score c39">236</td><td class="task-score c100"><a href="../result/5327862.html">100</a></td><td class="task-score c100"><a href="../result/5327607.html">100</a></td><td class="task-score ">-</td><td class="task-score c36"><a href="../result/5328487.html">36</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >13</td><td ><a href="137515.html">adex720</a></td><td class="task-score c39">236</td><td class="task-score c100"><a href="../result/5328397.html">100</a></td><td class="task-score c100"><a href="../result/5327438.html">100</a></td><td class="task-score ">-</td><td class="task-score c36"><a href="../result/5328311.html">36</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >14</td><td ><a href="137208.html">stpn129</a></td><td class="task-score c37">226</td><td class="task-score c100"><a href="../result/5327274.html">100</a></td><td class="task-score c100"><a href="../result/5327614.html">100</a></td><td class="task-score c15"><a href="../result/5327751.html">15</a></td><td class="task-score c11"><a href="../result/5328363.html">11</a></td><td class="task-score c0"><a href="../result/5328117.html">0</a></td><td class="task-score ">-</td></tr>
+<tr><td >15</td><td ><a href="138543.html">cppbetter</a></td><td class="task-score c35">215</td><td class="task-score c100"><a href="../result/5328389.html">100</a></td><td class="task-score c100"><a href="../result/5327623.html">100</a></td><td class="task-score c15"><a href="../result/5327975.html">15</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score c0"><a href="../result/5328433.html">0</a></td></tr>
+<tr><td >16</td><td ><a href="82840.html">Tipu</a></td><td class="task-score c35">211</td><td class="task-score c100"><a href="../result/5327404.html">100</a></td><td class="task-score c100"><a href="../result/5327567.html">100</a></td><td class="task-score ">-</td><td class="task-score c11"><a href="../result/5328105.html">11</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >17</td><td ><a href="2414.html">EeliH</a></td><td class="task-score c33">200</td><td class="task-score c100"><a href="../result/5327268.html">100</a></td><td class="task-score c100"><a href="../result/5327631.html">100</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >18</td><td ><a href="75522.html">xenial</a></td><td class="task-score c33">200</td><td class="task-score c100"><a href="../result/5327811.html">100</a></td><td class="task-score c100"><a href="../result/5327703.html">100</a></td><td class="task-score c0"><a href="../result/5328451.html">0</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >19</td><td ><a href="133147.html">Laserr</a></td><td class="task-score c19">115</td><td class="task-score c100"><a href="../result/5327900.html">100</a></td><td class="task-score ">-</td><td class="task-score c15"><a href="../result/5328376.html">15</a></td><td class="task-score ">-</td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+<tr><td >20</td><td ><a href="80922.html">Septicuss</a></td><td class="task-score c18">111</td><td class="task-score c100"><a href="../result/5327670.html">100</a></td><td class="task-score c0"><a href="../result/5328508.html">0</a></td><td class="task-score ">-</td><td class="task-score c11"><a href="../result/5328335.html">11</a></td><td class="task-score ">-</td><td class="task-score ">-</td></tr>
+</table>

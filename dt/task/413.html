@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Örkit</h1>
+<ul class="nav">
+<li><a href="413/index.html" class="current">Task</a></li>
+<li><a href="../stats/413/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Örkit</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="413">
+<div class="md"><p>Pelaat peliä, jossa on <span class="math inline">n</span> luolaa ja niiden välillä <span class="math inline">m</span> käytävää. Pelissä on örkkirotuja, jotka hallitsevat luolia. Peli on suunniteltu niin, että jos luolasta <span class="math inline">a</span> pääsee luolaan <span class="math inline">b</span> ja päinvastoin, sama rotu hallitsee luolia <span class="math inline">a</span> ja <span class="math inline">b</span>.</p>
+<p>Tehtäväsi on selvittää, montako örkkirotua pelissä voi olla korkeintaan.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen alussa on kaksi kokonaislukua <span class="math inline">n</span> ja <span class="math inline">m</span>: luolien määrä ja käytävien määrä. Luolat on numeroitu <span class="math inline">1,2,\ldots,n</span>.</p>
+<p>Sitten syötteessä on <span class="math inline">m</span> riviä, jotka kuvaavat käytävät. Jokaisella rivillä on kaksi kokonaislukua <span class="math inline">a</span> ja <span class="math inline">b</span>. Tämä tarkoittaa, että luolasta <span class="math inline">a</span> on käytävä luolaan <span class="math inline">b</span>. Kaikki käytävät ovat yksisuuntaisia.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosta ensin kokonaisluku <span class="math inline">k</span>: suurin mahdollinen örkkirotujen määrä.</p>
+<p>Tulosta tämän jälkeen esimerkki siitä, mitkä örkkirodut hallitsevat luolia. Tulosta jokaiselle luolalle örkkirodun numero väliltä <span class="math inline">1,2,\ldots,k</span>. Voit tulostaa minkä tahansa kelvollisen ratkaisun.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 10^5</span></li>
+<li><span class="math inline">1 \le m \le 2 \cdot 10^5</span></li>
+<li><span class="math inline">1 \le a,b \le n</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>5 6
+1 2
+2 3
+3 1
+3 4
+4 5
+5 4
+</pre>
+<p>Tuloste:</p>
+<pre>2
+1 1 1 2 2
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Luku 17</h4><a  href="412.html">Katuverkko<span class="task-score icon "></span></a><a class="current" href="413.html">Örkit<span class="task-score icon "></span></a><a  href="415.html">Kolikot<span class="task-score icon "></span></a><a  href="416.html">Jättipizza<span class="task-score icon "></span></a><a  href="414.html">Lentoreitit<span class="task-score icon "></span></a><hr />

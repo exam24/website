@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login.html">Login</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Datatähti-valmennus</a></h3>
+      <h1>Elokuvat</h1>
+<ul class="nav">
+<li><a href="614/index.html" class="current">Task</a></li>
+<li><a href="../stats/614/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Elokuvat</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 128 MB</li>
+</ul>
+<input type="hidden" name="course" value="dt">
+<input type="hidden" name="task" value="614">
+<div class="md"><p>Osallistut festivaaliin, jossa näytetään <span class="math inline">n</span> elokuvaa. Jokaisesta elokuvasta on tiedossa sen alku- ja loppuaika.</p>
+<p>Sinulla on <span class="math inline">q</span> suunnitelmaa, milloin saavut paikalle ja lähdet pois. Tehtäväsi on laskea jokaiselle suunnitelmalle, montako elokuvaa ehdit katsoa enintään.</p>
+<p>Elokuva täytyy katsoa kokonaan alusta loppuun ja et voi katsoa monta elokuvaa samaan aikaan. Voit katsoa kaksi elokuvaa niin, että toinen päättyy samalla hetkellä kun toinen alkaa.</p>
+<h1 id="syote">Syöte</h1>
+<p>Syötteen ensimmäisellä rivillä on kaksi kokonaislukua <span class="math inline">n</span> ja <span class="math inline">q</span>: elokuvien määrä ja suunnitelmien määrä.</p>
+<p>Sitten syötteessä on <span class="math inline">n</span> riviä, jotka kuvaavat elokuvat. Jokaisella rivillä on kaksi kokonaislukua <span class="math inline">a</span> ja <span class="math inline">b</span>: elokuva alkaa hetkellä <span class="math inline">a</span> ja päättyy hetkellä <span class="math inline">b</span>.</p>
+<p>Lopuksi syötteessä on <span class="math inline">q</span>, riviä, jotka kuvaavat suunnitelmat. Jokaisella rivillä on kaksi kokonaislukua <span class="math inline">a</span> ja <span class="math inline">b</span>: milloin tulet paikalle ja lähdet pois.</p>
+<h1 id="tuloste">Tuloste</h1>
+<p>Tulosta jokaisesta suunnitelmasta suurin mahdollinen elokuvien määrä.</p>
+<h1 id="rajat">Rajat</h1>
+<ul>
+<li><span class="math inline">1 \le n,q \le 10^5</span></li>
+<li><span class="math inline">1 \le a &lt; b \le 10^6</span></li>
+</ul>
+<h1 id="esimerkki">Esimerkki</h1>
+<p>Syöte:</p>
+<pre>4 3
+2 5
+6 10
+4 7
+9 10
+5 9
+2 10
+7 10
+</pre>
+<p>Tuloste:</p>
+<pre>0
+2
+1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Lisätehtävät</h4>...
+<a  href="726.html">Järjestys II<span class="task-score icon "></span></a><a  href="367.html">Alijono<span class="task-score icon "></span></a><a  href="574.html">Salakirjoitus<span class="task-score icon "></span></a><a class="current" href="614.html">Elokuvat<span class="task-score icon "></span></a><a  href="223.html">Muutokset<span class="task-score icon "></span></a><a  href="224.html">Taulukko<span class="task-score icon "></span></a><a  href="1088.html">Numerot<span class="task-score icon "></span></a><a  href="1106.html">Rakennus II<span class="task-score icon "></span></a>...
+<hr />

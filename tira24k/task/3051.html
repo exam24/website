@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet alternate" type="text/css" href="../../cses.css@13.css" id="styles">
+  <link rel="stylesheet " type="text/css" href="../../cses-dark.css@13.css" id="styles-dark">
+  <meta name="theme-color" content="#292929" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">true</script>
+  <script src="../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="../../darkmode.html" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="../../login/oauth-redirect@site=mooc.fi.html">Login using mooc.fi</a>
+        <span>&mdash;</span>
+                        <a href="../../darkmode.html" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../list/index.html">Tietorakenteet ja algoritmit kevät 2024</a></h3>
+      <h1>Aikavaativuudet</h1>
+<ul class="nav">
+<li><a href="3051/index.html" class="current">Task</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Aikavaativuudet</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<script defer src="../../lib/katex/katex.min.js"></script>
+<script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<form action="https://cses.fi/course/quiz_send.php" method="post" >
+<input type="hidden" name="csrf_token" value="7ca6eed6063eb2c20c643e08294aa812">
+<input type="hidden" name="course" value="tira24k">
+<input type="hidden" name="task" value="3051">
+<div class="md"><p>Ilmoita jokaisen algoritmin aikavaativuus. Oikea vastaus on aina jokin seuraavista: O(1), O(n), O(n^2), O(n^3), O(n^4).</p>
+<p>Kun painat lähetysnappia, vastauksesi tarkastetaan ja voit tarvittaessa korjata vastausta. Kun kaikki vastaukset ovat oikein, saat pisteen tehtävästä.</p>
+<h1 id="algoritmi1">Algoritmi 1</h1><pre class="resize-horizontal prettyprint lang-auto">def algo1(n):
+    result = 0
+    for i in range(n):
+        result += i
+    return result
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(n\)" required></p>
+<h1 id="algoritmi2">Algoritmi 2</h1><pre class="resize-horizontal prettyprint lang-auto">def algo2(n):
+    result = 0
+    for i in range(n):
+        result += i
+    for i in range(n):
+        result -= i
+    return result
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(n\)" required></p>
+<h1 id="algoritmi3">Algoritmi 3</h1><pre class="resize-horizontal prettyprint lang-auto">def algo3(n):
+    return 5*n**2
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(1\)" required></p>
+<h1 id="algoritmi4">Algoritmi 4</h1><pre class="resize-horizontal prettyprint lang-auto">def algo4(n):
+    result = 0
+    while n &gt; 0:
+        n -= 1
+        result += 2
+    return result
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(n\)" required></p>
+<h1 id="algoritmi5">Algoritmi 5</h1><pre class="resize-horizontal prettyprint lang-auto">def algo5(n):
+    result = 0
+    for i in range(n):
+        for j in range(n):
+            result += i*j
+    return result
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(n\^2\)|O\(n²\)" required></p>
+<h1 id="algoritmi6">Algoritmi 6</h1><pre class="resize-horizontal prettyprint lang-auto">def algo6(n):
+    result = 0
+    for i in range(10):
+        result += n
+    return result
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(1\)" required></p>
+<h1 id="algoritmi7">Algoritmi 7</h1><pre class="resize-horizontal prettyprint lang-auto">def algo7(n):
+    result = n
+    for i in range(100):
+        for j in range(100):
+            result -= 1
+    return result
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(1\)" required></p>
+<h1 id="algoritmi8">Algoritmi 8</h1><pre class="resize-horizontal prettyprint lang-auto">def algo8(n):
+    return 1
+    result = 0
+    for i in range(n):
+        result += 1
+</pre>
+<p>Aikavaativuus: <input name="input[]" type="text" size=8 pattern="O\(1\)" required></p>
+<hr />
+</div><p><input type="submit" value="Submit answers"></p></form>
+<script>
+var inputs = document.forms[0].elements;
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].disabled = true;
+}
+</script>
+    </div>
+    <div class="nav sidebar">
+<h4>Viikko 1</h4><a  href="3055.html">Karkit<span class="task-score icon "></span></a><a  href="3049.html">Inversiot<span class="task-score icon "></span></a><a  href="3054.html">Samat bitit<span class="task-score icon "></span></a><a  href="2643.html">Toistaminen<span class="task-score icon "></span></a><a  href="3052.html">Tehokkuustesti<span class="task-score icon "></span></a><a  href="3248.html">Lukujono<span class="task-score icon "></span></a><a class="current" href="3051.html">Aikavaativuudet<span class="task-score icon "></span></a><a  href="2821.html">Suorakulmiot<span class="task-score icon "></span></a><hr />
