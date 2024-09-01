@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet " type="text/css" href="../../../cses.css@13.css" id="styles">
+  <link rel="stylesheet alternate" type="text/css" href="https://cses.fi/cses-dark.css?13" id="styles-dark">
+  <meta name="theme-color" content="white" id="theme-color">
+  <script type="application/json" id="darkmode-enabled">false</script>
+  <script src="../../../ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../../lib/fontawesome/css/all.min.css">
+</head>
+<body class="with-sidebar ">
+  <div class="header">
+    <div>
+      <a href="https://cses.fi/" class="logo"><img src="../../../logo.png@1" alt="CSES"></a>
+      <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
+        <i class="fas fa-bars"></i>
+      </a>
+      <div class="controls">
+                <a class="account" href="https://cses.fi/login">Login</a>
+        <span>&mdash;</span>
+                        <a href="https://cses.fi/darkmode" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
+              </div>
+    </div>
+  </div>
+  <div class="skeleton">
+
+  <div class="navigation">
+    <div class="title-block">
+      <h3><a href="../../list/index.html">CSES Problem Set</a></h3>
+      <h1>Functional Graph Distribution</h1>
+<ul class="nav">
+<li><a href="index.html" class="current">Task</a></li>
+<li><a href="../../stats/2415/index.html" >Statistics</a></li>
+</ul>
+    </div>
+    <div class="sidebar"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <div class="content">
+
+
+<title>CSES - Functional Graph Distribution</title><link rel="stylesheet" href="../../../lib/katex/katex.min.css">
+<script defer src="../../../lib/katex/katex.min.js"></script>
+<script defer src="../../../lib/katex/contrib/copy-tex.min.js"></script>
+<script defer src="../../../lib/google-code-prettify/run_prettify.js"></script>
+<script>
+addEventListener("DOMContentLoaded", function (e) {
+    const mathElements = document.getElementsByClassName("math");
+    const macros = {};
+    for (let element of mathElements) {
+        katex.render(element.textContent, element, {
+            displayMode: element.classList.contains("display"),
+            throwOnError: false,
+            globalGroup: true,
+            macros,
+        });
+    }
+});
+</script>
+<ul class="task-constraints">
+<li><b>Time limit:</b> 1.00 s</li>
+<li><b>Memory limit:</b> 512 MB</li>
+</ul>
+<input type="hidden" name="course" value="problemset">
+<input type="hidden" name="task" value="2415">
+<div class="md"><p>A <em>functional graph</em> is a directed graph where each node has outdegree <span class="math inline">1</span>. For example, here is a functional graph that has <span class="math inline">9</span> nodes and <span class="math inline">2</span> components:
+<center><img class="invertible" src="../../../file/39a5e727e368197cdce7593736c5cfd1abf75b6439c0823e27c671ff10662377" width="300" height="" alt="" /></center>
+Given <span class="math inline">n</span>, your task is to calculate for each <span class="math inline">k=1 \dots n</span> the number of functional graphs that have <span class="math inline">n</span> nodes and <span class="math inline">k</span> components.</p>
+<h1 id="input">Input</h1>
+<p>The only input line has an integer <span class="math inline">n</span>: the number of nodes.</p>
+<h1 id="output">Output</h1>
+<p>Print <span class="math inline">n</span> lines: for each <span class="math inline">k=1 \dots n</span> the number of graphs modulo <span class="math inline">10^9+7</span>.</p>
+<h1 id="constraints">Constraints</h1>
+<ul>
+<li><span class="math inline">1 \le n \le 5000</span></li>
+</ul>
+<h1 id="example">Example</h1>
+<p>Input:</p>
+<pre>3
+</pre>
+<p>Output:</p>
+<pre>17
+9
+1
+</pre></div>    </div>
+    <div class="nav sidebar">
+<h4>Additional Problems</h4>...
+<a  href="../1705.html">Forbidden Cities<span class="task-score icon "></span></a><a  href="../1741.html">Area of Rectangles<span class="task-score icon "></span></a><a  href="../2429.html">Grid Completion<span class="task-score icon "></span></a><a  href="../1752.html">Creating Offices<span class="task-score icon "></span></a><a  href="../1075.html">Permutations II<span class="task-score icon "></span></a><a class="current" href="../2415.html">Functional Graph Distribution<span class="task-score icon "></span></a><a  href="../1685.html">New Flight Routes<span class="task-score icon "></span></a><a  href="../2418.html">Grid Path Construction<span class="task-score icon "></span></a><hr />
