@@ -13,12 +13,12 @@
 <body class="with-sidebar ">
   <div class="header">
     <div>
-      <a href="https://cses.fi/" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
+      <a href="https://rohinibarla.com/" class="logo"><img src="../../logo.png@1" alt="CSES"></a>
       <a class="menu-toggle" onclick="document.body.classList.toggle('menu-open');">
         <i class="fas fa-bars"></i>
       </a>
       <div class="controls">
-                <a class="account" href="https://cses.fi/login">Login</a>
+                <a class="account" href="../../login.html">Login</a>
         <span>&mdash;</span>
                         <a href="https://cses.fi/darkmode" title="Toggle dark mode" onclick="return toggle_theme()"><i aria-label="Dark mode" class="fas fa-adjust"></i><span>Dark mode</span></a>
               </div>
@@ -28,11 +28,11 @@
 
   <div class="navigation">
     <div class="title-block">
-      <h3><a href="../list/index.html">CSES Problem Set</a></h3>
+      <h3><a href="../list/index.html">Problem Set</a></h3>
       <h1>Trailing Zeros</h1>
 <ul class="nav">
 <li><a href="1618/index.html" class="current">Task</a></li>
-<li><a href="../stats/1618/index.html" >Statistics</a></li>
+<li><a href="../../cs50.html" >IDE</a></li>
 </ul>
     </div>
     <div class="sidebar"></div>
@@ -43,7 +43,7 @@
     <div class="content">
 
 
-<title>CSES - Trailing Zeros</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
+<title>Trailing Zeros</title><link rel="stylesheet" href="../../lib/katex/katex.min.css">
 <script defer src="../../lib/katex/katex.min.js"></script>
 <script defer src="../../lib/katex/contrib/copy-tex.min.js"></script>
 <script defer src="../../lib/google-code-prettify/run_prettify.js"></script>
@@ -83,7 +83,102 @@ addEventListener("DOMContentLoaded", function (e) {
 </pre>
 <p>Output:</p>
 <pre>4
-</pre></div>    </div>
+</pre></div>  <div class="custom-code-block">
+  <style>
+      .custom-code-block {
+          width: 100%; /* Ensure it takes the full width available */
+          max-width: 1000px;
+          font-family: Arial, sans-serif;
+          overflow: hidden; /* Prevent scrolling */
+      }
+
+      .custom-code-block h1 {
+          color: inherit; /* Use the current theme's text color */
+      }
+
+      .custom-code-block details {
+          margin-bottom: 10px;
+          border-radius: 5px;
+          padding: 10px;
+          background-color: inherit; /* Use the current theme's background color */
+      }
+
+      .custom-code-block summary {
+          font-weight: bold;
+          cursor: pointer;
+          margin: -10px;
+          padding: 10px;
+          border-radius: 5px;
+      }
+
+      .custom-code-block summary:hover {
+          background-color: #e0e0e0;
+      }
+
+      .custom-code-block pre {
+          background-color: inherit; /* Use the current theme's background color */
+          padding: 10px;
+          border-radius: 5px;
+          border: none; /* Remove boundaries */
+          white-space: pre-wrap; /* Wrap text to avoid horizontal scrolling */
+          overflow-x: auto; /* Handle minor overflows gracefully */
+      }
+
+      .custom-code-block code {
+          font-family: Consolas, "Courier New", monospace;
+          color: #d63384; /* Keep the code text red */
+      }
+  </style>
+
+  <h3>Select your programming language:</h3>
+
+  <details>
+      <summary>C</summary>
+      <p><strong>File Name</strong>: <code>intro9.c</code></p>
+      <p><strong>To Compile and run:</strong></p>
+      <pre><code>make intro9
+./intro9</code></pre>
+      <p><strong>To check correctness:</strong></p>
+      <pre><code>check50 exam24/problems/gvpce/c/intro9</code></pre>
+      <p><strong>To submit:</strong></p>
+      <pre><code>submit50 exam24/problems/gvpce/c/intro9</code></pre>
+  </details>
+
+  <details>
+      <summary>C++</summary>
+      <p><strong>File Name</strong>: <code>intro9.cpp</code></p>
+      <p><strong>To Compile and run:</strong></p>
+      <pre><code>make intro9
+./intro9</code></pre>
+      <p><strong>To check correctness:</strong></p>
+      <pre><code>check50 exam24/problems/gvpce/cpp/intro9</code></pre>
+      <p><strong>To submit:</strong></p>
+      <pre><code>submit50 exam24/problems/gvpce/cpp/intro9</code></pre>
+  </details>
+
+  <details>
+      <summary>Python</summary>
+      <p><strong>File Name</strong>: <code>intro9.py</code></p>
+      <p><strong>To run:</strong></p>
+      <pre><code>python3 intro9.py</code></pre>
+      <p><strong>To check correctness:</strong></p>
+      <pre><code>check50 exam24/problems/gvpce/py/intro9</code></pre>
+      <p><strong>To submit:</strong></p>
+      <pre><code>submit50 exam24/problems/gvpce/py/intro9</code></pre>
+  </details>
+
+  <details>
+      <summary>Java</summary>
+      <p><strong>File Name</strong>: <code>Intro9.java</code></p>
+      <p><strong>To Compile and run:</strong></p>
+      <pre><code>javac Intro9.java
+java Intro9</code></pre>
+      <p><strong>To check correctness:</strong></p>
+      <pre><code>check50 exam24/problems/gvpce/java/intro9</code></pre>
+      <p><strong>To submit:</strong></p>
+      <pre><code>submit50 exam24/problems/gvpce/java/intro9</code></pre>
+  </details>
+</div>  </div>
     <div class="nav sidebar">
 <h4>Introductory Problems</h4>...
 <a  href="1072.html">Two Knights<span class="task-score icon "></span></a><a  href="1092.html">Two Sets<span class="task-score icon "></span></a><a  href="1617.html">Bit Strings<span class="task-score icon "></span></a><a class="current" href="1618.html">Trailing Zeros<span class="task-score icon "></span></a><a  href="1754.html">Coin Piles<span class="task-score icon "></span></a><a  href="1755.html">Palindrome Reorder<span class="task-score icon "></span></a><a  href="2205.html">Gray Code<span class="task-score icon "></span></a><a  href="2165.html">Tower of Hanoi<span class="task-score icon "></span></a>...

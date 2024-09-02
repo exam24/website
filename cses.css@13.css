@@ -498,7 +498,7 @@ body {
 
 .header {
     background: rgba(255, 255, 255, 0);;
-    color: #fff;
+    color: #cacadf;
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.5);
     transition: background 0.5s ease;
@@ -629,7 +629,7 @@ body {
 .sidebar:after {
     content: '';
     display: block;
-    margin-top: 9.6px
+    margin-top: 7.6px
 }
 
 .sidebar.nav {
@@ -1975,4 +1975,19 @@ pre.resize-horizontal {
 html {
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
